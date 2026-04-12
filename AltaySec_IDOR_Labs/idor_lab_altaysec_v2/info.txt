@@ -1,0 +1,60 @@
+############################################################
+#                ALTAYSEC | Sızma Testi Laboratuvarı       #
+#               LAB-02: IDOR & Parameter Tampering         #
+############################################################
+
+SENARYO:
+ALTAYSEC bir "Cyber Night" etkinliği düzenliyor. Bilet satışları 
+başladı ancak sistemde hem biletlerin gizliliği hem de fiyat 
+politikasıyla ilgili ciddi mantık hataları var.
+
+HEDEFLER:
+1. Başka bir katılımcının biletini görüntüleyerek "GİZLİ NOT" alanındaki veriye ulaşmak.
+2. VIP biletini, sistemdeki normal fiyatından (5000 TL) çok daha ucuza satın almak.
+
+ZAFİYET TÜRLERİ:
+- IDOR (Insecure Direct Object Reference)
+- Parameter Tampering (Parametre Manipülasyonu)
+- Broken Business Logic (Hatalı İş Mantığı)
+
+TEKNİK NOTLAR:
+- Uygulama 5000 portunda çalışır.
+- ID'ler ardışık değil, belirli bir aralıkta rastgele artar.
+
+
+
+Adım 1: Parametre Manipülasyonu (Fiyatı Değiştirme)
+
+Tarayıcıdan uygulamayı açın.
+
+"Bilet Türü" olarak VIP - Kulis (5000 TL) seçin.
+
+Tarayıcıda sağ tık -> İncele (Inspect) diyerek veya bir Proxy (Burp Suite vb.) kullanarak "Ödenecek Tutar" input alanındaki readonly özelliğini silin veya değeri elinizle 1 yapın.
+
+"SATIN AL" butonuna basın. Backend fiyat kontrolünü tam yapmadığı için bilet 1 TL üzerinden kesilecek ve ekranda "TEBRİKLER HACKER!" uyarısı çıkacaktır.
+
+
+
+
+Adım 2: IDOR (Başkasına Ait Veriye Erişim)
+
+Kendi biletinizi aldığınızda URL şu şekildedir: http://localhost:5000/bilet?id=4982
+
+Buradaki id değerini manuel olarak geriye doğru değiştirmeyi deneyin (Örn: 4970, 4965, 4950...).
+
+------------------------------------------------------------
+KURULUM TALİMATLARI:
+
+1. Sanal Ortam Oluşturun:
+   $ python3 -m venv venv
+
+2. Sanal Ortamı Aktif Edin:
+   - Linux/macOS: source venv/bin/activate
+   - Windows: .\venv\Scripts\activate
+
+3. Gerekli Kütüphaneleri Yükleyin:
+   $ pip install -r requirements.txt
+
+4. Uygulamayı Başlatın:
+   $ python3 app.py
+------------------------------------------------------------

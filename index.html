@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AltaySec Labs | Offensive Security Laboratuvarları</title>
+    <meta name="description" content="AltaySec Labs: Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve güvenli bir şekilde pratik yapın.">
+    <meta name="author" content="AltaySec">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="https://altaysec.com.tr/favicon.png">
+    <link rel="canonical" href="https://labs.altaysec.com.tr/">
+
+    <!-- Open Graph Data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://labs.altaysec.com.tr/">
+    <meta property="og:title" content="AltaySec Labs | Offensive Security Laboratuvarları">
+    <meta property="og:description" content="Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve güvenli bir şekilde pratik yapın.">
+    <meta property="og:image" content="https://altaysec.com.tr/logo.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AltaySec Labs | Offensive Security Laboratuvarları">
+    <meta name="twitter:description" content="Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve hacklemeye başlayın.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AltaySec Labs",
+      "url": "https://labs.altaysec.com.tr/",
+      "description": "AltaySec topluluğu tarafından hazırlanan Docker tabanlı, yerel kurulum gerektiren siber güvenlik eğitim laboratuvarları."
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Docker komutu kopyalandı!</div>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a class="brand" href="https://altaysec.com.tr">
+                <img src="https://altaysec.com.tr/favicon.jpg" alt="AltaySec Logo">
+                <div class="brand-text">
+                    <span>ALTAYSEC</span>
+                    <span class="sub">LABS</span>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="https://akademi.altaysec.com.tr" target="_blank">Akademi</a>
+                <a href="https://atolye.altaysec.com.tr" target="_blank">Atölye</a>
+                <a href="https://ctf.altaysec.com.tr" target="_blank">CTF</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <section class="hero">
+            <div class="badge-wrapper">
+                <span class="badge"><span class="pulse"></span> LOKAL PRATİK MERKEZİ</span>
+            </div>
+            <h1 class="gradient-text">Teori Değil, Hackle.</h1>
+            <p class="hero-desc">
+                Dockerize edilmiş web ve sistem zafiyet laboratuvarlarını kendi cihazına indir,<br>
+                herhangi bir tehlike olmadan pratik yapmaya başla.
+            </p>
+        </section>
+
+        <section class="labs-section">
+            <div class="controls-container">
+                <div class="filters" id="filterContainer">
+                    <button class="filter-btn active" data-filter="all">Tümü</button>
+                    <button class="filter-btn" data-filter="xss">XSS Labları</button>
+                    <button class="filter-btn" data-filter="idor">IDOR Labları</button>
+                </div>
+                
+                <div class="actions-group">
+                    <div class="search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="searchInput" placeholder="Lab Ara...">
+                    </div>
+                    <button class="btn info-btn" id="howToBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        Nasıl Çalışır?
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lab Grid Container -->
+            <div class="lab-grid" id="labGrid">
+                
+                <!-- LAB 1: XSS Seviye 1 -->
+                <div class="lab-card" data-category="xss">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • XSS</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XSS Seviye 1: Reflected</h3>
+                        <p class="lab-desc">Arama parametresi üzerinden en temel Javascript injection pratiği. WAF veya filtreleme yok.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8081:80 altaysec/xss-level-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAB 2: XSS Seviye 2 -->
+                <div class="lab-card" data-category="xss">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • XSS</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XSS Seviye 2: Stored</h3>
+                        <p class="lab-desc">Veritabanına kaydedilen kullanıcı inputlarındaki zafiyetlerin keşfi. Basit karakter filtreleri içerir.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8082:80 altaysec/xss-level-2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAB 3: XSS Seviye 3 -->
+                <div class="lab-card" data-category="xss">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • XSS</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XSS Seviye 3: DOM Based Bypass</h3>
+                        <p class="lab-desc">Client-side JavaScript filtrelerini ve WAF benzeri engelleyicileri aşmayı gerektiren ileri seviye simülasyon.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8083:80 altaysec/xss-level-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAB 4: IDOR Seviye 1 -->
+                <div class="lab-card" data-category="idor">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • IDOR</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IDOR Seviye 1: URL Manipulation</h3>
+                        <p class="lab-desc">Web uygulamasında başkasına ait profil veya fatura bilgilerine URL'deki sayısal ID'yi değiştirerek erişim.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8084:80 altaysec/idor-level-1">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAB 5: IDOR Seviye 2 -->
+                <div class="lab-card" data-category="idor">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • IDOR</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IDOR Seviye 2: Indirect Object</h3>
+                        <p class="lab-desc">POST request içindeki gizli API çağrılarıyla veya UUID formatındaki değerlerle yetki aşımı kontrolü.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8085:80 altaysec/idor-level-2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAB 6: IDOR Seviye 3 -->
+                <div class="lab-card" data-category="idor">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • IDOR</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IDOR Seviye 3: Role Bypass</h3>
+                        <p class="lab-desc">Basit ID numaralarının ötesinde, admin yetkilerini almak için JSON/JWT manipülasyonları ve çoklu request zinciri.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Lab Ekibi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="docker run -d -p 8086:80 altaysec/idor-level-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- How it Works Modal -->
+    <div id="howToModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Lablar Nasıl Çalıştırılır?</h2>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div class="step-text">
+                        <h4>Docker Kurulumunu Tamamlayın</h4>
+                        <p>Lablar sisteminizi kirletmemek adına kapsüller halinde çalışır. Bilgisayarınıza <a href="https://docs.docker.com/get-docker/" target="_blank" style="color:var(--accent-red)">Docker</a> kurun ve uygulamanın açık olduğundan emin olun.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div class="step-text">
+                        <h4>Komutu Kopyalayın ve Çalıştırın</h4>
+                        <p>Çözmek istediğiniz labın altındaki "Docker Command" butonuna basarak komutu kopyalayın ve terminalinize yapıştırıp Enter'a basın.</p>
+                        <code style="display:block; background:rgba(0,0,0,0.3); padding:8px; border-radius:4px; margin-top:8px; color:#22c55e;">docker run -d -p 8081:80 altaysec/xss-level-1</code>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div class="step-text">
+                        <h4>Tarayıcıdan Erişin</h4>
+                        <p>Komutta yazan porta göre (Örn: 8081) tarayıcınızdan <strong>localhost:8081</strong> adresine giderek makineyi hacklemeye başlayın.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>© <span id="year"></span> <a href="https://altaysec.com.tr" target="_blank">AltaySec</a> — Offensive Security Ekosistemi</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

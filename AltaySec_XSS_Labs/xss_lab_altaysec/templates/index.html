@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>ALTAYSEC | İtiraf Duvarı</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #ff4d4d; 
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 { text-shadow: 0 0 10px #ff4d4d; }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-box {
+            border: 2px solid #ff4d4d;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
+            margin-bottom: 30px;
+            background-color: #161b22;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background-color: #ff4d4d;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        button:hover { background-color: #b91c1c; }
+
+        .message-card {
+            background-color: #21262d;
+            border-left: 5px solid #ff4d4d;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .sender {
+            font-weight: bold;
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            color: #e6edf3;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ALTAYSEC İTİRAF Duvarı</h1>
+
+    <div class="container">
+        <div class="form-box">
+            <form action="/gonder" method="POST">
+                <label>Takma Ad:</label>
+                <input type="text" name="gonderen" placeholder="Anonim" required>
+                
+                <label>Mesajın:</label>
+                <textarea name="icerik" rows="4" placeholder="İçini dök..." required></textarea>
+                
+                <button type="submit">DUVARA YAZ</button>
+            </form>
+        </div>
+
+        <h3>Son Gönderiler:</h3>
+        
+        {% for mesaj in mesajlar %}
+        <div class="message-card">
+            <div class="sender">> {{ mesaj[1] }}</div>
+            <div class="content">{{ mesaj[2] | safe }}</div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

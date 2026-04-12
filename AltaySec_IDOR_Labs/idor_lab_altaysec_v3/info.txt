@@ -1,0 +1,57 @@
+############################################################
+#                ALTAYSEC | Sızma Testi Laboratuvarı       #
+#               LAB-03: IDOR & Information Disclosure      #
+############################################################
+
+[LAB TANIMI]
+Bu laboratuvar, modern web uygulamalarında kullanılan tahmin edilemez 
+ID (UUID) yapılarının, yanlış yapılandırılmış günlük (log) dosyaları 
+veya hata ayıklama (debug) sayfaları nedeniyle nasıl hala IDOR 
+zafiyetine yol açabileceğini göstermek amacıyla tasarlanmıştır.
+
+[SENARYO]
+ALTAYSEC mühendisleri, bilet sistemini daha güvenli hale getirmek için 
+128-bitlik UUID sistemine geçmiştir. Ancak sistemde unutulan bir 
+günlük dosyası (debug.log), tüm bu güvenlik önlemlerini etkisiz 
+kılmaktadır.
+
+[KURULUM TALİMATLARI]
+1. Bağımlılıkları Yükleyin:
+   $ pip install flask
+
+2. Uygulamayı Başlatın:
+   $ python3 app.py
+
+3. Erişim:
+   Tarayıcınızdan http://localhost:5000 adresine gidin.
+
+[ADIM ADIM ÇÖZÜM (WALKTHROUGH)]
+
+1. ANALİZ VE KEŞİF:
+   - Sisteme giriş yapıp rastgele bir isimle bilet alın.
+   - URL'deki ID yapısını inceleyin: ?id=550e8400-e29b-41d4-a716...
+   - UUID formatı tahmin edilemez olduğu için doğrudan sayı artırma (V1-V2 gibi) 
+     yönteminin işe yaramadığını doğrulayın.
+
+2. BİLGİ İFŞASI (INFORMATION DISCLOSURE):
+   - Hassas dosya ve dizinleri tarayın (veya doğrudan rotayı deneyin).
+   - http://localhost:5000/debug.log adresine gidin.
+   - Açılan sayfada sistemdeki tüm kullanıcıların isimlerini ve onlara 
+     atanmış olan özel UUID'leri göreceksiniz.
+
+3. IDOR SÖMÜRÜSÜ:
+   - debug.log içerisinden "Admin (root)" kullanıcısına ait UUID değerini kopyalayın.
+   - Bilet görüntüleme sayfasındaki URL'de kendi ID'niz yerine Admin'in UUID'sini 
+     yapıştırın ve Enter'a basın.
+   - Admin biletine yetiştiniz!
+
+4. FLAG:
+   - Bilet üzerindeki "GİZLİ NOT" alanında yer alan bayrağı alın:
+     FLAG: ALTAYSEC{eglenceyi_kacirma}
+
+5. PARAMETRE MANİPÜLASYONU (BONUS):
+   - VIP bilet alma aşamasında tarayıcıdan "Öğenecek Tutar" (price) alanındaki 
+     "readonly" özniteliğini silin.
+   - Fiyatı 1 TL yapıp göndererek sistemi manipüle edin ve hacker tebriğini alın.
+
+############################################################
