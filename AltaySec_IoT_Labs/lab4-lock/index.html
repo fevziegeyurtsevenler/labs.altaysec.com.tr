@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SmartLock Pro — Web Config</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0f0f0f; color:#d0d0d0; font-family:'Trebuchet MS',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:20px; }
+  h1 { font-size:12px; letter-spacing:3px; color:#888; text-transform:uppercase; margin:10px 0 25px; }
+  .lock-display {
+    width:140px; height:180px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin-bottom:25px; position:relative;
+  }
+  .lock-body {
+    width:100px; height:80px; background:#1a1a1a; border:3px solid #444;
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:40px; transition:all 0.4s;
+  }
+  .lock-body.unlocked { border-color:#00ff00; box-shadow:0 0 20px rgba(0,255,0,0.3); }
+  .lock-status { font-size:12px; color:#666; margin-top:10px; letter-spacing:2px; text-transform:uppercase; }
+  .lock-status.unlocked { color:#00ff00; }
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:15px; width:100%; max-width:580px; }
+  .panel { background:#111; border:1px solid #222; padding:15px; }
+  .panel-title { font-size:10px; color:#555; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+  .btn {
+    width:100%; background:#141414; border:1px solid #333; color:#aaa;
+    padding:9px; font-size:11px; cursor:pointer; margin-bottom:7px;
+    font-family:inherit; transition:all 0.2s;
+  }
+  .btn:hover { border-color:#888; color:#fff; }
+  .btn.unlock { border-color:#ff4400; color:#ff4400; }
+  .btn.unlock:hover { background:#1a0800; box-shadow:0 0 10px rgba(255,68,0,0.2); }
+  .btn.green:hover { border-color:#00ff00; color:#00ff00; }
+  .input-field {
+    width:100%; background:#0a0a0a; border:1px solid #222;
+    color:#ccc; padding:8px; font-size:11px; margin-bottom:7px; outline:none;
+    font-family:'Courier New',monospace;
+  }
+  .input-field:focus { border-color:#555; }
+  .result-box {
+    background:#0a0a0a; border:1px solid #1a1a1a;
+    padding:8px; font-size:10px; color:#666;
+    min-height:60px; max-height:150px; overflow-y:auto;
+    white-space:pre-wrap; font-family:'Courier New',monospace; word-break:break-all;
+  }
+  .flag-box {
+    background:#001a00; border:1px solid #00aa00;
+    padding:10px; font-size:11px; color:#00ff00;
+    margin-top:8px; display:none; word-break:break-all;
+  }
+  .hint { font-size:10px; color:#333; padding:7px; background:#0a0a0a; border-left:2px solid #222; margin-bottom:8px; line-height:1.7; }
+  .full { grid-column:1/-1; }
+  .packet-preview {
+    background:#050505; border:1px solid #1a1a1a;
+    padding:8px; font-size:10px; color:#444; font-family:'Courier New',monospace;
+    margin-bottom:8px; line-height:1.8; word-break:break-all;
+  }
+  .badge { display:inline-block; padding:2px 6px; font-size:9px; border:1px solid #333; color:#555; margin-left:5px; }
+  .badge.red { border-color:#440000; color:#660000; }
+</style>
+</head>
+<body>
+<h1>🔐 SmartLock Pro — Yapılandırma Paneli</h1>
+
+<div class="lock-display">
+  <div class="lock-body" id="lock-body">🔒</div>
+  <div class="lock-status" id="lock-status">KİLİTLİ</div>
+</div>
+
+<div class="controls">
+  <div class="panel">
+    <div class="panel-title">📡 FLAG 1 — BLE GATT Taraması</div>
+    <div class="hint">
+      Bluetooth paketleri havada şifrelenmemiş uçuyor.<br>
+      BLE taraması yap ve paketleri yakala:
+    </div>
+    <button class="btn green" onclick="bleScan()">▶ BLE Cihazları Tara</button>
+    <div class="result-box" id="ble-result">Tarama bekleniyor...</div>
+    <div class="flag-box" id="flag1-box"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">🔁 FLAG 2 — Replay Attack</div>
+    <div class="hint">
+      BLE taramasından yakalanan paketi tekrar gönder.<br>
+      Kilit paketi tanır — kimden geldiğine bakmaz.
+    </div>
+    <div class="packet-preview" id="captured-packet">
+      Henüz paket yakalanmadı.<br>Önce BLE taraması yap →
+    </div>
+    <button class="btn unlock" id="replay-btn" onclick="replayAttack()" disabled>▶ Paketi Tekrar Oynat (Replay)</button>
+    <div class="result-box" id="replay-result">Boş</div>
+    <div class="flag-box" id="flag2-box"></div>
+  </div>
+
+  <div class="panel full">
+    <div class="panel-title">🗄 FLAG 3 — SQL Injection (Kullanıcı Arama)</div>
+    <div class="hint">
+      Kullanıcı arama fonksiyonu SQL sorgusunu doğrudan oluşturuyor.<br>
+      Normal: <code>admin</code> → Injection: <code>' OR '1'='1</code><br>
+      Tüm kullanıcıları çek: <code>' OR 1=1--</code>
+    </div>
+    <div style="display:flex;gap:10px">
+      <input class="input-field" id="sql-input" type="text" placeholder="admin" value="admin" style="flex:1">
+      <button class="btn" style="width:auto;padding:8px 15px" onclick="lookupUser()">▶ Ara</button>
+    </div>
+    <div style="font-size:10px;color:#333;margin-bottom:8px">
+      Hızlı payload: 
+      <span style="color:#555;cursor:pointer" onclick="setPayload(\"' OR 1=1--\")">[Hepsini göster]</span>
+      <span style="color:#555;cursor:pointer" onclick="setPayload(\"admin' UNION SELECT 1,username,role,flag FROM users--\")">[UNION]</span>
+    </div>
+    <div class="result-box" id="sql-result">Sonuç burada...</div>
+    <div class="flag-box" id="flag3-box"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⚙ Kilit Kontrolü</div>
+    <button class="btn" onclick="lockDoor()">🔒 Kilitle</button>
+    <button class="btn" onclick="checkStatus()">▶ Durum Kontrol</button>
+    <div class="result-box" id="status-result">Boş</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">ℹ Cihaz Bilgisi</div>
+    <div class="hint">
+      <strong>SmartLock Pro v1</strong><br>
+      BLE Şifreleme: ✗ YOK <span class="badge red">VULN</span><br>
+      Replay Koruması: ✗ YOK <span class="badge red">VULN</span><br>
+      Prepared Stmt: ✗ YOK <span class="badge red">VULN</span><br>
+      BLE Port (sim): 9001
+    </div>
+  </div>
+</div>
+
+<script>
+let capturedPacket = null;
+
+async function bleScan() {
+  document.getElementById('ble-result').textContent = 'Taranıyor...';
+  const r = await fetch('/api/ble/scan');
+  const d = await r.json();
+  document.getElementById('ble-result').textContent = JSON.stringify(d, null, 2);
+
+  if (d.found_devices && d.found_devices[0]) {
+    const dev = d.found_devices[0];
+    if (dev.flag) {
+      document.getElementById('flag1-box').textContent = '🚩 FLAG 1: ' + dev.flag;
+      document.getElementById('flag1-box').style.display = 'block';
+    }
+    // Paketi yakala
+    if (dev.packets) {
+      const unlockPkt = dev.packets.find(p => p.opcode === 'WRITE');
+      if (unlockPkt) {
+        capturedPacket = unlockPkt.data;
+        document.getElementById('captured-packet').textContent =
+          '✓ Paket yakalandı!\nOpcode: ' + unlockPkt.opcode + '\nData: ' + unlockPkt.data;
+        document.getElementById('replay-btn').disabled = false;
+        document.getElementById('replay-btn').textContent = '▶ Yakalanan Paketi Oynat (Replay)';
+      }
+    }
+  }
+}
+
+async function replayAttack() {
+  if (!capturedPacket) return;
+  document.getElementById('replay-result').textContent = 'Paket gönderiliyor...';
+  const r = await fetch('/api/lock/unlock', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({packet: capturedPacket, method: 'replay'})
+  });
+  const d = await r.json();
+  document.getElementById('replay-result').textContent = JSON.stringify(d, null, 2);
+  if (d.flag) {
+    document.getElementById('flag2-box').textContent = '🚩 FLAG 2: ' + d.flag;
+    document.getElementById('flag2-box').style.display = 'block';
+    updateLockUI(false);
+  }
+}
+
+async function lookupUser() {
+  const username = document.getElementById('sql-input').value;
+  const r = await fetch('/api/users/lookup?username=' + encodeURIComponent(username));
+  const d = await r.json();
+  document.getElementById('sql-result').textContent = JSON.stringify(d, null, 2);
+  if (d.results) {
+    const withFlag = d.results.find(u => u.flag);
+    if (withFlag) {
+      document.getElementById('flag3-box').textContent = '🚩 FLAG 3: ' + withFlag.flag;
+      document.getElementById('flag3-box').style.display = 'block';
+    }
+  }
+}
+
+async function lockDoor() {
+  await fetch('/api/lock/lock', {method:'POST'});
+  updateLockUI(true);
+  document.getElementById('status-result').textContent = 'Kilit kapandı.';
+}
+
+async function checkStatus() {
+  const r = await fetch('/api/lock/status');
+  const d = await r.json();
+  document.getElementById('status-result').textContent = JSON.stringify(d, null, 2);
+  updateLockUI(d.locked);
+}
+
+function updateLockUI(locked) {
+  const body = document.getElementById('lock-body');
+  const status = document.getElementById('lock-status');
+  body.textContent = locked ? '🔒' : '🔓';
+  body.className = 'lock-body' + (locked ? '' : ' unlocked');
+  status.textContent = locked ? 'KİLİTLİ' : 'AÇIK';
+  status.className = 'lock-status' + (locked ? '' : ' unlocked');
+}
+
+function setPayload(p) {
+  document.getElementById('sql-input').value = p;
+}
+
+checkStatus();
+</script>
+</body>
+</html>

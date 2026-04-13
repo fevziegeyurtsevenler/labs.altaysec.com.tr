@@ -1,0 +1,11 @@
+# AltaySec Phishing Farkındalık Platformu — robots.txt
+# https://phishing.altaysec.com.tr
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://phishing.altaysec.com.tr/sitemap.xml
+
+# Ana host
+Host: phishing.altaysec.com.tr

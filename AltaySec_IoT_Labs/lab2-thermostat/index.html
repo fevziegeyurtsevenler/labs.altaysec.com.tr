@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ThermoSmart Pro 500</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#1a0a00; color:#e0c080; font-family:'Georgia',serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:20px; }
+  h1 { font-size:13px; letter-spacing:3px; color:#aa7722; text-transform:uppercase; margin-bottom:30px; margin-top:10px; }
+  .thermo-display {
+    background:#0d0500; border:3px solid #663300;
+    border-radius:50%; width:220px; height:220px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:0 0 30px rgba(255,100,0,0.2), inset 0 0 20px rgba(0,0,0,0.5);
+    margin-bottom:30px;
+  }
+  .temp-label { font-size:11px; color:#664422; letter-spacing:2px; }
+  .temp-value { font-size:56px; color:#ff8800; font-weight:bold; line-height:1; }
+  .temp-unit { font-size:20px; color:#aa5500; }
+  .target-label { font-size:11px; color:#555; margin-top:8px; }
+  .target-value { font-size:16px; color:#cc6600; }
+
+  .controls { display:grid; grid-template-columns:1fr 1fr; gap:15px; width:100%; max-width:500px; margin-bottom:20px; }
+  .panel { background:#0d0500; border:1px solid #441100; padding:15px; }
+  .panel-title { font-size:11px; color:#663300; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+  .btn {
+    width:100%; background:#1a0800; border:1px solid #663300;
+    color:#cc8833; padding:10px; font-family:'Georgia',serif; font-size:12px;
+    cursor:pointer; margin-bottom:8px; transition:all 0.2s;
+  }
+  .btn:hover { background:#2a1000; border-color:#ff8800; color:#ffaa00; }
+  .input-field {
+    width:100%; background:#0a0300; border:1px solid #441100;
+    color:#cc8833; padding:8px; font-family:'Georgia',serif; font-size:12px;
+    margin-bottom:8px; outline:none;
+  }
+  .input-field:focus { border-color:#ff8800; }
+  .result-box {
+    background:#050200; border:1px solid #221100;
+    padding:10px; font-size:11px; color:#886633;
+    min-height:60px; max-height:150px; overflow-y:auto;
+    white-space:pre-wrap; font-family:'Courier New',monospace;
+    margin-top:8px; word-break:break-all;
+  }
+  .flag-display {
+    background:#1a0800; border:1px solid #ff8800;
+    padding:12px; font-size:12px; color:#ff8800;
+    word-break:break-all; margin-top:8px; display:none;
+  }
+  .hidden-comment {
+    /* MQTT Config - hardcoded for support access
+       mqtt_broker: mqtt.home.local:1883
+       mqtt_user: thermo | mqtt_pass: thermo123
+       FLAG: {{FLAG3_HINT}}
+       TODO: Move to env vars before production release - DevOps
+    */
+    display:none;
+  }
+  .info-note { font-size:10px; color:#442200; margin-top:6px; line-height:1.6; }
+  .challenge-hint { font-size:10px; color:#553311; padding:8px; background:#080200; border-left:2px solid #663300; margin-bottom:10px; }
+  .full-width { grid-column:1/-1; }
+  .mode-indicator {
+    display:flex; gap:10px; margin-bottom:15px;
+  }
+  .mode-btn {
+    flex:1; padding:8px; font-size:11px; cursor:pointer;
+    border:1px solid #441100; background:#0d0500; color:#664422;
+    transition:all 0.2s;
+  }
+  .mode-btn.active { border-color:#ff8800; color:#ff8800; background:#1a0800; }
+</style>
+</head>
+<body>
+<div class="hidden-comment"></div>
+<h1>⚙ ThermoSmart Pro 500 — Ev Kontrol Paneli</h1>
+
+<div class="thermo-display">
+  <div class="temp-label">MEVCUT SICAKLIK</div>
+  <div><span class="temp-value" id="cur-temp">19.5</span><span class="temp-unit">°C</span></div>
+  <div class="target-label">Hedef</div>
+  <div class="target-value" id="target-temp">22.0°C</div>
+</div>
+
+<div class="mode-indicator">
+  <button class="mode-btn active" onclick="setMode('heat')">🔥 ISITMA</button>
+  <button class="mode-btn" onclick="setMode('cool')">❄ SOĞUTMA</button>
+  <button class="mode-btn" onclick="setMode('auto')">♻ OTOMATİK</button>
+</div>
+
+<div class="controls">
+  <div class="panel">
+    <div class="panel-title">🌡 Sıcaklık Ayarla</div>
+    <input class="input-field" type="number" id="new-target" value="22" min="10" max="35" step="0.5">
+    <button class="btn" onclick="setTemperature()">▶ Ayarla</button>
+    <div class="result-box" id="temp-result">Sıcaklık bilgisi yükleniyor...</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">🔧 Destek Diagnostiği</div>
+    <div class="challenge-hint">
+      💡 Bu endpoint ağ testi yapar. "host" parametresi filtrelenmemiş...
+      <br>Dene: <code>localhost; cat /etc/passwd</code>
+    </div>
+    <input class="input-field" type="text" id="diag-host" placeholder="localhost" value="localhost">
+    <button class="btn" onclick="runDiagnostic()">▶ Ping Test</button>
+    <div class="result-box" id="diag-result">Sonuç burada görünecek...</div>
+    <div class="flag-display" id="flag2-display"></div>
+  </div>
+
+  <div class="panel full-width">
+    <div class="panel-title">📡 Cihaz Bilgileri & Gizli Bilgiler</div>
+    <div class="challenge-hint">
+      💡 FLAG 3: Bu sayfanın HTML kaynak kodunu incele (F12 → Elements veya Ctrl+U)<br>
+      Geliştiriciler sıkça hassas bilgileri kod içinde yorum olarak bırakır.
+    </div>
+    <button class="btn" onclick="loadFirmwareInfo()">▶ Firmware Bilgilerini Çek (API)</button>
+    <div class="result-box" id="firmware-result">Boş</div>
+    <div class="info-note">
+      ⚠ Telnet erişimi: <code>nc localhost 2323</code> → kullanıcı: <strong>support</strong> / şifre: <strong>support</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+async function fetchTemp() {
+  try {
+    const r = await fetch('/api/temperature');
+    const d = await r.json();
+    document.getElementById('cur-temp').textContent = d.current;
+    document.getElementById('target-temp').textContent = d.target + '°C';
+    document.getElementById('temp-result').textContent = JSON.stringify(d, null, 2);
+  } catch(e) {}
+}
+
+async function setTemperature() {
+  const val = document.getElementById('new-target').value;
+  const r = await fetch('/api/temperature', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({target: parseFloat(val)})
+  });
+  const d = await r.json();
+  document.getElementById('temp-result').textContent = JSON.stringify(d, null, 2);
+  fetchTemp();
+}
+
+async function runDiagnostic() {
+  const host = document.getElementById('diag-host').value;
+  document.getElementById('diag-result').textContent = 'Çalışıyor...';
+  const r = await fetch('/api/diagnostic', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({host: host})
+  });
+  const d = await r.json();
+  document.getElementById('diag-result').textContent = JSON.stringify(d, null, 2);
+  if (d.flag) {
+    const fd = document.getElementById('flag2-display');
+    fd.textContent = '🚩 FLAG 2: ' + d.flag;
+    fd.style.display = 'block';
+  }
+}
+
+async function loadFirmwareInfo() {
+  const r = await fetch('/api/firmware');
+  const d = await r.json();
+  document.getElementById('firmware-result').textContent = JSON.stringify(d, null, 2);
+}
+
+function setMode(mode) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+fetchTemp();
+setInterval(fetchTemp, 5000);
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram "Telif Hakkı" Phishing Tuzağı: Nasıl Çalışır? | AltaySec</title>
+  <meta name="description" content="Instagram'dan 'telif hakkı ihlali' DM alan binlerce kullanıcı hesabını kaybetti. Bu tuzağın nasıl çalıştığını, nasıl fark edileceğini ve hesabınızı nasıl koruyacağınızı öğrenin.">
+  <meta name="keywords" content="instagram phishing, instagram telif hakkı dolandırıcılık, instagram hesap çalma, instagram dm phishing, sosyal medya dolandırıcılık">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/blog/instagram-phishing-telif-hakki.html">
+  <meta property="og:title" content="Instagram 'Telif Hakkı' Phishing Tuzağı | AltaySec">
+  <meta property="og:description" content="Türkiye'de binlerce hesabı etkileyen Instagram telif hakkı phishing tuzağının tüm mekanizması.">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/blog/instagram-phishing-telif-hakki.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="https://phishing.altaysec.com.tr/assets/og/og-blog-instagram.png">
+  <meta property="article:published_time" content="2026-04-12T00:00:00+03:00">
+  <meta property="article:author" content="AltaySec">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Instagram 'Telif Hakkı' Phishing Tuzağı: Nasıl Çalışır ve Nasıl Korunursunuz?",
+    "description": "Instagram telif hakkı phishing tuzağının mekanizması ve korunma yöntemleri.",
+    "author": {"@type": "Organization", "name": "AltaySec"},
+    "publisher": {"@type": "Organization", "name": "AltaySec"},
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "url": "https://phishing.altaysec.com.tr/blog/instagram-phishing-telif-hakki.html",
+    "inLanguage": "tr-TR",
+    "about": [{"@type": "Thing", "name": "Phishing"}, {"@type": "Thing", "name": "Instagram"}],
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://phishing.altaysec.com.tr/blog/instagram-phishing-telif-hakki.html"}
+  }
+  </script>
+
+  <style>
+    .article-page { padding-top: var(--nav-height); }
+    .article-content h2 {
+      font-size: 1.5rem; font-weight: 800;
+      margin: var(--space-2xl) 0 var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+      scroll-margin-top: 90px;
+    }
+    .article-content h2:first-of-type { border-top: none; margin-top: 0; }
+    .article-content h3 { font-size:1.1rem; font-weight:700; margin:var(--space-xl) 0 var(--space-sm); scroll-margin-top: 90px; }
+    .article-content p { color:var(--text-secondary); line-height:1.8; margin-bottom:var(--space-md); font-size:1rem; }
+    .article-content ul { color:var(--text-secondary); line-height:1.8; margin-bottom:var(--space-md); padding-left:var(--space-xl); }
+    .article-content ul li { list-style:disc; margin-bottom:6px; }
+    .article-content strong { color:var(--text-primary); }
+    .article-content code { font-family:'JetBrains Mono',monospace; font-size:0.875em; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px; color:var(--cyan); }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+    }
+    .step-num {
+      width:32px;height:32px;border-radius:50%;
+      background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.3);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;font-size:0.85rem;color:var(--red);flex-shrink:0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-logo" aria-label="Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="../index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="../simulasyon.html" class="nav-link">🎮 Simülasyon</a></li>
+        <li><a href="../test.html" class="nav-link">❓ Test</a></li>
+        <li><a href="index.html" class="nav-link active" aria-current="page">📝 Blog</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">← AltaySec</a>
+        <a href="../test.html" class="btn btn-primary btn-sm">Testi Başlat →</a>
+      </div>
+    </div>
+  </nav>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <main class="article-page">
+    <div class="container" style="max-width:800px; padding-block:var(--space-2xl);">
+
+      <nav aria-label="Breadcrumb" style="margin-bottom:var(--space-xl);">
+        <ol style="display:flex;gap:8px;align-items:center;font-size:0.8rem;color:var(--text-muted);" role="list">
+          <li><a href="../index.html" class="footer-link">Ana Sayfa</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="index.html" class="footer-link">Blog</a></li>
+          <li aria-hidden="true">/</li>
+          <li style="color:var(--text-secondary);">Instagram Phishing</li>
+        </ol>
+      </nav>
+
+      <article itemscope itemtype="https://schema.org/Article">
+
+        <div style="margin-bottom:var(--space-xl);">
+          <div class="flex gap-sm flex-wrap" style="margin-bottom:var(--space-md);">
+            <span class="badge badge-amber">📷 Sosyal Medya</span>
+            <span class="badge badge-muted">⏱ 6 dk okuma</span>
+            <span class="badge badge-muted">12 Nisan 2026</span>
+          </div>
+          <h1 itemprop="headline" style="font-size:clamp(1.75rem,4vw,2.5rem); font-weight:900; letter-spacing:-0.03em; line-height:1.15; margin-bottom:var(--space-lg);">
+            Instagram "Telif Hakkı" Tuzağı: Nasıl Çalışır ve Nasıl Korunursunuz?
+          </h1>
+          <p style="font-size:1.1rem; color:var(--text-secondary); line-height:1.7; border-left:3px solid #fd1d1d; padding-left:var(--space-lg);">
+            "Hesabınız telif hakkı ihlali nedeniyle 48 saat içinde silinecek." — Bu mesajı alan binlerce kişi Türkiye'de hesabını kaybetti. Tuzağın tüm mekanizmasını ve korunma yollarını öğrenin.
+          </p>
+        </div>
+
+        <div class="article-content" itemprop="articleBody">
+
+          <h2 id="sorun">Bu Saldırı Neden Bu Kadar Etkili?</h2>
+          <p>
+            Instagram telif hakkı phishing saldırısı, doğrudan <strong>hesap kaybetme korkusunu</strong> hedef alır. Aylarca, bazen yıllarca emek verdiğiniz bir hesabı, tüm takipçilerinizi, içeriklerinizi kaybetme düşüncesi mantıklı kararlar vermenizi zorlaştırır.
+          </p>
+          <p>
+            Bu saldırı türü Türkiye'de özellikle 2023-2026 yılları arasında büyük yaygınlık kazandı. Binlerce kişisel ve kurumsal hesap bu tuzakla çalındı. Hedef çoğunlukla <strong>işletme hesapları, influencer'lar ve içerik üreticileri</strong>.
+          </p>
+
+          <h2 id="nasil-calisir">Saldırı Nasıl Çalışır? Adım Adım</h2>
+
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div>
+              <h3 style="margin:0 0 4px;font-size:0.95rem;">İlk DM: Sahte Destek Hesabı</h3>
+              <p style="margin:0;font-size:0.875rem;color:var(--text-secondary);">
+                Saldırgan, "instagram.destek.ekibi", "instagram_copyright_team" veya benzer bir isimle sahte bir hesap oluşturur. Bazen çalınmış gerçek hesaplardan da mesaj gönderilir.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div>
+              <h3 style="margin:0 0 4px;font-size:0.95rem;">Panik Yaratan Mesaj İçeriği</h3>
+              <p style="margin:0;font-size:0.875rem;color:var(--text-secondary);">
+                Mesaj genellikle şöyle der: "Hesabınız birden fazla telif hakkı ihlali bildirimi aldı. 24-48 saat içinde itiraz etmezseniz hesabınız kalıcı olarak devre dışı bırakılacak." Bu ifade kasıtlı olarak korku uyandıracak şekilde tasarlanmıştır.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div>
+              <h3 style="margin:0 0 4px;font-size:0.95rem;">Sahte "İtiraz Formu" Linki</h3>
+              <p style="margin:0;font-size:0.875rem;color:var(--text-secondary);">
+                Mesajda <code>instagram-appeal-form.net</code>, <code>ig-support-center.com</code> veya <code>meta-help-appeal.xyz</code> gibi sahte bir link verilir. Bu siteler Instagram'ın gerçek arayüzünü birebir kopyalar.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div>
+              <h3 style="margin:0 0 4px;font-size:0.95rem;">Kimlik Bilgisi Toplama</h3>
+              <p style="margin:0;font-size:0.875rem;color:var(--text-secondary);">
+                Sahte sayfada "Instagram ile giriş yap" veya "hesap bilgilerinizi girin" formu çıkar. Girdiğiniz kullanıcı adı ve şifre doğrudan saldırgana gider.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div>
+              <h3 style="margin:0 0 4px;font-size:0.95rem;">Hesap Ele Geçirilir</h3>
+              <p style="margin:0;font-size:0.875rem;color:var(--text-secondary);">
+                Saldırgan dakikalar içinde hesabınıza giriş yapar, bağlı e-posta ve telefon numarasını değiştirir. Artık hesabınıza erişim imkanınız kalmaz. Hesap satılır veya başka saldırılar için kullanılır.
+              </p>
+            </div>
+          </div>
+
+          <h2 id="gostergeler">Bu Mesajın Phishing Olduğunu Nasıl Anlarsınız?</h2>
+
+          <div class="warning-box" style="margin-bottom:var(--space-lg);">
+            <div class="warning-box-icon">🔑</div>
+            <div class="warning-box-content">
+              <div class="warning-box-title">Altın Kural</div>
+              <div class="warning-box-text"><strong>Instagram, telif hakkı bildirimleri için DM göndermez.</strong> Tüm resmi bildirimler uygulamanın kendi bildirim sistemi veya hesabınıza kayıtlı resmi e-posta adresiniz üzerinden gelir.</div>
+            </div>
+          </div>
+
+          <ul>
+            <li><strong>Instagram DM ile resmi bildirim yapmaz</strong> — Gerçek ihlal bildirimleri uygulama içi bildirim veya kayıtlı e-postanıza gelir.</li>
+            <li><strong>Resmi Instagram domain'leri yalnızca</strong> <code>instagram.com</code> veya <code>meta.com</code>'dur. Başka her şey sahtedir.</li>
+            <li><strong>Takip etmediğiniz hesaplar</strong> resmi destek kanalı olamaz. Gerçek Instagram destek hesapları mavi tik içerir ve milyonlarca takipçisi vardır.</li>
+            <li><strong>Zaman baskısı</strong> (24-48 saat) kasıtlı psikolojik manipülasyondur.</li>
+            <li><strong>Genel mesaj yapısı</strong> — İsminizle değil genel ifadelerle yazılmıştır.</li>
+          </ul>
+
+          <h2 id="korunma">Hesabınızı Nasıl Korursunuz?</h2>
+
+          <h3>1. İki Faktörlü Doğrulamayı (2FA) Aktif Edin</h3>
+          <p>
+            Instagram Ayarlar → Güvenlik → İki Faktörlü Doğrulama bölümünden aktif edin. <strong>Authenticator uygulaması</strong> (Google Authenticator, Authy) kullanın — SMS 2FA daha az güvenlidir.
+          </p>
+          <p>
+            2FA aktifken saldırgan şifrenizi ele geçirse bile hesabınıza giremez. Bu tek adım sizi koruyacak en önemli önlemdir.
+          </p>
+
+          <h3>2. E-posta Adresinizi Güvenli Tutun</h3>
+          <p>
+            Instagram hesabınıza bağlı e-posta adresini de 2FA ile koruyun. Saldırganlar hesabı ele geçirdikten sonra e-postanızı değiştirmeye çalışır — e-postanız güvende olursa bu adımı engelleyebilirsiniz.
+          </p>
+
+          <h3>3. Şüpheli DM'leri Bildirin</h3>
+          <p>
+            Aldığınız mesajı Instagram'a bildirin: Mesaja uzun basın → Bildirme → Spam veya Dolandırıcılık. Bu adım başkalarının korunmasına yardımcı olur.
+          </p>
+
+          <h3>4. Hesabınızın Güvenliğini Düzenli Kontrol Edin</h3>
+          <p>
+            Ayarlar → Güvenlik → Giriş Aktivitesi bölümünden hesabınıza giriş yapan cihazları düzenli kontrol edin. Tanımadığınız bir cihaz görürseniz "Çıkış Yap" yapın ve şifrenizi değiştirin.
+          </p>
+
+          <h2 id="faq">Sıkça Sorulan Sorular</h2>
+
+          <h3>Hesabım çalındı, ne yapabilirim?</h3>
+          <p>
+            Hemen Instagram'ın "<a href="https://www.instagram.com/hacked/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);">instagram.com/hacked</a>" sayfasından hesap kurtarma sürecini başlatın. Kayıtlı e-postanız hâlâ erişilebiliyorsa kurtarma daha kolaydır. Ayrıca BTK'nın ihbar hattını kullanabilirsiniz.
+          </p>
+
+          <h3>Bu sadece Instagram'da mı oluyor?</h3>
+          <p>
+            Hayır. Aynı tuzak Twitter (X), Facebook, TikTok ve hatta LinkedIn'de de uygulanıyor. Mekanizma aynı: sahte destek hesabı, hesap kaybetme korkusu, sahte link, kimlik bilgisi toplama.
+          </p>
+
+          <h3>Saldırganlar hesabımı ne için kullanır?</h3>
+          <p>
+            Çalınan hesaplar genellikle: kripto para dolandırıcılığı yapmak, daha fazla phishing saldırısı yaymak (hesabınızın takipçilerine mesaj göndererek), veya kara borsada satmak için kullanılır. Büyük takipçi sayılı hesaplar daha değerlidir.
+          </p>
+
+        </div>
+
+        <div class="info-box" style="margin-top:var(--space-2xl);">
+          <div style="font-size:1.25rem;flex-shrink:0;" aria-hidden="true">🎮</div>
+          <div>
+            <div style="font-weight:700;color:var(--cyan);margin-bottom:4px;">Bu senaryoyu canlı deneyin</div>
+            <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-md);line-height:1.6;">Simülatörümüzde Instagram DM phishing senaryosunu güvenli ortamda deneyimleyin.</p>
+            <div class="flex gap-md flex-wrap">
+              <a href="/simulasyon.html?senaryo=instagram" class="btn btn-primary btn-sm">🎮 Senaryoyu Dene</a>
+              <a href="../test.html" class="btn btn-outline btn-sm">❓ Testi Başlat</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:var(--space-2xl);padding-top:var(--space-xl);border-top:1px solid var(--border-subtle);">
+          <p class="text-sm font-semibold" style="color:var(--text-muted);margin-bottom:var(--space-md);">İlgili Yazılar</p>
+          <div class="grid-2" style="gap:var(--space-md);">
+            <a href="phishing-maili-nasil-anlasilir.html" class="blog-card">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">📧 E-posta</span>
+                <h3 class="blog-card-title" style="font-size:0.95rem;margin-top:var(--space-sm);">Phishing E-postasını 10 Saniyede Anlayın</h3>
+              </div>
+              <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+            </a>
+            <a href="calisanlar-phishing-neden-dusuyor.html" class="blog-card">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">🏢 Kurumsal</span>
+                <h3 class="blog-card-title" style="font-size:0.95rem;margin-top:var(--space-sm);">Çalışanlar Phishing'e Neden Düşer?</h3>
+              </div>
+              <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Bu platform yalnızca eğitim amaçlıdır.</p>
+        <div class="flex gap-md">
+          <a href="../index.html" class="footer-link" style="font-size:0.8rem;">Ana Sayfa</a>
+          <a href="index.html" class="footer-link" style="font-size:0.8rem;">Blog</a>
+          <a href="../test.html" class="footer-link" style="font-size:0.8rem;">Test</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Simülatörü — Gerçek Tuzakları Dene | AltaySec</title>
+  <meta name="description" content="Sahte e-posta, Instagram DM, SMS, WhatsApp ve LinkedIn tuzaklarını güvenli ortamda deneyimleyin. Bazı senaryolar gerçek, bazıları phishing — hangisi olduğunu bulun! AltaySec ücretsiz phishing simülatörü.">
+  <meta name="keywords" content="phishing simülatörü, phishing testi, sahte e-posta, instagram phishing, sms dolandırıcılık, linkedin phishing, netflix phishing, siber güvenlik eğitimi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/simulasyon.html">
+  <meta property="og:title" content="Phishing Simülatörü | AltaySec">
+  <meta property="og:description" content="10 gerçekçi senaryo — bazıları phishing, bazıları gerçek. Hangisi olduğunu bulabilir misin?">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/simulasyon.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Phishing Tuzağı Nasıl Fark Edilir?",
+    "description": "10 gerçekçi senaryo ile phishing saldırılarını tanımayı öğrenin.",
+    "step": [{"@type":"HowToStep","name":"Senaryo seçin","text":"E-posta, DM, SMS veya LinkedIn senaryolarından birini seçin."},{"@type":"HowToStep","name":"Karar verin","text":"Phishing mi, yoksa gerçek mi?"},{"@type":"HowToStep","name":"Öğrenin","text":"Neden phishing veya güvenli olduğunu keşfedin."}],
+    "totalTime": "PT10M"
+  }
+  </script>
+
+  <style>
+    :root { --sim-nav: var(--nav-height); }
+
+    /* ── Layout ── */
+    .sim-page { padding-top: var(--sim-nav); min-height: 100vh; }
+
+    /* ── Senaryo Grid ── */
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: var(--space-xl);
+    }
+
+    .sc-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 250ms cubic-bezier(.4,0,.2,1);
+      text-align: left;
+      overflow: hidden;
+      font-family: inherit;
+      color: var(--text-primary);
+    }
+    .sc-card::after {
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,var(--red-glow),transparent 60%);
+      opacity:0;transition:opacity .4s;
+    }
+    .sc-card:hover { border-color:rgba(255,59,48,.3); transform:translateY(-3px); box-shadow:0 10px 36px rgba(255,59,48,.1); }
+    .sc-card:hover::after { opacity:1; }
+    .sc-card:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+
+    .sc-platform-pill {
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 12px;border-radius:999px;
+      font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+      margin-bottom:12px;position:relative;z-index:1;
+    }
+    .sc-emoji { font-size:1.8rem;margin-bottom:10px;line-height:1;display:block;position:relative;z-index:1; }
+    .sc-title { font-size:.95rem;font-weight:700;line-height:1.35;margin-bottom:6px;position:relative;z-index:1; }
+    .sc-desc { font-size:.78rem;color:var(--text-muted);line-height:1.5;position:relative;z-index:1; }
+    .sc-meta { display:flex;align-items:center;gap:8px;margin-top:12px;position:relative;z-index:1; }
+    .sc-diff { display:flex;gap:3px; }
+    .sc-dot { width:7px;height:7px;border-radius:50%;background:var(--border-default); }
+    .sc-dot.on { background:var(--red); }
+
+    /* ── Sim Container ── */
+    .sim-wrap { display:none;max-width:780px;margin:0 auto; }
+    .sim-wrap.active { display:block; }
+
+    .sim-topbar {
+      display:flex;align-items:center;gap:12px;
+      padding-bottom:20px;border-bottom:1px solid var(--border-subtle);margin-bottom:28px;
+    }
+    .sim-back { background:none;border:1px solid var(--border-subtle);color:var(--text-muted);
+      padding:7px 14px;border-radius:8px;font-size:.82rem;font-weight:600;
+      cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;gap:5px; }
+    .sim-back:hover { border-color:var(--border-default);color:var(--text-primary); }
+
+    .sim-stepdots { display:flex;gap:5px;margin-left:auto; }
+    .sim-sd { width:28px;height:4px;border-radius:99px;background:var(--border-default);transition:background .3s; }
+    .sim-sd.done { background:var(--green); }
+    .sim-sd.active { background:var(--red); }
+
+    /* ── Answer row ── */
+    .ans-row { display:flex;gap:12px;margin-top:24px;flex-wrap:wrap; }
+    .ans-btn {
+      flex:1;min-width:140px;padding:15px 20px;border-radius:12px;
+      border:2px solid;font-weight:700;font-size:.88rem;cursor:pointer;
+      transition:all .2s;font-family:inherit;
+    }
+    .ans-phish { color:var(--red-light);border-color:rgba(255,59,48,.3);background:rgba(255,59,48,.06); }
+    .ans-phish:hover:not(:disabled) { border-color:var(--red);background:rgba(255,59,48,.14);transform:translateY(-2px); }
+    .ans-safe  { color:var(--green);border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.05); }
+    .ans-safe:hover:not(:disabled)  { border-color:var(--green);background:rgba(34,197,94,.12);transform:translateY(-2px); }
+    .ans-btn:disabled { cursor:default;opacity:.45; }
+    .ans-btn.selected-correct { opacity:1!important;border-color:var(--green)!important;background:rgba(34,197,94,.15)!important;color:var(--green)!important; }
+    .ans-btn.selected-wrong   { opacity:1!important;border-color:var(--red)!important;background:rgba(255,59,48,.15)!important;color:var(--red-light)!important; }
+    .ans-btn.reveal-correct   { opacity:1!important;border-color:var(--green)!important;color:var(--green)!important; }
+
+    /* ── Result panel ── */
+    .sim-result {
+      display:none;margin-top:24px;border-radius:18px;overflow:hidden;
+      animation:fadeInUp .4s ease;
+    }
+    .sim-result.show { display:block; }
+    .sim-result-head {
+      padding:18px 24px;display:flex;align-items:center;gap:14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .sim-result-body { padding:24px;background:var(--bg-card); }
+    .result-phish .sim-result-head { background:rgba(255,59,48,.08); }
+    .result-safe  .sim-result-head { background:rgba(34,197,94,.07); }
+    .result-phish { border:1px solid rgba(255,59,48,.2); }
+    .result-safe  { border:1px solid rgba(34,197,94,.2); }
+
+    .indicator {
+      background:rgba(255,59,48,.06);border:1px solid rgba(255,59,48,.15);
+      border-left:4px solid var(--red);border-radius:10px;
+      padding:12px 16px;margin-bottom:8px;
+      display:flex;gap:12px;align-items:flex-start;
+    }
+    .indicator-safe {
+      background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);
+      border-left:4px solid var(--green);
+    }
+    .ind-icon { font-size:.95rem;flex-shrink:0;margin-top:2px; }
+    .ind-text { font-size:.83rem;line-height:1.55;color:var(--text-secondary); }
+    .ind-text strong { color:var(--text-primary); }
+
+    /* ── PLATFORM UIs ── */
+
+    /* Gmail-style Email */
+    .email-shell {
+      background:#141414;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+    }
+    .email-chrome {
+      background:#0f0f0f;padding:10px 16px;display:flex;
+      align-items:center;gap:10px;border-bottom:1px solid #1f1f1f;
+    }
+    .email-dots { display:flex;gap:5px; }
+    .email-dot { width:11px;height:11px;border-radius:50%; }
+    .email-search {
+      flex:1;background:#1e1e1e;border-radius:8px;padding:6px 12px;
+      font-size:.75rem;color:#555;font-family:monospace;
+    }
+    .email-sidebar {
+      display:flex;
+      background:#141414;
+    }
+    .email-left {
+      width:200px;flex-shrink:0;border-right:1px solid #1f1f1f;padding:12px 0;
+    }
+    .email-folder {
+      display:flex;align-items:center;gap:8px;padding:7px 16px;
+      font-size:.78rem;color:#666;cursor:default;
+    }
+    .email-folder.active { background:rgba(255,59,48,.08);color:var(--red-light);border-right:2px solid var(--red); }
+    .email-main { flex:1;padding:0; }
+    .email-msg-header { padding:20px 24px 16px;border-bottom:1px solid #1f1f1f; }
+    .email-subject-line { font-size:1.15rem;font-weight:700;margin-bottom:14px; }
+    .email-from-row { display:flex;align-items:center;gap:12px; }
+    .email-avatar-circle {
+      width:36px;height:36px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;font-size:.8rem;flex-shrink:0;
+    }
+    .email-from-info { flex:1; }
+    .email-from-name { font-size:.88rem;font-weight:600; }
+    .email-from-addr { font-size:.75rem;color:#666;font-family:monospace; }
+    .email-date { font-size:.72rem;color:#555; }
+    .email-body-area { padding:24px;font-size:.88rem;line-height:1.8;color:#ccc; }
+    .email-divider { border:none;border-top:1px solid #1f1f1f;margin:16px 0; }
+    .email-sig { font-size:.8rem;color:#555; }
+    .email-cta-btn {
+      display:inline-block;padding:10px 22px;border-radius:8px;
+      font-weight:700;font-size:.85rem;cursor:pointer;border:none;
+      font-family:inherit;margin-top:4px;
+    }
+
+    /* Outlook-style email */
+    .outlook-shell {
+      background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+    }
+    .outlook-header {
+      background:#0078d4;padding:8px 16px;display:flex;align-items:center;gap:10px;
+    }
+    .outlook-header-title { font-size:.82rem;font-weight:600;color:#fff; }
+    .outlook-body { padding:24px; }
+    .outlook-to-row { font-size:.78rem;color:#888;margin-bottom:16px; }
+    .outlook-subject { font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #2a2a2a; }
+    .outlook-content { font-size:.88rem;line-height:1.8;color:#ccc; }
+
+    /* Instagram DM */
+    .ig-shell {
+      background:#000;border:1px solid #222;border-radius:16px;overflow:hidden;
+      max-width:420px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.7);
+    }
+    .ig-topbar {
+      background:#000;padding:12px 16px;
+      display:flex;align-items:center;gap:10px;border-bottom:1px solid #111;
+    }
+    .ig-back-arrow { color:#fff;font-size:1.1rem; }
+    .ig-avatar {
+      width:36px;height:36px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
+    }
+    .ig-user-col { flex:1; }
+    .ig-username { font-size:.88rem;font-weight:700;color:#fff; }
+    .ig-usermeta { font-size:.7rem;color:#888; }
+    .ig-dots { color:#fff;font-size:1rem;margin-left:auto; }
+    .ig-convo { padding:16px;background:#000;min-height:140px; }
+    .ig-warn-bar {
+      background:#1a1200;border-top:1px solid #3a2800;border-bottom:1px solid #3a2800;
+      padding:8px 16px;font-size:.72rem;color:#aaa;display:flex;align-items:center;gap:6px;
+    }
+    .ig-bubble-in {
+      background:#222;border-radius:18px 18px 18px 4px;
+      padding:11px 14px;max-width:85%;font-size:.82rem;line-height:1.6;color:#eee;margin-bottom:4px;
+    }
+    .ig-bubble-time { font-size:.68rem;color:#555;margin-left:4px; }
+    .ig-reply-bar {
+      background:#111;padding:10px 16px;display:flex;align-items:center;gap:10px;
+      border-top:1px solid #1a1a1a;
+    }
+    .ig-reply-input {
+      flex:1;background:#1a1a1a;border-radius:20px;
+      padding:9px 14px;font-size:.8rem;color:#555;
+    }
+
+    /* WhatsApp */
+    .wa-shell {
+      background:#111;border:1px solid #1f1f1f;border-radius:16px;overflow:hidden;
+      max-width:420px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.7);
+    }
+    .wa-header {
+      background:#1f2c34;padding:10px 14px;display:flex;align-items:center;gap:10px;
+    }
+    .wa-avatar { width:36px;height:36px;border-radius:50%;background:#2a3942;display:flex;align-items:center;justify-content:center;font-size:1rem; }
+    .wa-name { font-size:.88rem;font-weight:600;color:#e9edef; }
+    .wa-status { font-size:.7rem;color:#8696a0; }
+    .wa-convo { background:#0d1418;padding:16px;min-height:140px; }
+    .wa-bubble-in {
+      background:#202c33;border-radius:0 8px 8px 8px;
+      padding:8px 12px;max-width:85%;font-size:.82rem;line-height:1.6;color:#e9edef;
+      margin-bottom:4px;position:relative;
+    }
+    .wa-bubble-in::before {
+      content:'';position:absolute;left:-7px;top:0;
+      border:7px solid transparent;border-right-color:#202c33;border-top-color:#202c33;
+    }
+    .wa-time { font-size:.65rem;color:#8696a0;float:right;margin-left:8px;margin-top:4px; }
+    .wa-warn { background:#1a3040;padding:7px 14px;font-size:.72rem;color:#8696a0;display:flex;align-items:center;gap:6px;border-top:1px solid #1f2c34; }
+    .wa-input-row { background:#1f2c34;padding:8px 12px;display:flex;align-items:center;gap:8px;border-top:1px solid #2a3942; }
+    .wa-input { flex:1;background:#2a3942;border-radius:24px;padding:9px 14px;font-size:.8rem;color:#8696a0; }
+
+    /* SMS */
+    .sms-shell {
+      background:#1c1c1e;border:1px solid #2c2c2e;border-radius:16px;overflow:hidden;
+      max-width:360px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,.6);
+    }
+    .sms-topbar {
+      background:#2c2c2e;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;
+    }
+    .sms-sender { font-size:.88rem;font-weight:700;color:#fff; }
+    .sms-detail { font-size:.7rem;color:#8e8e93; }
+    .sms-convo { padding:14px;background:#1c1c1e;min-height:100px; }
+    .sms-timestamp { text-align:center;font-size:.68rem;color:#8e8e93;margin-bottom:10px; }
+    .sms-bubble {
+      background:#2c2c2e;border-radius:18px 18px 18px 4px;
+      padding:10px 14px;font-size:.83rem;line-height:1.65;color:#fff;
+      max-width:90%;
+    }
+    .sms-bubble.green-bubble {
+      background:#248a3d;border-radius:18px 18px 4px 18px;
+      margin-left:auto;
+    }
+    .sms-input-row { background:#2c2c2e;padding:9px 12px;display:flex;align-items:center;gap:8px;border-top:1px solid #3a3a3c; }
+    .sms-input { flex:1;background:#3a3a3c;border-radius:18px;padding:8px 14px;font-size:.8rem;color:#8e8e93; }
+
+    /* LinkedIn */
+    .li-shell {
+      background:#1b1f23;border:1px solid #2a3038;border-radius:16px;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.6);
+    }
+    .li-topbar {
+      background:#1b1f23;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;
+      border-bottom:1px solid #2a3038;
+    }
+    .li-logo { color:#0a66c2;font-size:1.4rem;font-weight:900;font-family:serif; }
+    .li-search { background:#2a3038;border-radius:6px;padding:7px 14px;font-size:.78rem;color:#b0b9c2;flex:1;max-width:240px;margin-left:12px; }
+    .li-msg-area { display:flex;min-height:280px; }
+    .li-inbox { width:220px;border-right:1px solid #2a3038;padding:0; }
+    .li-inbox-header { padding:14px 16px;border-bottom:1px solid #2a3038;font-size:.85rem;font-weight:700; }
+    .li-thread {
+      padding:12px 16px;border-bottom:1px solid #2a3038;display:flex;gap:10px;
+      cursor:default;background:rgba(10,102,194,.08);
+    }
+    .li-thread-avatar { width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem; }
+    .li-thread-name { font-size:.82rem;font-weight:700; }
+    .li-thread-preview { font-size:.72rem;color:#b0b9c2; }
+    .li-thread-time { font-size:.68rem;color:#8a9aaa;margin-left:auto;flex-shrink:0; }
+    .li-msg-body { flex:1;padding:20px; }
+    .li-msg-from { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
+    .li-from-avatar { width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem; }
+    .li-from-name { font-size:.9rem;font-weight:700; }
+    .li-from-title { font-size:.75rem;color:#b0b9c2; }
+    .li-bubble { font-size:.83rem;line-height:1.7;color:#cfd9e0;background:#232a31;border-radius:12px;padding:14px 18px; }
+    .li-msg-actions { display:flex;gap:10px;margin-top:14px; }
+    .li-btn { padding:7px 16px;border-radius:20px;font-size:.78rem;font-weight:700;border:1px solid;cursor:pointer;font-family:inherit;transition:all .2s; }
+    .li-btn-primary { background:#0a66c2;color:#fff;border-color:#0a66c2; }
+    .li-btn-secondary { background:transparent;color:#70b5f9;border-color:#70b5f9; }
+
+    /* Responsive */
+    @media (max-width:900px) { .scenarios-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:580px) {
+      .scenarios-grid { grid-template-columns:1fr; }
+      .ans-row { flex-direction:column; }
+      .email-sidebar { flex-direction:column; }
+      .email-left { width:100%;max-height:80px;overflow:hidden; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span> <span style="color:var(--text-muted);font-weight:400;font-size:.85rem;">/ Simülasyon</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="simulasyon.html" class="nav-link active" aria-current="page">🎮 Simülasyon</a></li>
+        <li><a href="test.html" class="nav-link">❓ Test</a></li>
+        <li><a href="blog/index.html" class="nav-link">📝 Blog</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">← AltaySec</a>
+        <a href="test.html" class="btn btn-primary btn-sm">Testi Başlat →</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <main class="sim-page">
+    <div class="container" style="padding-block: var(--space-2xl);">
+
+      <!-- ══ BAŞLIK ══ -->
+      <div id="sim-intro" style="max-width:680px; margin-bottom:var(--space-xl);">
+        <div class="badge badge-red" style="margin-bottom:var(--space-md);">
+          <span class="dot"></span> 10 Senaryo · Karışık · İnteraktif
+        </div>
+        <h1 class="display-md" style="margin-bottom:var(--space-md);">Phishing Simülatörü</h1>
+        <p style="color:var(--text-secondary);font-size:1rem;line-height:1.75;margin-bottom:var(--space-lg);">
+          Aşağıdaki senaryoların bir kısmı <strong style="color:var(--red);">gerçek phishing saldırıları</strong>, bir kısmı ise <strong style="color:var(--green);">tamamen güvenli, gerçek mesajlar</strong>. Hangisi olduğunu bulabilir misin?
+        </p>
+        <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;" class="text-sm">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block;"></span>
+            <span style="color:var(--text-muted);">6 Phishing Saldırısı</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;" class="text-sm">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+            <span style="color:var(--text-muted);">4 Güvenli Mesaj</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;" class="text-sm">
+            <span style="color:var(--text-faint);">⏱ ~10 dakika</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SENARYO GRID ══ -->
+      <div id="scenarioSelect">
+        <p class="text-xs" style="color:var(--text-faint);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:var(--space-md);">Bir senaryo seçin:</p>
+        <div class="scenarios-grid">
+
+          <!-- 1: IT Mail - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s1')" aria-label="Senaryo 1: IT şifre sıfırlama e-postası">
+            <span class="sc-emoji">📧</span>
+            <div class="sc-platform-pill" style="background:rgba(255,59,48,.1);color:#ff7b74;">E-posta</div>
+            <div class="sc-title">"VPN Erişiminiz Askıya Alındı"</div>
+            <div class="sc-desc">IT departmanından acil şifre doğrulama talebi.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: orta">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Orta</span>
+            </div>
+          </button>
+
+          <!-- 2: Netflix - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s2')" aria-label="Senaryo 2: Netflix ödeme hatası e-postası">
+            <span class="sc-emoji">🎬</span>
+            <div class="sc-platform-pill" style="background:rgba(229,9,20,.15);color:#ff6b6b;">E-posta</div>
+            <div class="sc-title">"Ödeme Bilgilerinizi Güncelleyin"</div>
+            <div class="sc-desc">Netflix'ten geldiği iddia edilen fatura uyarısı.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: zor">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Zor ⚠️</span>
+            </div>
+          </button>
+
+          <!-- 3: Instagram - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s3')" aria-label="Senaryo 3: Instagram telif DM">
+            <span class="sc-emoji">📷</span>
+            <div class="sc-platform-pill" style="background:rgba(131,58,180,.15);color:#c77dff;">Instagram DM</div>
+            <div class="sc-title">"Hesabınız Telif Hakkı İhlali Aldı"</div>
+            <div class="sc-desc">Destek ekibinden geldiği iddia edilen 48 saatlik uyarı.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: zor">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Zor ⚠️</span>
+            </div>
+          </button>
+
+          <!-- 4: LinkedIn - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s4')" aria-label="Senaryo 4: LinkedIn iş teklifi phishing">
+            <span class="sc-emoji">💼</span>
+            <div class="sc-platform-pill" style="background:rgba(10,102,194,.15);color:#70b5f9;">LinkedIn</div>
+            <div class="sc-title">"Profilinize Uygun Pozisyon Bulduk"</div>
+            <div class="sc-desc">Tanınmış bir şirketten işe alım mesajı ve dosya isteği.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: zor">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot on"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Zor ⚠️</span>
+            </div>
+          </button>
+
+          <!-- 5: SMS Kargo - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s5')" aria-label="Senaryo 5: SMS kargo gümrük phishing">
+            <span class="sc-emoji">📦</span>
+            <div class="sc-platform-pill" style="background:rgba(245,158,11,.1);color:#fbbf24;">SMS</div>
+            <div class="sc-title">"Paketiniz Gümrükte Bekliyor"</div>
+            <div class="sc-desc">Kargo firmasından gelen acil ödeme talebi.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: orta">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Orta</span>
+            </div>
+          </button>
+
+          <!-- 6: WhatsApp Aile - PHISHING -->
+          <button class="sc-card" onclick="openScenario('s6')" aria-label="Senaryo 6: WhatsApp aile üyesi phishing">
+            <span class="sc-emoji">📱</span>
+            <div class="sc-platform-pill" style="background:rgba(37,211,102,.1);color:#4ade80;">WhatsApp</div>
+            <div class="sc-title">"Annem, Yeni Numaram Bu"</div>
+            <div class="sc-desc">Yakınınız olduğunu iddia eden bilinmeyen numara.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: orta">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Orta</span>
+            </div>
+          </button>
+
+          <!-- 7: SMS OTP - SAFE -->
+          <button class="sc-card" onclick="openScenario('s7')" aria-label="Senaryo 7: Gerçek OTP SMS">
+            <span class="sc-emoji">🔐</span>
+            <div class="sc-platform-pill" style="background:rgba(34,197,94,.08);color:#4ade80;">SMS</div>
+            <div class="sc-title">"Doğrulama Kodunuz: 847293"</div>
+            <div class="sc-desc">Giriş için bir anlık doğrulama kodu geldi.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: kolay">
+                <div class="sc-dot on"></div><div class="sc-dot"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Kolay</span>
+            </div>
+          </button>
+
+          <!-- 8: Email Sipariş - SAFE -->
+          <button class="sc-card" onclick="openScenario('s8')" aria-label="Senaryo 8: Gerçek sipariş bildirimi">
+            <span class="sc-emoji">🛍️</span>
+            <div class="sc-platform-pill" style="background:rgba(249,115,22,.1);color:#fb923c;">E-posta</div>
+            <div class="sc-title">"Siparişiniz Kargoya Verildi"</div>
+            <div class="sc-desc">Alışveriş platformundan gönderim bildirimi.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: orta">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Orta</span>
+            </div>
+          </button>
+
+          <!-- 9: Email Toplantı - SAFE -->
+          <button class="sc-card" onclick="openScenario('s9')" aria-label="Senaryo 9: Gerçek toplantı daveti">
+            <span class="sc-emoji">📅</span>
+            <div class="sc-platform-pill" style="background:rgba(59,130,246,.1);color:#60a5fa;">E-posta</div>
+            <div class="sc-title">"Q2 Strateji Toplantısı Daveti"</div>
+            <div class="sc-desc">Bir iş arkadaşından rutin proje toplantı daveti.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: kolay">
+                <div class="sc-dot on"></div><div class="sc-dot"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Kolay</span>
+            </div>
+          </button>
+
+          <!-- 10: SMS Banka İşlem - SAFE -->
+          <button class="sc-card" onclick="openScenario('s10')" aria-label="Senaryo 10: Gerçek banka bildirim SMS">
+            <span class="sc-emoji">🏦</span>
+            <div class="sc-platform-pill" style="background:rgba(34,197,94,.08);color:#4ade80;">SMS</div>
+            <div class="sc-title">"Kartınızda İşlem Gerçekleşti"</div>
+            <div class="sc-desc">Bankadan gelen işlem bildirim mesajı.</div>
+            <div class="sc-meta">
+              <div class="sc-diff" aria-label="Zorluk: orta">
+                <div class="sc-dot on"></div><div class="sc-dot on"></div><div class="sc-dot"></div>
+              </div>
+              <span class="text-xs" style="color:var(--text-faint);">Orta</span>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S1: IT VPN EMAIL — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s1">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 1 — E-posta</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu e-posta phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s1-sd2"></div></div>
+        </div>
+
+        <div class="email-shell">
+          <div class="email-chrome">
+            <div class="email-dots">
+              <div class="email-dot" style="background:#ff5f57;"></div>
+              <div class="email-dot" style="background:#febc2e;"></div>
+              <div class="email-dot" style="background:#28c840;"></div>
+            </div>
+            <div class="email-search">Gelen Kutusu — kurumsal</div>
+          </div>
+          <div class="email-sidebar">
+            <div class="email-left">
+              <div class="email-folder active">📥 Gelen Kutusu <span style="margin-left:auto;background:var(--red);color:#fff;border-radius:99px;padding:1px 7px;font-size:.65rem;font-weight:700;">1</span></div>
+              <div class="email-folder">⭐ Yıldızlılar</div>
+              <div class="email-folder">📤 Gönderilenler</div>
+              <div class="email-folder">🗑️ Çöp Kutusu</div>
+            </div>
+            <div class="email-main">
+              <div class="email-msg-header">
+                <div class="email-subject-line">[ACİL] VPN Erişiminiz 24 Saat İçinde Askıya Alınacak ⚠️</div>
+                <div class="email-from-row">
+                  <div class="email-avatar-circle" style="background:rgba(255,59,48,.15);color:var(--red);">IT</div>
+                  <div class="email-from-info">
+                    <div class="email-from-name">IT Güvenlik Ekibi</div>
+                    <div class="email-from-addr">&lt;guvenlik@altaysec-bilisim.net&gt;</div>
+                  </div>
+                  <div class="email-date">Bugün, 08:47</div>
+                </div>
+              </div>
+              <div class="email-body-area">
+                <p>Merhaba,</p>
+                <p>Güvenlik sistemlerimiz hesabınızda <strong>alışılmadık bir aktivite</strong> tespit etmiştir. Ağ güvenliği politikamız kapsamında tüm VPN bağlantılarının kimlik doğrulaması yenilenmesi gerekmektedir.</p>
+                <p>⏰ <strong>Hesabınızı doğrulamazsanız erişiminiz yarın 09:00'da otomatik olarak askıya alınacaktır.</strong></p>
+                <p>Kimliğinizi doğrulamak için aşağıdaki butona tıklayın:</p>
+                <div style="margin:20px 0;">
+                  <button class="email-cta-btn" style="background:var(--red);color:#fff;" onclick="handleChoice('s1','clicked')">
+                    🔐 Hesabımı Doğrula
+                  </button>
+                </div>
+                <p style="font-size:.78rem;color:#666;">Bu işlemi 5 dakika içinde tamamlamanız gerekmektedir.</p>
+                <hr class="email-divider">
+                <div class="email-sig">
+                  IT Güvenlik Ekibi<br>
+                  <span style="color:#555;">altaysec-bilisim.net</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s1','phishing')" id="s1-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s1','safe')"     id="s1-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s1-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s1-title">Evet — Bu bir Phishing e-postasıdır!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">İşte kaçırmamanız gereken 4 kritik ipucu:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Domain:</strong> <code style="background:rgba(255,59,48,.1);padding:1px 6px;border-radius:4px;color:var(--red-light);font-family:monospace;">altaysec-bilisim.net</code> — Gerçek domain <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">altaysec.com.tr</code> olurdu. Tire ile ayrılmış "bilisim" eki sahte bir domain taktiğidir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Yapay Acelecilik:</strong> "24 saat", "yarın 09:00", "5 dakika" — bu ifadeler paniğe sevk ederek sizi düşünmeden tıklatmak için tasarlanmıştır. Gerçek IT uyarıları bu kadar kısa süre vermez.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Kişisel Hitap Yok:</strong> "Merhaba" ile başlıyor — isminiz yok. Kurumsal IT sistemleri çalışanları ad/soyad ile hitap eder.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>E-posta ile Kimlik Doğrulama Yok:</strong> Gerçek sistemler şifre/kimlik güncellemesini e-postadaki link yerine doğrudan portal veya VPN istemcisi üzerinden yapar.</div>
+              </div>
+            </div>
+            <p class="text-sm" style="color:var(--text-muted);margin-bottom:var(--space-lg);">Ne yapmalı? Bu e-postayı IT ekibinize iletin ve linke tıklamayın. Şüpheleniyorsanız IT'yi <em>doğrudan arayın.</em></p>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/phishing-maili-nasil-anlasilir.html" class="btn btn-primary btn-sm">📚 E-posta Phishing Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Diğer Senaryolar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S2: NETFLIX EMAIL — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s2">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 2 — Netflix E-postası</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu e-posta phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s2-sd2"></div></div>
+        </div>
+
+        <div class="email-shell">
+          <div class="email-chrome">
+            <div class="email-dots">
+              <div class="email-dot" style="background:#ff5f57;"></div>
+              <div class="email-dot" style="background:#febc2e;"></div>
+              <div class="email-dot" style="background:#28c840;"></div>
+            </div>
+            <div class="email-search">Gelen Kutusu</div>
+          </div>
+          <div class="email-main">
+            <div class="email-msg-header" style="background:#141414;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <div style="background:#e50914;color:#fff;font-weight:900;font-size:1.1rem;padding:4px 10px;border-radius:4px;letter-spacing:-.02em;">NETFLIX</div>
+              </div>
+              <div class="email-subject-line" style="color:#fff;">Ödeme Bilgilerinizi Güncelleyin — Aboneliğiniz Tehlikede</div>
+              <div class="email-from-row">
+                <div class="email-avatar-circle" style="background:#e50914;color:#fff;font-weight:900;">N</div>
+                <div class="email-from-info">
+                  <div class="email-from-name">Netflix</div>
+                  <div class="email-from-addr">&lt;info@netflix-billing-update.com&gt;</div>
+                </div>
+                <div class="email-date">Bugün, 11:23</div>
+              </div>
+            </div>
+            <div class="email-body-area" style="background:#141414;">
+              <div style="text-align:center;padding:8px 0 20px;">
+                <div style="background:#e50914;color:#fff;font-weight:900;font-size:1.5rem;display:inline-block;padding:4px 14px;border-radius:4px;letter-spacing:-.02em;">NETFLIX</div>
+              </div>
+              <p style="font-size:.85rem;color:#bbb;">Merhaba,</p>
+              <p>Son ödemeniz işleme alınamadı. Aboneliğinizin kesintisiz devam etmesi için lütfen ödeme bilgilerinizi güncelleyin.</p>
+              <div style="background:#1a1a1a;border:1px solid #e50914;border-radius:10px;padding:16px;margin:16px 0;text-align:center;">
+                <p style="font-size:.85rem;color:#aaa;margin-bottom:12px;">Hesabınız <strong style="color:#ff4d4d;">7 gün içinde</strong> askıya alınacak.</p>
+                <button class="email-cta-btn" style="background:#e50914;color:#fff;width:100%;text-align:center;" onclick="handleChoice('s2','clicked')">
+                  Ödeme Bilgilerimi Güncelle
+                </button>
+              </div>
+              <p style="font-size:.78rem;color:#555;text-align:center;">Netflix Destek Ekibi</p>
+              <hr class="email-divider" style="border-color:#222;">
+              <p style="font-size:.72rem;color:#555;text-align:center;">Bu e-postayı almak istemiyorsanız <span style="color:#888;text-decoration:underline;">abonelikten çıkın</span>. Netflix Inc. 100 Winchester Circle, Los Gatos, CA 95032</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s2','phishing')" id="s2-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s2','safe')"     id="s2-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s2-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s2-title">Evet — Çok gerçekçi ama bu bir Phishing!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Netflix temalı phishing en yaygın saldırı türlerinden biri:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Domain (En Kritik İpucu):</strong> Gönderen <code style="background:rgba(255,59,48,.1);padding:1px 6px;border-radius:4px;color:var(--red-light);font-family:monospace;">netflix-billing-update.com</code> — Netflix'in gerçek domaini yalnızca <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">netflix.com</code>'dur. Hiçbir ek kelime veya tire içermez.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Ödeme Bilgisi Talebi:</strong> Netflix ödeme sorununda sizi <em>kendi uygulamanızdan</em> veya uygulama içi bildirimle yönlendirir. E-posta içindeki "güncelle" butonu her zaman şüphelidir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Gerçekçi Tasarım Yanıltıcıdır:</strong> Logo ve renk kopyalama kolayıdır. Tasarım ne kadar gerçekçi görünürse görünsün, gönderen adresini her zaman kontrol edin.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Ofis Adresi:</strong> Sondaki "Los Gatos, CA" gibi gerçek adres bilgileri güven yaratmak için eklenir — bu bilgiler kamuya açıktır ve herkes ekleyebilir.</div>
+              </div>
+            </div>
+            <p class="text-sm" style="color:var(--text-muted);margin-bottom:var(--space-lg);">✅ Doğru adım: Netflix'in uygulamasını veya netflix.com adresini doğrudan açın. Ödeme sorunu varsa orada görünür.</p>
+            <div class="flex gap-md flex-wrap">
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Diğer Senaryolar</button>
+              <a href="test.html" class="btn btn-primary btn-sm">❓ Testi Dene →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S3: INSTAGRAM DM — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s3">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 3 — Instagram DM</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu DM phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s3-sd2"></div></div>
+        </div>
+
+        <div class="ig-shell">
+          <div class="ig-topbar">
+            <span class="ig-back-arrow">‹</span>
+            <div class="ig-avatar" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);">📷</div>
+            <div class="ig-user-col">
+              <div class="ig-username">instagram_destek_merkezi</div>
+              <div class="ig-usermeta">Sizi takip etmiyor · Takipçi: 847</div>
+            </div>
+            <div class="ig-dots">⋯</div>
+          </div>
+          <div class="ig-warn-bar">
+            <span style="color:var(--amber);">⚠️</span>
+            Bu kişi sizi takip etmiyor. Mesajları şikayet edebilir veya engelleyebilirsiniz.
+          </div>
+          <div class="ig-convo">
+            <div class="ig-bubble-in">
+              <p>⚠️ <strong>Önemli Güvenlik Bildirimi</strong></p>
+              <br>
+              <p>Merhaba, Instagram©️ Telif Hakları Ekibiyiz.</p>
+              <p>Hesabınız aşağıdaki içerikler nedeniyle <strong>birden fazla telif hakkı ihlali bildirimi</strong> almıştır:</p>
+              <br>
+              <p>• Paylaşım tarihi: 08.04.2026<br>• İçerik türü: Fotoğraf / Reels</p>
+              <br>
+              <p>⏰ <strong>48 saat içinde itiraz formu doldurmazsanız</strong> hesabınız kalıcı olarak devre dışı bırakılacak ve tüm içerikleriniz silinecektir.</p>
+              <br>
+              <p>İtiraz için:</p>
+              <p style="color:#4fc3f7;text-decoration:underline;cursor:pointer;" onclick="handleChoice('s3','clicked')">→ instagram-appeal-center.net/itiraz-2026</p>
+            </div>
+            <div class="ig-bubble-time">09:14 · Okundu</div>
+          </div>
+          <div class="ig-reply-bar">
+            <div class="ig-reply-input">Mesaj yaz...</div>
+            <span style="color:#0095f6;font-size:.85rem;font-weight:600;">Gönder</span>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s3','phishing')" id="s3-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s3','safe')"     id="s3-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s3-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s3-title">Evet — Bu bir Phishing DM'idir!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Bu tuzak Türkiye'de binlerce hesabı etkiledi:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Instagram DM ile Resmi Bildirim Yapmaz:</strong> Telif hakkı bildirimleri yalnızca uygulama içi bildirim sistemi veya kayıtlı e-posta adresinize gönderilir. DM ile gelen her "resmi bildirim" sahtedir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Domain:</strong> <code style="background:rgba(255,59,48,.1);padding:1px 6px;border-radius:4px;color:var(--red-light);font-family:monospace;">instagram-appeal-center.net</code> — Instagram'ın domaini yalnızca <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">instagram.com</code> veya <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">meta.com</code>'dur.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>847 Takipçi, Takip Etmiyor:</strong> Gerçek Instagram destek hesabı onaylı (mavi tik) ve milyonlarca takipçiye sahip olur. Sizi takip etmeyen 847 takipçili bir hesap resmi destek değildir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Korku + Zaman Baskısı:</strong> "Kalıcı silme" ve "48 saat" ifadeleri panik yaratmak için tasarlanmıştır. Saldırganlar mantıklı düşünmenizi önlemek ister.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/instagram-phishing-telif-hakki.html" class="btn btn-primary btn-sm">📚 Instagram Phishing Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S4: LINKEDIN — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s4">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 4 — LinkedIn Mesajı</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu mesaj phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s4-sd2"></div></div>
+        </div>
+
+        <div class="li-shell">
+          <div class="li-topbar">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="li-logo" style="font-size:1.3rem;">in</div>
+              <div class="li-search">İş, bağlantı, içerik ara...</div>
+            </div>
+            <div style="display:flex;gap:14px;font-size:.8rem;color:#b0b9c2;">
+              <span>Ana Sayfa</span><span>Ağım</span><span style="color:#0a66c2;font-weight:600;">Mesajlaşma ●</span>
+            </div>
+          </div>
+          <div class="li-msg-area">
+            <div class="li-inbox">
+              <div class="li-inbox-header">Mesajlaşma</div>
+              <div class="li-thread">
+                <div class="li-thread-avatar" style="background:#1a3a5c;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="li-thread-name">Sarah Mitchell</div>
+                  <div class="li-thread-preview" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Profilinizi inceledik ve...</div>
+                </div>
+                <div class="li-thread-time">11:02</div>
+              </div>
+            </div>
+            <div class="li-msg-body">
+              <div class="li-msg-from">
+                <div class="li-from-avatar" style="background:#1a3a5c;">👤</div>
+                <div>
+                  <div class="li-from-name">Sarah Mitchell</div>
+                  <div class="li-from-title">Senior Talent Acquisition · Google LLC</div>
+                </div>
+                <div style="margin-left:auto;font-size:.72rem;color:#8a9aaa;">11:02</div>
+              </div>
+              <div class="li-bubble">
+                <p>Merhaba,</p>
+                <br>
+                <p>LinkedIn profilinizi inceledim ve deneyimlerinizin <strong>Google Türkiye</strong> bünyesinde açılan kıdemli yazılım mühendisi pozisyonu için son derece uygun olduğunu gördüm.</p>
+                <br>
+                <p>Pozisyon detayları ve maaş aralığı içeren sunumu paylaşmak isterim. Lütfen özgeçmişinizi şu adrese gönderin:</p>
+                <br>
+                <p style="color:#64b5f6;text-decoration:underline;cursor:pointer;" onclick="handleChoice('s4','clicked')">→ google-career-apply.net/submit-cv</p>
+                <br>
+                <p>Hızlı geri dönüş için dosyayı <strong>bugün iş kapanışına kadar</strong> iletirseniz sevinirim.</p>
+                <br>
+                <p style="font-size:.78rem;color:#8696a0;">Sarah Mitchell | Senior TA | Google LLC</p>
+              </div>
+              <div class="li-msg-actions">
+                <button class="li-btn li-btn-primary" onclick="handleChoice('s4','clicked')">Yanıtla</button>
+                <button class="li-btn li-btn-secondary">Profili Gör</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s4','phishing')" id="s4-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s4','safe')"     id="s4-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s4-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s4-title">Evet — Bu bir LinkedIn Phishing'idir!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">"İş teklifi" phishing son yıllarda büyük artış gösterdi:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Link Domain:</strong> <code style="background:rgba(255,59,48,.1);padding:1px 6px;border-radius:4px;color:var(--red-light);font-family:monospace;">google-career-apply.net</code> — Google'ın işe alım sistemi yalnızca <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">careers.google.com</code>'dur. Üçüncü taraf domain kullanmaz.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Harici E-posta / Link ile CV Talebi:</strong> Gerçek Google işe alım süreçleri her zaman resmi portal üzerinden yürür. Linkedin DM ile "bugün gönder" tarzı talepler kırmızı alarm işaretidir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Profil Doğrulanamıyor:</strong> "Sarah Mitchell" profilini incelediğinizde çok az bağlantı, kısa geçmiş ve genel bir fotoğraf bulunur. Gerçek Google işe alımcıları yüzlerce ortak bağlantısı olan köklü profillerdir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Acelecilik:</strong> "İş kapanışına kadar gönder" — CV toplamak için acele yaratmak sosyal mühendislik taktiğidir. Gerçek işe alım süreçleri bu kadar acele olmaz.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+              <a href="test.html" class="btn btn-primary btn-sm">❓ Testi Başlat →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S5: SMS KARGO — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s5">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 5 — SMS (Kargo)</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu SMS phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s5-sd2"></div></div>
+        </div>
+
+        <div class="sms-shell">
+          <div class="sms-topbar">
+            <div>
+              <div class="sms-sender">Yurtici Kargo</div>
+              <div class="sms-detail">+90 850 *** ** **</div>
+            </div>
+            <div style="color:#0a84ff;font-size:.82rem;">Sesli Arama</div>
+          </div>
+          <div class="sms-convo">
+            <div class="sms-timestamp">Bugün 10:41</div>
+            <div class="sms-bubble">
+              <strong>YurticiKargo:</strong> Paketiniz (Takip No: YK2049182) bugün teslim edilmek üzere çıkmıştır, ancak adresiniz eksik bilgi içerdiğinden gümrük onayı için <strong>₺23,90 ödeme</strong> gerekmektedir.<br><br>
+              Ödeme için son süre 17:00:<br>
+              <span style="color:#64b5f6;text-decoration:underline;cursor:pointer;" onclick="handleChoice('s5','clicked')">yurtici-odeme.net/gumruk</span>
+            </div>
+          </div>
+          <div class="sms-input-row">
+            <span style="font-size:1rem;">📷</span>
+            <div class="sms-input">iMessage</div>
+            <span style="color:#0a84ff;font-size:.85rem;font-weight:600;">Gönder</span>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s5','phishing')" id="s5-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s5','safe')"     id="s5-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s5-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s5-title">Evet — Bu bir Smishing (SMS Phishing) mesajıdır!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Kargo temalı smishing Türkiye'nin en yaygın SMS dolandırıcılığı:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Domain:</strong> <code style="background:rgba(255,59,48,.1);padding:1px 6px;border-radius:4px;color:var(--red-light);font-family:monospace;">yurtici-odeme.net</code> — Yurtiçi Kargo'nun resmi sitesi <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">yurticikargo.com</code>'dur. Kargo firmaları ödeme için harici domain kullanmaz.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Kargo Firmaları SMS ile Ödeme Linki Göndermez:</strong> Gerçek gümrük ödemeleri doğrudan kargo firmasının resmi uygulaması veya ptt.gov.tr üzerinden yapılır. SMS'teki link her zaman şüphelidir.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Sahte Takip Numarası:</strong> Gerçekçi görünen "YK2049182" kodu güven yaratmak için eklenir. Gerçek takip numarasını kargo firmasının sitesine girerek doğrulayabilirsiniz.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>"17:00 Son Süresi":</strong> Yapay zaman baskısı sizi aceleyle tıklatmak için. Gerçek teslimat sorunları böyle acele olmaz.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="btn btn-primary btn-sm">📚 SMS Dolandırıcılık Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S6: WHATSAPP AİLE — PHISHING
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s6">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 6 — WhatsApp</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu mesaj phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s6-sd2"></div></div>
+        </div>
+
+        <div class="wa-shell">
+          <div class="wa-header">
+            <span style="color:#e9edef;font-size:1.1rem;">‹</span>
+            <div class="wa-avatar">👤</div>
+            <div style="flex:1;">
+              <div class="wa-name">+90 555 847 29 18</div>
+              <div class="wa-status">çevrimiçi</div>
+            </div>
+            <div style="display:flex;gap:16px;color:#8696a0;font-size:1rem;">📞 ⋮</div>
+          </div>
+          <div class="wa-convo">
+            <div style="text-align:center;margin-bottom:12px;">
+              <span style="background:#1f2c34;padding:4px 12px;border-radius:8px;font-size:.72rem;color:#8696a0;">Bugün</span>
+            </div>
+            <div class="wa-warn">
+              <span>⚠️</span>
+              Bu kişi son zamanlarda sizi kaydettirdi. Bir dolandırıcılık mı? Engelle | Bildir
+            </div>
+            <div class="wa-bubble-in" style="margin-top:12px;">
+              Merhaba canım, annen burada 🌸 Eski telefonum bozuldu, şimdi bu numara kullanıyorum. Kaydetmeni isterim.
+              <div class="wa-time">10:58 ✓✓</div>
+            </div>
+            <div class="wa-bubble-in" style="margin-top:8px;">
+              Bir de sormak istediğim bir şey vardı, bu hafta sana küçük bir yardım isteyebilir miyim? Biraz acil bir durum çıktı, ayrıntısını sonra anlatırım 🙏
+              <div class="wa-time">11:03 ✓✓</div>
+            </div>
+          </div>
+          <div class="wa-input-row">
+            <span style="color:#8696a0;font-size:1rem;">😊</span>
+            <div class="wa-input">Mesaj yaz...</div>
+            <span style="color:#8696a0;font-size:1rem;">🎤</span>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s6','phishing')" id="s6-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s6','safe')"     id="s6-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-phish" id="s6-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">🎣</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--red);" id="s6-title">Evet — Bu klasik bir sosyal mühendislik saldırısıdır!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">"Aile üyesi" taktiği son derece duygusal ve etkilidir:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Bilinmeyen Numara, Kayıt Uyarısı:</strong> WhatsApp "son zamanlarda kaydettirdi" uyarısı gösteriyor — bu büyük bir kırmızı alarm. Gerçek anneniz eski numarasından size ulaşabilir veya sizi arayabilirdi.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>İki Aşamalı Tuzak:</strong> Birinci mesaj güven kurmak için ("annen burada"), ikinci mesaj para/yardım istemek için zemin hazırlıyor. Saldırgan yakın zamanda para veya kişisel bilgi isteyecek.</div>
+              </div>
+              <div class="indicator">
+                <div class="ind-icon">🔴</div>
+                <div class="ind-text"><strong>Doğrulama Yapılmadı:</strong> Gerçek annenizi tanıyan insanlar özel referanslar verir (ortak hatıralar, isimler). "Canım" gibi genel hitaplar şüphelidir.</div>
+              </div>
+            </div>
+            <div class="info-box" style="margin-bottom:var(--space-lg);">
+              <div style="font-size:1rem;flex-shrink:0;">💡</div>
+              <div class="warning-box-text"><strong style="color:var(--cyan);">Doğru Adım:</strong> Annenizin bilinen numarasını veya başka bir yakınınızı arayarak doğrulayın. Asla parayı göndermeyin.</div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/calisanlar-phishing-neden-dusuyor.html" class="btn btn-primary btn-sm">📚 Sosyal Mühendislik Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S7: SMS OTP — SAFE ✅
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s7">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 7 — SMS (OTP)</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu SMS phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s7-sd2"></div></div>
+        </div>
+
+        <div class="sms-shell">
+          <div class="sms-topbar">
+            <div>
+              <div class="sms-sender">e-Devlet</div>
+              <div class="sms-detail">Kısa Mesaj</div>
+            </div>
+          </div>
+          <div class="sms-convo">
+            <div class="sms-timestamp">Bugün 14:22</div>
+            <div class="sms-bubble">
+              e-Devlet Kapısı: Giriş doğrulama kodunuz <strong>847 293</strong>. Bu kodu kimseyle paylaşmayın. Kod 3 dakika geçerlidir.
+            </div>
+          </div>
+          <div class="sms-input-row">
+            <span style="font-size:1rem;">📷</span>
+            <div class="sms-input">iMessage</div>
+            <span style="color:#0a84ff;font-size:.85rem;font-weight:600;">Gönder</span>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s7','phishing')" id="s7-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s7','safe')"     id="s7-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-safe" id="s7-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">✅</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--green);" id="s7-title">Doğru — Bu güvenli bir OTP SMS'idir!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">İşte güvenli olduğunu gösteren işaretler:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Link İçermiyor:</strong> Gerçek OTP SMS'leri sadece kodu içerir. "Burayı tıklayın" gibi bir yönlendirme yoktur — bu en önemli güven işaretidir.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>"Kimseyle Paylaşmayın" Uyarısı:</strong> Gerçek sistemler bu uyarıyı açıkça yazar. Sizi arayan biri bu kodu istiyorsa — o bir saldırgandır, SMS güvenli olsa bile.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Kısa Geçerlilik Süresi (3 dk):</strong> Meşru OTP sistemleri kısa süreli kodlar kullanır. Bu güvenlik tasarımının bir parçasıdır.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Siz Giriş Yaptınız:</strong> Bu mesajı siz giriş yaparken aldıysanız tamamen normaldir. Siz işlem başlatmadan gelen bir OTP varsa — biri hesabınıza girmeye çalışıyor, şifreni değiştirin.</div>
+              </div>
+            </div>
+            <div class="warning-box" style="margin-bottom:var(--space-lg);">
+              <div class="warning-box-icon">⚠️</div>
+              <div class="warning-box-content">
+                <div class="warning-box-title">OTP Kodu Paylaşmayın</div>
+                <div class="warning-box-text">Bu SMS güvenli olsa bile — sizi arayan biri "kodu söyleyin" derse ASLA söylemeyin. Banka, e-Devlet veya hiçbir kurum sizi arayarak OTP istemez.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="btn btn-primary btn-sm">📚 SMS Güvenlik Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S8: SİPARİŞ EMAIL — SAFE ✅
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s8">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 8 — Sipariş E-postası</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu e-posta phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s8-sd2"></div></div>
+        </div>
+
+        <div class="email-shell">
+          <div class="email-chrome">
+            <div class="email-dots">
+              <div class="email-dot" style="background:#ff5f57;"></div>
+              <div class="email-dot" style="background:#febc2e;"></div>
+              <div class="email-dot" style="background:#28c840;"></div>
+            </div>
+            <div class="email-search">Gelen Kutusu</div>
+          </div>
+          <div class="email-main">
+            <div class="email-msg-header">
+              <div class="email-subject-line">🚚 Siparişiniz Kargoya Verildi — #TY19284751</div>
+              <div class="email-from-row">
+                <div class="email-avatar-circle" style="background:#f27a1a;color:#fff;font-weight:900;font-size:1rem;">T</div>
+                <div class="email-from-info">
+                  <div class="email-from-name">Trendyol</div>
+                  <div class="email-from-addr">&lt;bildirim@trendyol.com&gt;</div>
+                </div>
+                <div class="email-date">Bugün, 09:12</div>
+              </div>
+            </div>
+            <div class="email-body-area">
+              <p>Merhaba <strong>Ahmet</strong>,</p>
+              <p>Siparişiniz (<strong>#TY19284751</strong>) kargoya teslim edilmiştir. 🎉</p>
+              <div style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:16px;margin:16px 0;">
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:8px;">
+                  <span style="color:#888;">Ürün:</span>
+                  <span>Logitech MX Master 3S</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:8px;">
+                  <span style="color:#888;">Kargo:</span>
+                  <span>Yurtiçi Kargo</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:8px;">
+                  <span style="color:#888;">Takip No:</span>
+                  <span style="font-family:monospace;">YK738291047</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;">
+                  <span style="color:#888;">Tahmini Teslimat:</span>
+                  <span style="color:#22c55e;font-weight:600;">14 Nisan 2026</span>
+                </div>
+              </div>
+              <p>Siparişinizi takip etmek için <strong>trendyol.com/siparislerim</strong> adresini ziyaret edin.</p>
+              <hr class="email-divider">
+              <div class="email-sig">Trendyol Müşteri Hizmetleri<br><span style="color:#555;">trendyol.com · 444 50 40</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s8','phishing')" id="s8-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s8','safe')"     id="s8-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-safe" id="s8-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">✅</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--green);" id="s8-title">Doğru — Bu güvenli bir sipariş bildirimidir!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Neden güvenli olduğunu anlayalım:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Doğru Domain:</strong> <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">bildirim@trendyol.com</code> — Trendyol'un gerçek domaini. Trendyol.net, trendyol-bildirim.com gibi değil.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>İsimle Kişisel Hitap:</strong> "Merhaba Ahmet" — adınızla hitap etmesi gerçek hesap kaydından geliyor. Phishing genellikle "Merhaba Müşteri" der.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Link Trendyol.com'a Yönlendiriyor:</strong> "trendyol.com/siparislerim" — tıklatmak zorunda bırakmıyor, sadece bilgi veriyor ve kendi sitesine yönlendiriyor.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Sipariş Detayları Tutarlı:</strong> Sipariş numarası, ürün adı, kargo firması — bunlar gerçek bir siparişi yaptıysanız eşleşir. Phishing genellikle muğlak bilgi verir.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+              <a href="test.html" class="btn btn-primary btn-sm">❓ Testi Başlat →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S9: TOPLANTI EMAIL — SAFE ✅
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s9">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 9 — İş E-postası</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu e-posta phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s9-sd2"></div></div>
+        </div>
+
+        <div class="outlook-shell">
+          <div class="outlook-header">
+            <div style="display:flex;gap:6px;">
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);"></div>
+            </div>
+            <div class="outlook-header-title" style="margin-left:8px;">Microsoft Outlook — kurumsal@sirketiniz.com</div>
+          </div>
+          <div class="outlook-body">
+            <div class="outlook-to-row">
+              <strong style="color:#ccc;">Kimden:</strong> Mehmet Yılmaz &lt;m.yilmaz@sirketiniz.com&gt; &nbsp;|&nbsp;
+              <strong style="color:#ccc;">Kime:</strong> tüm-proje-ekibi@sirketiniz.com
+            </div>
+            <div class="outlook-subject">📅 Q2 Strateji Gözden Geçirme Toplantısı — Çarşamba 14:00</div>
+            <div class="outlook-content">
+              <p>Merhaba ekip,</p>
+              <p>Q2 hedeflerimizi ve proje durumunu değerlendirmek üzere bu Çarşamba öğleden sonra toplanıyoruz. Toplantı Google Meet üzerinden yapılacak.</p>
+              <div style="background:#1e2a38;border-radius:8px;padding:14px;margin:16px 0;border-left:3px solid #0078d4;">
+                <div style="font-size:.82rem;margin-bottom:6px;"><strong>📅 Tarih:</strong> 16 Nisan 2026, Çarşamba</div>
+                <div style="font-size:.82rem;margin-bottom:6px;"><strong>⏰ Saat:</strong> 14:00 – 15:30</div>
+                <div style="font-size:.82rem;margin-bottom:6px;"><strong>📍 Yer:</strong> Google Meet</div>
+                <div style="font-size:.82rem;"><strong>🔗 Link:</strong> <span style="color:#64b5f6;font-family:monospace;">meet.google.com/abc-defg-hij</span></div>
+              </div>
+              <p>Gündem:</p>
+              <p style="color:#aaa;padding-left:16px;">1. Q1 değerlendirmesi<br>2. Q2 hedef belirleme<br>3. Kaynak planlaması</p>
+              <p>Katılamayanlar lütfen önceden bilgi versin.</p>
+              <p style="margin-top:20px;">İyi çalışmalar,<br><strong>Mehmet Yılmaz</strong><br><span style="color:#888;font-size:.82rem;">Proje Müdürü · sirketiniz.com</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s9','phishing')" id="s9-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s9','safe')"     id="s9-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-safe" id="s9-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">✅</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--green);" id="s9-title">Doğru — Bu güvenli bir iş e-postasıdır!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Neden güvenli olduğunu inceleyelim:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Şirket Domain'i Tutarlı:</strong> Gönderen <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">m.yilmaz@sirketiniz.com</code> — hem gönderen hem de kime alanı aynı kurumsal domain.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Meet Linki Resmi Domain'de:</strong> <code style="background:rgba(34,197,94,.1);padding:1px 6px;border-radius:4px;color:var(--green);font-family:monospace;">meet.google.com</code> — Google'ın gerçek domain'i. meet-google-online.com veya benzeri değil.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Acelecilik Yok:</strong> Normal çalışma saatleri, makul toplantı süresi, önceden uyarı. Panik yaratmaya çalışmıyor.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Bilgi / Kimlik Talebi Yok:</strong> E-posta yalnızca toplantı davetiyesi içeriyor. Şifre, onay kodu veya kişisel bilgi istemiyor.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+              <a href="test.html" class="btn btn-primary btn-sm">❓ Testi Başlat →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           S10: BANKA SMS — SAFE ✅
+      ══════════════════════════════ -->
+      <div class="sim-wrap" id="sim-s10">
+        <div class="sim-topbar">
+          <button class="sim-back" onclick="closeScenario()">← Geri</button>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;">Senaryo 10 — Banka SMS</div>
+            <div class="text-xs" style="color:var(--text-muted);">Bu SMS phishing mi, yoksa güvenli mi?</div>
+          </div>
+          <div class="sim-stepdots"><div class="sim-sd active"></div><div class="sim-sd" id="s10-sd2"></div></div>
+        </div>
+
+        <div class="sms-shell">
+          <div class="sms-topbar">
+            <div>
+              <div class="sms-sender">Akbank</div>
+              <div class="sms-detail">Kısa Mesaj</div>
+            </div>
+          </div>
+          <div class="sms-convo">
+            <div class="sms-timestamp">Bugün 15:33</div>
+            <div class="sms-bubble">
+              Akbank: **** 4821 kart numaralı kartınızla 12.04.2026 tarihinde, Migros AŞ'de <strong>₺347,50</strong> tutarında işlem gerçekleştirdi. Onaylamıyorsanız 444 25 25'i arayın.
+            </div>
+          </div>
+          <div class="sms-input-row">
+            <span style="font-size:1rem;">📷</span>
+            <div class="sms-input">iMessage</div>
+            <span style="color:#0a84ff;font-size:.85rem;font-weight:600;">Gönder</span>
+          </div>
+        </div>
+
+        <div class="ans-row">
+          <button class="ans-btn ans-phish" onclick="handleChoice('s10','phishing')" id="s10-bp">🎣 Bu bir Phishing!</button>
+          <button class="ans-btn ans-safe"  onclick="handleChoice('s10','safe')"     id="s10-bs">✅ Bu Güvenli</button>
+        </div>
+
+        <div class="sim-result result-safe" id="s10-result">
+          <div class="sim-result-head">
+            <span style="font-size:1.4rem;">✅</span>
+            <div>
+              <div style="font-size:1rem;font-weight:800;color:var(--green);" id="s10-title">Doğru — Bu güvenli bir banka bildirimidir!</div>
+              <div class="text-sm" style="color:var(--text-secondary);">Gerçek banka SMS'lerinin özellikleri:</div>
+            </div>
+          </div>
+          <div class="sim-result-body">
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Link İçermiyor:</strong> En kritik güven işareti — sadece işlem bilgisi var, herhangi bir link yok. Gerçek banka bildirimleri asla tıklatılabilir link içermez.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Resmi Telefon Numarası:</strong> "444 25 25" Akbank'ın gerçek müşteri hizmetleri numarasıdır. 0212 veya 444 ile başlayan numaralar doğrulanabilir resmi hatlardır.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Kısmi Kart Numarası:</strong> "**** 4821" — gerçek kart numaranızın son 4 hanesi. Sahte SMS'ler tam numara veya hiç numara göstermez.</div>
+              </div>
+              <div class="indicator indicator-safe">
+                <div class="ind-icon">🟢</div>
+                <div class="ind-text"><strong>Spesifik İşlem Bilgisi:</strong> Tarih, tutar ve işyeri adı spesifik. Phishing genellikle "bir işlem gerçekleşti" gibi muğlak bilgi verir.</div>
+              </div>
+            </div>
+            <div class="warning-box" style="margin-bottom:var(--space-lg);">
+              <div class="warning-box-icon">⚠️</div>
+              <div class="warning-box-content">
+                <div class="warning-box-title">İşlemi Siz Yapmadıysanız</div>
+                <div class="warning-box-text">SMS'teki linki tıklamayın — doğrudan 444 25 25'i arayın veya bankanın uygulamasını açın. Kart itiraz işlemini oradan yapın.</div>
+              </div>
+            </div>
+            <div class="flex gap-md flex-wrap">
+              <a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="btn btn-primary btn-sm">📚 SMS Güvenlik Rehberi</a>
+              <button class="btn btn-outline btn-sm" onclick="closeScenario()">← Geri</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Bu platform yalnızca eğitim amaçlıdır.</p>
+        <div class="flex gap-md">
+          <a href="index.html" class="footer-link" style="font-size:.8rem;">Ana Sayfa</a>
+          <a href="test.html" class="footer-link" style="font-size:.8rem;">Test →</a>
+          <a href="blog/index.html" class="footer-link" style="font-size:.8rem;">Blog →</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+  /**
+   * Simülatör Mantığı — Inline (10 senaryo, mixed phishing/safe)
+   */
+  'use strict';
+
+  // Her senaryonun doğru cevabı
+  const ANSWERS = {
+    s1:'phishing', s2:'phishing', s3:'phishing', s4:'phishing',
+    s5:'phishing', s6:'phishing',
+    s7:'safe', s8:'safe', s9:'safe', s10:'safe'
+  };
+
+  let activeScenario = null;
+
+  window.openScenario = function(id) {
+    document.getElementById('scenarioSelect').style.display = 'none';
+    document.getElementById('sim-intro').style.display = 'none';
+
+    const wrap = document.getElementById('sim-' + id);
+    if (!wrap) return;
+    wrap.classList.add('active');
+    activeScenario = id;
+    resetScenario(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.closeScenario = function() {
+    if (activeScenario) {
+      document.getElementById('sim-' + activeScenario).classList.remove('active');
+      activeScenario = null;
+    }
+    document.getElementById('scenarioSelect').style.display = '';
+    document.getElementById('sim-intro').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.handleChoice = function(id, choice) {
+    if (choice === 'clicked') {
+      showLinkModal(id);
+      return;
+    }
+
+    const correct  = ANSWERS[id];
+    const isRight  = choice === correct;
+    const result   = document.getElementById(id + '-result');
+    const bpBtn    = document.getElementById(id + '-bp');
+    const bsBtn    = document.getElementById(id + '-bs');
+    const titleEl  = document.getElementById(id + '-title');
+
+    // Butonları kilitle
+    [bpBtn, bsBtn].forEach(b => { if(b) b.disabled = true; });
+
+    // Stil: seçilen wrong mu correct mu
+    const chosenBtn = choice === 'phishing' ? bpBtn : bsBtn;
+    const otherBtn  = choice === 'phishing' ? bsBtn  : bpBtn;
+
+    if (isRight) {
+      if (chosenBtn) chosenBtn.classList.add('selected-correct');
+    } else {
+      if (chosenBtn) chosenBtn.classList.add('selected-wrong');
+      // Doğru cevabı göster
+      const rightBtn = correct === 'phishing' ? bpBtn : bsBtn;
+      if (rightBtn) rightBtn.classList.add('reveal-correct');
+
+      // Başlık güncelle
+      if (titleEl) {
+        if (correct === 'phishing') {
+          titleEl.textContent = '😬 Neredeyse! Ama bu bir Phishing saldırısıydı.';
+          titleEl.style.color = 'var(--amber)';
+        } else {
+          titleEl.textContent = '😬 Neredeyse! Ama bu güvenli bir mesajdı.';
+          titleEl.style.color = 'var(--amber)';
+        }
+      }
+    }
+
+    // Adım göstergesi
+    const sd2 = document.getElementById(id + '-sd2') ||
+                document.getElementById(id.replace('s','s') + '-sd2');
+    if (sd2) sd2.classList.add('done');
+
+    // Sonuç paneli
+    if (result) {
+      result.classList.add('show');
+      setTimeout(() => result.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    }
+  };
+
+  function showLinkModal(id) {
+    const correct = ANSWERS[id];
+    const isPhish = correct === 'phishing';
+
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.96);
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;animation:fadeIn .3s ease;
+    `;
+    modal.innerHTML = `
+      <div style="background:#111;border:1px solid rgba(255,59,48,.4);border-radius:24px;
+        padding:44px 36px;max-width:500px;width:100%;text-align:center;
+        box-shadow:0 0 80px rgba(255,59,48,.15);animation:slideUp .4s ease;">
+        <div style="font-size:3.5rem;margin-bottom:20px;">${isPhish ? '🎣' : '🤔'}</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;
+          background:rgba(255,59,48,.1);border:1px solid rgba(255,59,48,.25);
+          border-radius:999px;padding:5px 14px;font-size:.72rem;font-weight:700;
+          color:var(--red-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:currentColor;
+            animation:pulse 1.5s ease infinite;display:inline-block;"></span>
+          ${isPhish ? 'Tuzağa düştünüz!' : 'Dikkat et!'}
+        </div>
+        <h2 style="font-size:1.5rem;font-weight:900;margin-bottom:14px;color:#fff;">
+          ${isPhish ? 'Linke tıkladınız.' : 'Gerçek bir link olabilirdi.'}
+        </h2>
+        <p style="color:#a0a0a8;font-size:.9rem;line-height:1.7;margin-bottom:28px;">
+          ${isPhish
+            ? 'Gerçek bir saldırıda bu tıklama sizi sahte bir giriş sayfasına götürürdü ve kimlik bilgileriniz çalınırdı. Ama bu güvenli bir simülasyon — öğrenmek için harika bir fırsat!'
+            : 'Bu sefer gerçek bir link olabilirdi, ama dikkatli olmak her zaman iyidir. Gündelik mesajlarda bile alışkanlık edinmek güvenliğinizi artırır.'}
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="document.body.style.overflow='';this.closest('[style*=fixed]').remove();handleChoice('${id}','phishing');"
+            style="background:var(--red);color:#fff;border:none;padding:12px 24px;
+            border-radius:12px;font-weight:700;font-size:.875rem;cursor:pointer;
+            font-family:inherit;">
+            Phishing Göstergelerini Gör →
+          </button>
+          <button onclick="document.body.style.overflow='';this.closest('[style*=fixed]').remove();closeScenario();"
+            style="background:transparent;color:#a0a0a8;border:1px solid rgba(255,255,255,.1);
+            padding:12px 24px;border-radius:12px;font-weight:600;font-size:.875rem;
+            cursor:pointer;font-family:inherit;">
+            Diğer Senaryolar
+          </button>
+        </div>
+      </div>`;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  function resetScenario(id) {
+    const r = document.getElementById(id + '-result');
+    if (r) r.classList.remove('show');
+
+    ['bp','bs'].forEach(s => {
+      const b = document.getElementById(id + '-' + s);
+      if (b) {
+        b.disabled = false;
+        b.classList.remove('selected-correct','selected-wrong','reveal-correct');
+      }
+    });
+
+    const sd2 = document.getElementById(id + '-sd2');
+    if (sd2) sd2.classList.remove('done');
+
+    const title = document.getElementById(id + '-title');
+    if (title) { title.style.color = ''; }
+  }
+
+  // URL deep link
+  (function() {
+    const p = new URLSearchParams(location.search).get('senaryo');
+    if (p && document.getElementById('sim-' + p)) openScenario(p);
+  })();
+  </script>
+</body>
+</html>

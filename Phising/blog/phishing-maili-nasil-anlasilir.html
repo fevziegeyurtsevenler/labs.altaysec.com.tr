@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing E-postasını 10 Saniyede Nasıl Anlarsınız? | AltaySec</title>
+  <meta name="description" content="Phishing e-postalarını tanımı için 10 kritik ipucu: sahte domain, yapay acelecilik, genel hitap, şüpheli linkler ve daha fazlası. AltaySec güvenlik uzmanlarından gerçek örneklerle.">
+  <meta name="keywords" content="phishing maili nasıl anlaşılır, phishing e-posta göstergeleri, sahte e-posta, phishing domain, phishing tanıma, siber güvenlik">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/blog/phishing-maili-nasil-anlasilir.html">
+  <meta property="og:title" content="Phishing E-postasını 10 Saniyede Nasıl Anlarsınız? | AltaySec">
+  <meta property="og:description" content="10 kritik ipucu ile phishing e-postalarını tanıyın. Gerçek örneklerle açıklamalı rehber.">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/blog/phishing-maili-nasil-anlasilir.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="https://phishing.altaysec.com.tr/assets/og/og-blog-email.png">
+  <meta property="article:published_time" content="2026-04-12T00:00:00+03:00">
+  <meta property="article:author" content="AltaySec">
+  <meta property="article:section" content="E-posta Güvenliği">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Phishing E-postasını 10 Saniyede Nasıl Anlarsınız?",
+    "description": "Phishing e-postalarını tanımak için 10 kritik ipucu. Sahte domain, yapay acelecilik ve daha fazlası.",
+    "author": {"@type": "Organization", "name": "AltaySec", "url": "https://altaysec.com.tr"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "AltaySec",
+      "logo": {"@type": "ImageObject", "url": "https://altaysec.com.tr/logo.png"}
+    },
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "url": "https://phishing.altaysec.com.tr/blog/phishing-maili-nasil-anlasilir.html",
+    "image": "https://phishing.altaysec.com.tr/assets/og/og-blog-email.png",
+    "inLanguage": "tr-TR",
+    "about": {"@type": "Thing", "name": "Phishing"},
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://phishing.altaysec.com.tr/blog/phishing-maili-nasil-anlasilir.html"}
+  }
+  </script>
+
+  <style>
+    .article-page { padding-top: var(--nav-height); }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: var(--space-2xl);
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .article-body {
+      min-width: 0;
+    }
+
+    .article-toc {
+      position: sticky;
+      top: calc(var(--nav-height) + 24px);
+    }
+
+    .article-toc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .article-content { max-width: 700px; }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: var(--space-2xl) 0 var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      scroll-margin-top: 90px;
+    }
+
+    .article-content h2:first-of-type { border-top: none; margin-top: 0; }
+
+    .article-content h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: var(--space-xl) 0 var(--space-sm);
+      color: var(--text-primary);
+      scroll-margin-top: 90px;
+    }
+
+    .article-content p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+      font-size: 1rem;
+    }
+
+    .article-content ul, .article-content ol {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+      padding-left: var(--space-xl);
+    }
+
+    .article-content ul li { list-style: disc; margin-bottom: 6px; }
+    .article-content ol li { list-style: decimal; margin-bottom: 6px; }
+
+    .article-content strong { color: var(--text-primary); }
+
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875em;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--cyan);
+    }
+
+    .tip-number {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--red);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+
+    .tip-num {
+      width: 36px; height: 36px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.9rem; color: #fff;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-logo" aria-label="Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="../index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="../simulasyon.html" class="nav-link">🎮 Simülasyon</a></li>
+        <li><a href="../test.html" class="nav-link">❓ Test</a></li>
+        <li><a href="index.html" class="nav-link active" aria-current="page">📝 Blog</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">← AltaySec</a>
+        <a href="../test.html" class="btn btn-primary btn-sm">Testi Başlat →</a>
+      </div>
+    </div>
+  </nav>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <main class="article-page">
+    <div class="container" style="padding-block: var(--space-2xl);">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" style="margin-bottom:var(--space-xl);">
+        <ol style="display:flex;gap:8px;align-items:center;font-size:0.8rem;color:var(--text-muted);" role="list">
+          <li><a href="../index.html" style="color:var(--text-muted);" class="footer-link">Ana Sayfa</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="index.html" style="color:var(--text-muted);" class="footer-link">Blog</a></li>
+          <li aria-hidden="true">/</li>
+          <li style="color:var(--text-secondary);">E-posta Phishing</li>
+        </ol>
+      </nav>
+
+      <div class="article-layout">
+
+        <!-- Ana İçerik -->
+        <article class="article-body" itemscope itemtype="https://schema.org/Article">
+
+          <!-- Meta -->
+          <div style="margin-bottom:var(--space-xl);">
+            <div class="flex gap-sm flex-wrap" style="margin-bottom:var(--space-md);">
+              <span class="badge badge-red">📧 E-posta Güvenliği</span>
+              <span class="badge badge-muted">⏱ 7 dk okuma</span>
+              <span class="badge badge-muted">12 Nisan 2026</span>
+            </div>
+            <h1 itemprop="headline" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; letter-spacing:-0.03em; line-height:1.15; margin-bottom:var(--space-lg);">
+              Phishing E-postasını 10 Saniyede Nasıl Anlarsınız?
+            </h1>
+            <p style="font-size:1.1rem; color:var(--text-secondary); line-height:1.7; border-left:3px solid var(--red); padding-left:var(--space-lg);">
+              Her gün 3.4 milyar phishing e-postası gönderiliyor. Bu makalede, sahte e-postaları 10 saniyede tanımanızı sağlayacak 10 kritik ipucunu gerçek örneklerle açıklıyoruz.
+            </p>
+          </div>
+
+          <div class="article-content" itemprop="articleBody">
+
+            <h2 id="phishing-nedir">Phishing E-postası Nedir?</h2>
+            <p>
+              Phishing (oltalama), saldırganların güvenilir bir kaynaktan — bankanız, IT departmanınız, sosyal medya platformu veya bir kargo firması — geliyormuş gibi görünen sahte e-postalar göndererek kişisel bilgilerinizi, şifrelerinizi veya finansal verilerinizi çalmaya çalıştığı bir siber saldırı yöntemidir.
+            </p>
+            <p>
+              IBM'in 2024 Güvenlik Raporuna göre tüm veri ihlallerinin <strong>%82'si insan hatasından</strong> kaynaklanmaktadır. Phishing e-postaları bu hatanın en büyük tetikleyicisidir. Peki bu e-postaları nasıl tanıyacaksınız?
+            </p>
+
+            <h2 id="10-ipucu">10 Kritik Phishing Göstergesi</h2>
+
+            <div class="tip-number">
+              <div class="tip-num">1</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Gönderen E-posta Adresini Kontrol Edin</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">En kritik adım. Adı değil, domain'i inceleyin.</p>
+              </div>
+            </div>
+            <p>
+              Bir e-postanın gerçek olup olmadığını anlamanın en hızlı yolu gönderen adresinin <strong>domain kısmına</strong> bakmaktır. Saldırganlar görünen ismi istediği gibi ayarlayabilir, ancak gerçek domain genellikle ele verir.
+            </p>
+            <p>Gerçek dünya örnekleri:</p>
+            <ul>
+              <li><code>it-destek@altaysec-tr.net</code> → SAHTE (<code>altaysec.com.tr</code> olmalı)</li>
+              <li><code>noreply@goog1e.com</code> → SAHTE ("l" değil "1" rakamı)</li>
+              <li><code>security@apple-id-verify.com</code> → SAHTE (<code>apple.com</code> olmalı)</li>
+              <li><code>bildirim@trendyol.com</code> → GERÇEK</li>
+            </ul>
+            <p>
+              Bu taktik "typosquatting" veya "domain spoofing" olarak bilinir. Saldırganlar size benzer alan adları alır: tire eklerler, harf yerine rakam kullanırlar, farklı uzantı seçerler (.net, .xyz, .online vs. .com.tr).
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">2</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Yapay Acelecilik ve Tehdit Dili</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Panik yaratmak saldırganın en büyük silahıdır.</p>
+              </div>
+            </div>
+            <p>
+              Phishing e-postaları neredeyse her zaman acele yaratır. "24 saat içinde", "hemen", "son şansınız", "hesabınız devre dışı bırakılacak" gibi ifadeler sizi düşünmeden tıklamaya iter. Bu psikolojik manipülasyon taktiğine <strong>aciliyet manipülasyonu</strong> denir.
+            </p>
+            <p>
+              Gerçek kurumlar — bankanız, IT departmanınız, sosyal medya platformları — size nadiren bu kadar kısa süre verir. Şüphelendiğinizde bekleyin, durumu kurum ile doğrudan iletişim kurarak doğrulayın.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">3</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Genel Hitap: "Sayın Kullanıcı"</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Gerçek kurumlar genellikle sizi isminizle anar.</p>
+              </div>
+            </div>
+            <p>
+              "Sayın müşterimiz", "Dear Customer", "Değerli kullanıcı" gibi genel hitaplar şüphe uyandırmalıdır. Bankanız, abonelik hizmetleri ve kurumsal sistemler genellikle hesabınızda kayıtlı adınızı kullanır: "Sayın Ahmet Yılmaz".
+            </p>
+            <p>
+              Not: İsimli hitap <em>phishing olmadığını garanti etmez</em> — veri ihlallerinden elde edilen isimler phishing e-postalarında da kullanılabilir. Ancak isimsiz hitap önemli bir uyarı işaretidir.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">4</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Linkleri Tıklamadan Önce Üzerine Gelin</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Mouse ile hover yapın, gerçek URL'yi görün.</p>
+              </div>
+            </div>
+            <p>
+              Bir e-postadaki linkin üzerine tıklamadan geldiğinizde (hover), tarayıcınızın sol alt köşesinde gerçek hedef URL görünür. "Hesabımı Doğrula" yazısının arkasında <code>login.altaysec-verify.xyz/phish?ref=12345</code> gibi şüpheli bir adres olabilir.
+            </p>
+            <p>
+              Mobil cihazlarda linki uzun basarak önizleyebilirsiniz. Her zaman gidecekleriniz gerçek domain'e dikkat edin.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">5</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Beklenmedik Ek Dosyalar</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">.exe, .zip, .docm dosyaları tehlikeli olabilir.</p>
+              </div>
+            </div>
+            <p>
+              Beklenmediğiniz eklentiler — özellikle <code>.exe</code>, <code>.zip</code>, <code>.docm</code>, <code>.xlsm</code> gibi aktif içerik barındıran dosyalar — açılmamalıdır. Fatura.pdf.exe gibi double extension'a dikkat edin.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">6</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Yazım Hataları ve Garip Dil</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Phishing e-postaları genellikle hatalı Türkçe içerir.</p>
+              </div>
+            </div>
+            <p>
+              Profesyonel kurumlar e-postalarını dikkatlice hazırlar. Beklenmedik yazım hataları, garip cümle yapısı veya otomatik çeviri hissi veren metinler şüphelenmenizi gerektiren işaretlerdir.
+            </p>
+            <p>
+              Ancak son yıllarda yapay zeka desteğiyle hazırlanan phishing e-postaları çok daha profesyonel görünebiliyor. Yazım hatası olmayan e-postalar da phishing olabilir.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">7</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Kişisel Bilgi veya Şifre Talebi</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Hiçbir meşru kurum e-posta ile şifre istemez.</p>
+              </div>
+            </div>
+            <p>
+              <strong>Altın kural:</strong> Bankanız, IT departmanınız veya herhangi bir meşru kurum e-posta yoluyla şifrenizi, PIN'inizi veya tam kredi kartı bilgilerinizi asla istemez. Bu talebi içeren her e-posta kesinlikle şüphelidir.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">8</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Beklenmedik Ödül veya Kazanç</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Katılmadığınız çekilişten kazanamazsınız.</p>
+              </div>
+            </div>
+            <p>
+              "Çekilişi kazandınız!", "Google sizi seçti", "50.000 TL ödülünüzü talep edin" — katılmadığınız bir çekilişten kazandığınızı bildiren her mesaj sahtedir. Bu tür mesajlar kişisel bilgi toplamak için kullanılır.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">9</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Resmi Kanal Dışı İletişim Talebi</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">WhatsApp, Telegram veya kişisel mail ile devam ister.</p>
+              </div>
+            </div>
+            <p>
+              "Bu maili yanıtlamayın, WhatsApp'tan devam edin" gibi talepler büyük bir uyarı işaretidir. Gerçek kurumlar kendi resmi kanallarını kullanır.
+            </p>
+
+            <div class="tip-number">
+              <div class="tip-num">10</div>
+              <div>
+                <h3 style="margin:0 0 4px; font-size:1rem;">Şüphe Duyduğunuzda Kurum ile Doğrulayın</h3>
+                <p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Tıklamayın — doğrudan arayın.</p>
+              </div>
+            </div>
+            <p>
+              Herhangi bir e-postadan şüpheleniyorsanız yapmanız gereken tek şey: o e-postadaki hiçbir linke tıklamadan, telefon rehberinizden veya resmi web sitesinden kurumu arayın. "BT departmanı gerçekten mi bu e-postayı gönderdi?" sorusunu sorun.
+            </p>
+
+            <div class="warning-box" style="margin: var(--space-xl) 0;">
+              <div class="warning-box-icon">⚠️</div>
+              <div class="warning-box-content">
+                <div class="warning-box-title">Phishing E-postasına Düştüyseniz</div>
+                <div class="warning-box-text">Hemen şifrelerinizi değiştirin, iki faktörlü doğrulamayı aktif edin, banka bilgisi girdiyseniz bankanızı arayın. Olayı BTK'ya ve ilgili platforma bildirin.</div>
+              </div>
+            </div>
+
+            <h2 id="faq">Sıkça Sorulan Sorular</h2>
+
+            <h3>Phishing e-postası açarsam ne olur?</h3>
+            <p>
+              Sadece açmak genellikle zararsızdır. Asıl tehlike linklere tıklamak ve bilgi girmektir. Bazı e-postalar açıldığında izleme pikseli ile "okundu" bildirimi gönderir, bu da saldırganın aktif bir hesap bulduğunu anlamasını sağlar.
+            </p>
+
+            <h3>Spam filtresi phishing e-postalarını yakalar mı?</h3>
+            <p>
+              Modern spam filtreleri phishinglerin büyük çoğunluğunu yakalar. Ancak sofistike saldırılar — özellikle spear phishing (kişiye özel) — filtreleri atlayabilir. Teknik koruma yeterli değildir; insan farkındalığı şarttır.
+            </p>
+
+            <h3>İş e-postamı da phishinge karşı korumalı mıyım?</h3>
+            <p>
+              Evet, hatta daha fazla. İş e-postanız şirket verilerine, müşteri bilgilerine ve finansal sistemlere erişim sağlayabilir. BEC (Business Email Compromise) saldırıları şirketlere yılda milyarlarca dolar zarara yol açmaktadır.
+            </p>
+
+          </div>
+
+          <!-- CTA kutusu -->
+          <div class="info-box" style="margin-top:var(--space-2xl);">
+            <div style="font-size:1.25rem; flex-shrink:0;" aria-hidden="true">🎯</div>
+            <div>
+              <div style="font-weight:700; color:var(--cyan); margin-bottom:4px;">Bu bilgileri test etmek ister misiniz?</div>
+              <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:var(--space-md); line-height:1.6;">10 soruluk phishing testi ile gerçek farkındalık seviyenizi ölçün.</p>
+              <div class="flex gap-md flex-wrap">
+                <a href="../test.html" class="btn btn-primary btn-sm">❓ Testi Başlat</a>
+                <a href="../simulasyon.html" class="btn btn-outline btn-sm">🎮 Simülatörü Dene</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- İlgili Yazılar -->
+          <div style="margin-top:var(--space-2xl); padding-top:var(--space-xl); border-top:1px solid var(--border-subtle);">
+            <p class="text-sm font-semibold" style="color:var(--text-muted); margin-bottom:var(--space-md);">İlgili Yazılar</p>
+            <div class="grid-2" style="gap:var(--space-md);">
+              <a href="instagram-phishing-telif-hakki.html" class="blog-card" aria-label="Instagram phishing yazısı">
+                <div class="blog-card-body">
+                  <span class="blog-card-tag">📷 Sosyal Medya</span>
+                  <h3 class="blog-card-title" style="font-size:0.95rem; margin-top:var(--space-sm);">Instagram "Telif Hakkı" Tuzağı</h3>
+                </div>
+                <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+              </a>
+              <a href="sms-dolandiricilik-nasil-anlasilir.html" class="blog-card" aria-label="SMS dolandırıcılık yazısı">
+                <div class="blog-card-body">
+                  <span class="blog-card-tag">💬 SMS & OTP</span>
+                  <h3 class="blog-card-title" style="font-size:0.95rem; margin-top:var(--space-sm);">SMS Dolandırıcılığı Nasıl Anlaşılır?</h3>
+                </div>
+                <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+              </a>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- TOC Sidebar -->
+        <aside class="article-toc" aria-label="İçindekiler">
+          <div class="article-toc-card">
+            <p class="text-xs font-bold" style="letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:var(--space-md);">İçindekiler</p>
+            <nav>
+              <ul style="display:flex;flex-direction:column;gap:6px;" role="list">
+                <li><a href="#phishing-nedir" class="footer-link" style="font-size:0.85rem;">Phishing Nedir?</a></li>
+                <li><a href="#10-ipucu" class="footer-link" style="font-size:0.85rem;">10 Kritik Gösterge</a></li>
+                <li><a href="#faq" class="footer-link" style="font-size:0.85rem;">Sıkça Sorulan</a></li>
+              </ul>
+            </nav>
+            <div style="margin-top:var(--space-xl); padding-top:var(--space-lg); border-top:1px solid var(--border-subtle);">
+              <p class="text-xs" style="color:var(--text-muted); margin-bottom:var(--space-md);">Öğrendiklerini test et:</p>
+              <a href="../test.html" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">❓ Testi Başlat</a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Bu platform yalnızca eğitim amaçlıdır.</p>
+        <div class="flex gap-md">
+          <a href="../index.html" class="footer-link" style="font-size:0.8rem;">Ana Sayfa</a>
+          <a href="index.html" class="footer-link" style="font-size:0.8rem;">Blog</a>
+          <a href="../test.html" class="footer-link" style="font-size:0.8rem;">Test</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

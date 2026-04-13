@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Farkındalık Testi — Sen Ne Kadar Güvendesin? | AltaySec</title>
+  <meta name="description" content="10 soruluk phishing farkındalık testini çöz. Gerçekçi e-posta, DM ve SMS görüntüleriyle 'phishing mi değil mi?' kararını ver. Sonucunu paylaş, çevreni uyar. AltaySec ücretsiz.">
+  <meta name="keywords" content="phishing testi, phishing farkındalık testi, phishing quiz, siber güvenlik testi, phishing nasıl anlaşılır">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/test.html">
+  <meta property="og:title" content="Phishing Farkındalık Testi | AltaySec">
+  <meta property="og:description" content="10 soruluk test ile phishing farkındalığınızı ölçün. Sonucunuzu paylaşın, çevrenizi de koruyun.">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/test.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="https://phishing.altaysec.com.tr/assets/og/og-test.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Phishing Farkındalık Testi | AltaySec">
+  <meta name="twitter:image" content="https://phishing.altaysec.com.tr/assets/og/og-test.png">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Phishing Farkındalık Testi",
+    "description": "10 soruluk quiz ile phishing saldırılarını tanıma seviyenizi ölçün.",
+    "about": {"@type": "Thing", "name": "Phishing"},
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "educationalFramework": "Siber Güvenlik Farkındalığı"
+    },
+    "provider": {"@type": "Organization", "name": "AltaySec"},
+    "url": "https://phishing.altaysec.com.tr/test.html"
+  }
+  </script>
+
+  <style>
+    .test-page { padding-top: var(--nav-height); min-height: 100vh; }
+
+    /* Progress bar */
+    .quiz-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-xl);
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--red-light));
+      border-radius: var(--radius-full);
+      transition: width 0.5s var(--ease-smooth);
+      box-shadow: 0 0 8px var(--red-glow);
+    }
+
+    /* Question card */
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: var(--space-lg);
+      transition: border-color var(--t-base);
+    }
+
+    .quiz-q-header {
+      padding: var(--space-lg) var(--space-xl);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .quiz-q-number {
+      width: 32px; height: 32px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .quiz-q-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+
+    /* Preview render area */
+    .quiz-preview {
+      padding: var(--space-xl);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Answer options */
+    .quiz-options {
+      padding: var(--space-lg) var(--space-xl);
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .quiz-opt {
+      flex: 1;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-subtle);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--t-base);
+      font-family: inherit;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+    }
+
+    .quiz-opt:hover:not(:disabled) {
+      border-color: var(--border-default);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .quiz-opt.phishing-opt:hover:not(:disabled) {
+      border-color: rgba(255,59,48,0.4);
+      color: var(--red-light);
+      background: rgba(255,59,48,0.06);
+    }
+
+    .quiz-opt.safe-opt:hover:not(:disabled) {
+      border-color: rgba(34,197,94,0.4);
+      color: var(--green);
+      background: rgba(34,197,94,0.06);
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--green) !important;
+      background: rgba(34,197,94,0.1) !important;
+      color: var(--green) !important;
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--red) !important;
+      background: rgba(255,59,48,0.1) !important;
+      color: var(--red-light) !important;
+    }
+
+    .quiz-opt:disabled { cursor: default; opacity: 0.6; }
+
+    /* Feedback */
+    .quiz-feedback {
+      margin: 0 var(--space-xl) var(--space-lg);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      display: none;
+      animation: fadeInUp 0.3s var(--ease-smooth);
+    }
+
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct-fb {
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-left: 4px solid var(--green);
+    }
+    .quiz-feedback.wrong-fb {
+      background: rgba(255,59,48,0.06);
+      border: 1px solid rgba(255,59,48,0.2);
+      border-left: 4px solid var(--red);
+    }
+
+    /* Result Screen */
+    #quiz-result {
+      display: none;
+      animation: fadeInUp 0.5s var(--ease-smooth);
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-score-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto var(--space-xl);
+      position: relative;
+    }
+
+    .result-score-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 6px solid var(--border-subtle);
+    }
+
+    .result-score-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .result-score-label { font-size: 0.75rem; color: var(--text-muted); }
+
+    .share-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color var(--t-fast);
+      position: relative;
+    }
+    .share-box:hover { border-color: var(--border-default); }
+    .share-box::after {
+      content: '📋 Kopyala';
+      position: absolute;
+      top: 12px; right: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: Inter, sans-serif;
+    }
+
+    @media (max-width: 568px) {
+      .quiz-options { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span> <span style="color:var(--text-muted); font-weight:400; font-size:0.85rem;">/ Phishing</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="simulasyon.html" class="nav-link">🎮 Simülasyon</a></li>
+        <li><a href="test.html" class="nav-link active" aria-current="page">❓ Test</a></li>
+        <li><a href="blog/index.html" class="nav-link">📝 Blog</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">← AltaySec</a>
+        <a href="simulasyon.html" class="btn btn-outline btn-sm">Simülatör →</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <main class="test-page">
+    <div class="container" style="max-width:760px; padding-block:var(--space-2xl);">
+
+      <!-- Başlangıç Ekranı -->
+      <div id="quiz-intro">
+        <div class="badge badge-amber" style="margin-bottom:var(--space-md);">
+          <span class="dot"></span> Ücretsiz · 10 Soru
+        </div>
+        <h1 class="display-md" style="margin-bottom:var(--space-md);">
+          Phishing Farkındalık Testi
+        </h1>
+        <p style="color:var(--text-secondary); font-size:1.05rem; line-height:1.7; margin-bottom:var(--space-xl); max-width:580px;">
+          Her soruda gerçek bir ekran görüntüsü göreceksiniz. Kararınızı verin: <strong style="color:var(--text-primary);">Phishing mi?</strong> yoksa <strong style="color:var(--text-primary);">Güvenli mi?</strong>
+          <br>Ortalama süre: <strong style="color:var(--text-primary);">3 dakika</strong>.
+        </p>
+
+        <div class="grid-3" style="margin-bottom:var(--space-xl);">
+          <div class="card" style="text-align:center; padding:var(--space-lg);">
+            <div style="font-size:1.75rem; margin-bottom:var(--space-sm);">📊</div>
+            <div class="font-bold">10 Soru</div>
+            <div class="text-sm" style="color:var(--text-muted);">Gerçekçi senaryolar</div>
+          </div>
+          <div class="card" style="text-align:center; padding:var(--space-lg);">
+            <div style="font-size:1.75rem; margin-bottom:var(--space-sm);">⚡</div>
+            <div class="font-bold">Anlık Feedback</div>
+            <div class="text-sm" style="color:var(--text-muted);">Her sorudan sonra açıklama</div>
+          </div>
+          <div class="card" style="text-align:center; padding:var(--space-lg);">
+            <div style="font-size:1.75rem; margin-bottom:var(--space-sm);">🏅</div>
+            <div class="font-bold">Rozet Kazan</div>
+            <div class="text-sm" style="color:var(--text-muted);">Sonucu paylaş</div>
+          </div>
+        </div>
+
+        <button id="startQuizBtn" onclick="startQuiz()" class="btn btn-primary btn-lg" style="font-size:1rem;">
+          🎯 Testi Başlat — Ücretsiz
+        </button>
+      </div>
+
+      <!-- Quiz Alan -->
+      <div id="quiz-area" style="display:none;">
+        <!-- Progress -->
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-md);">
+          <span class="text-sm" style="color:var(--text-muted);" id="quiz-progress-text">Soru 1 / 10</span>
+          <span class="text-sm font-bold" id="quiz-score-live" style="color:var(--green);">✓ 0 doğru</span>
+        </div>
+        <div class="quiz-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Quiz ilerleme">
+          <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+        </div>
+
+        <div id="quiz-question-container"></div>
+
+        <div style="margin-top:var(--space-lg); display:flex; justify-content:flex-end;">
+          <button id="nextBtn" onclick="nextQuestion()" class="btn btn-primary" disabled style="display:none;">
+            Sonraki Soru →
+          </button>
+        </div>
+      </div>
+
+      <!-- Sonuç Ekranı -->
+      <div id="quiz-result">
+        <div class="result-card">
+          <div id="result-bg-glow" style="position:absolute; inset:0; border-radius:inherit; pointer-events:none;"></div>
+
+          <div class="result-score-ring" id="scoreRing">
+            <div class="result-score-num" id="resultScoreNum">0</div>
+            <div class="result-score-label">/ 10</div>
+          </div>
+
+          <div class="badge" id="resultBadge" style="margin:0 auto var(--space-md);">🎯 Hesaplanıyor...</div>
+
+          <h2 class="section-title" id="resultTitle" style="font-size:1.75rem; margin-bottom:var(--space-md);">Sonucunuz</h2>
+          <p id="resultDesc" style="color:var(--text-secondary); font-size:0.95rem; line-height:1.7; max-width:480px; margin:0 auto var(--space-xl);"></p>
+
+          <!-- Share Box -->
+          <div class="share-box" id="shareText" onclick="copyShareText()" role="button" tabindex="0" aria-label="Paylaşım metnini kopyala">
+          </div>
+
+          <div class="flex justify-center gap-md flex-wrap">
+            <button onclick="copyShareText()" class="btn btn-primary">📋 Kopyala & Paylaş</button>
+            <a href="simulasyon.html" class="btn btn-outline">🎮 Simülatörü Dene</a>
+            <button onclick="restartQuiz()" class="btn btn-ghost">🔄 Tekrar Çöz</button>
+          </div>
+
+          <div style="margin-top:var(--space-xl); padding-top:var(--space-xl); border-top:1px solid var(--border-subtle);">
+            <p class="text-sm" style="color:var(--text-muted); margin-bottom:var(--space-md);">Daha fazla öğrenmek için:</p>
+            <div class="flex justify-center gap-md flex-wrap">
+              <a href="blog/phishing-maili-nasil-anlasilir.html" class="btn btn-outline btn-sm">📧 E-posta Phishing</a>
+              <a href="blog/instagram-phishing-telif-hakki.html" class="btn btn-outline btn-sm">📷 Instagram Tuzakları</a>
+              <a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="btn btn-outline btn-sm">💬 SMS Dolandırıcılık</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Bu platform yalnızca eğitim amaçlıdır.</p>
+        <div class="flex gap-md">
+          <a href="index.html" class="footer-link" style="font-size:0.8rem;">Ana Sayfa</a>
+          <a href="simulasyon.html" class="footer-link" style="font-size:0.8rem;">Simülasyon</a>
+          <a href="blog/index.html" class="footer-link" style="font-size:0.8rem;">Blog</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

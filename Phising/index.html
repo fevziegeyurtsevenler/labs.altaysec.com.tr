@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: Primary Meta -->
+  <title>Phishing Nedir ve Nasıl Anlaşılır? | AltaySec Phishing Farkındalık Platformu</title>
+  <meta name="description" content="Phishing saldırılarına karşı hazır mısın? Ücretsiz simülasyon, interaktif test ve uzman yazılarıyla e-posta, DM ve SMS tuzaklarını tanıyı öğren. AltaySec phishing farkındalık platformu.">
+  <meta name="keywords" content="phishing nedir, phishing nasıl anlaşılır, phishing saldırısı, phishing testi, instagram phishing, sms dolandırıcılık, siber güvenlik farkındalık, phishing simülasyon">
+  <meta name="author" content="AltaySec">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Phishing Farkındalık Platformu | AltaySec">
+  <meta property="og:description" content="Phishing saldırılarına karşı hazır mısın? Ücretsiz simülasyon ve test ile e-posta, DM, SMS tuzaklarını tanımayı öğren.">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/">
+  <meta property="og:site_name" content="AltaySec">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="https://phishing.altaysec.com.tr/assets/og/og-home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AltaySec Phishing Farkındalık Platformu">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@altaysec">
+  <meta name="twitter:title" content="Phishing Farkındalık Platformu | AltaySec">
+  <meta name="twitter:description" content="Phishing saldırılarına karşı hazır mısın? Ücretsiz simülasyon ve test ile tuzakları tanımayı öğren.">
+  <meta name="twitter:image" content="https://phishing.altaysec.com.tr/assets/og/og-home.png">
+
+  <!-- PWA & Performance -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Schema Markup: Organization + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://altaysec.com.tr/#org",
+        "name": "AltaySec",
+        "url": "https://altaysec.com.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://altaysec.com.tr/logo.png"
+        },
+        "sameAs": [
+          "https://phishing.altaysec.com.tr",
+          "https://akademi.altaysec.com.tr"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://phishing.altaysec.com.tr/#website",
+        "url": "https://phishing.altaysec.com.tr",
+        "name": "AltaySec Phishing Farkındalık Platformu",
+        "description": "Phishing saldırılarına karşı farkındalık kazandıran ücretsiz eğitim ve simülasyon platformu.",
+        "publisher": { "@id": "https://altaysec.com.tr/#org" },
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Phishing nedir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Phishing, saldırganların güvenilir kurumları (banka, sosyal medya, IT departmanı) taklit ederek kullanıcıların kişisel bilgilerini, şifrelerini veya finansal verilerini çalmaya çalıştığı bir siber dolandırıcılık yöntemidir. E-posta, SMS, DM veya sahte web siteleri aracılığıyla gerçekleştirilebilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Phishing maili nasıl anlaşılır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Phishing e-postaları genellikle şu belirtileri taşır: gönderen adreste sahte domain (örn. altaysec-tr.net yerine altaysec.com.tr), acele bildiren ifadeler (24 saat, hemen, acil), genel hitap (Sayın kullanıcı), şüpheli linkler ve eklentiler. Şüphe duyduğunuzda kurumu doğrudan arayın."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Phishing'e düşersem ne yapmalıyım?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Şüpheli bir linke tıkladıysanız hemen şifrelerinizi değiştirin, iki faktörlü kimlik doğrulamayı aktif edin, banka bilgilerinizi girdiyseniz bankanızı arayın ve olayı ilgili kurumlara (BTK, bankanız) bildirin. Cihazınızı güvenlik yazılımıyla tarayın."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Bu platform ücretsiz mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet, AltaySec Phishing Farkındalık Platformu tamamen ücretsizdir. Tüm simülasyonlar, farkındalık testi ve blog yazıları ücretsiz olarak erişilebilir."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Reading Progress Bar -->
+  <div class="reading-progress" id="readingProgress" role="progressbar" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════
+       PHISHING TRAP BANNER
+  ════════════════════════════════════ -->
+  <div class="trap-banner" id="trapBanner" role="alert" aria-live="assertive">
+    <div class="trap-banner-left">
+      <div class="trap-icon" aria-hidden="true">⚠️</div>
+      <div class="trap-text">
+        <div class="trap-title">⚠️ AltaySec Güvenlik Bildirimi — Hesabınızda şüpheli aktivite tespit edildi!</div>
+        <div class="trap-subtitle">Erişiminiz 24 saat içinde askıya alınabilir. Hemen doğrulayın.</div>
+      </div>
+    </div>
+    <div class="trap-actions">
+      <button class="trap-btn-verify" id="trapVerifyBtn" onclick="showTrapReveal()">→ Hesabımı Doğrula</button>
+      <button class="trap-btn-close" id="trapCloseBtn" onclick="closeTrap()" aria-label="Bildirimi kapat">✕</button>
+    </div>
+  </div>
+
+  <!-- Trap Reveal Overlay -->
+  <div class="trap-revealed" id="trapReveal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="trapRevealTitle">
+    <div class="trap-reveal-card">
+      <div class="trap-reveal-icon" aria-hidden="true">🎣</div>
+      <div class="badge badge-red" style="margin: 0 auto var(--space-md);">
+        <span class="dot"></span> Tuzağa Düştünüz!
+      </div>
+      <h2 id="trapRevealTitle" class="section-title" style="font-size:1.75rem; margin-bottom: var(--space-md);">
+        Ama bu bir test. 👇
+      </h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: var(--space-xl);">
+        Az önce tıkladığınız mesaj <strong style="color:var(--red);">gerçek bir phishing saldırısının</strong> simülasyonuydu. 
+        Gerçek hayatta bu tıklama şifrenizin ve verilerinizin çalınmasına yol açabilirdi.
+        <br><br>
+        İşte tam olarak bu yüzden buradasınız. Birlikte öğrenelim.
+      </p>
+      <div style="display:flex; gap:var(--space-md); justify-content:center; flex-wrap:wrap;">
+        <a href="simulasyon.html" class="btn btn-primary btn-lg">🎮 Simülatörü Dene</a>
+        <button class="btn btn-outline" onclick="closeTrapReveal()">Siteyi Gezmeye Devam Et</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════ -->
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="AltaySec Phishing Platformu Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span> <span style="color:var(--text-muted); font-weight:400; font-size:0.85rem;">/ Phishing</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="index.html" class="nav-link active" aria-current="page">Ana Sayfa</a></li>
+        <li><a href="simulasyon.html" class="nav-link">🎮 Simülasyon</a></li>
+        <li><a href="test.html" class="nav-link">❓ Test</a></li>
+        <li><a href="blog/index.html" class="nav-link">📝 Blog</a></li>
+      </ul>
+
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">
+          ← AltaySec Ana Site
+        </a>
+        <a href="test.html" class="btn btn-primary btn-sm">Testi Başlat →</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ═══════════════════════════════════
+         HERO
+    ════════════════════════════════════ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-gradient hero-gradient-1" aria-hidden="true"></div>
+        <div class="hero-gradient hero-gradient-2" aria-hidden="true"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content" style="max-width:780px;">
+          <div class="badge badge-red animate-fade-in-up" style="margin-bottom:var(--space-lg);">
+            <span class="dot"></span>
+            Türkiye'nin Phishing Farkındalık Platformu
+          </div>
+
+          <h1 id="hero-heading" class="display-xl animate-fade-in-up delay-100">
+            Bir tık sizi<br>
+            <span class="text-gradient">mahvedebilir.</span>
+          </h1>
+
+          <p class="text-xl animate-fade-in-up delay-200" style="color:var(--text-secondary); margin-top:var(--space-xl); margin-bottom:var(--space-xl); max-width:580px; line-height:1.7;">
+            Her gün milyonlarca phishing saldırısı gerçekleşiyor. Sahte e-postayı, Instagram DM tuzağını, SMS dolandırıcılığını tanımak için burada eğitim alın — <strong style="color:var(--text-primary);">ücretsiz, interaktif, gerçek senaryolarla.</strong>
+          </p>
+
+          <div class="flex gap-md animate-fade-in-up delay-300" style="flex-wrap:wrap;">
+            <a href="simulasyon.html" class="btn btn-primary btn-lg">
+              🎮 Simülatörü Başlat
+            </a>
+            <a href="test.html" class="btn btn-outline btn-lg">
+              ❓ Ne Kadar Güvendesin?
+            </a>
+          </div>
+
+          <!-- Trust indicators -->
+          <div class="flex items-center gap-lg animate-fade-in-up delay-400" style="margin-top:var(--space-2xl); flex-wrap:wrap;">
+            <div class="flex items-center gap-sm">
+              <span style="color:var(--green); font-size:1.1rem;">✓</span>
+              <span class="text-sm" style="color:var(--text-muted);">Tamamen Ücretsiz</span>
+            </div>
+            <div style="width:1px; height:16px; background:var(--border-subtle);"></div>
+            <div class="flex items-center gap-sm">
+              <span style="color:var(--green); font-size:1.1rem;">✓</span>
+              <span class="text-sm" style="color:var(--text-muted);">Kayıt Gerektirmez</span>
+            </div>
+            <div style="width:1px; height:16px; background:var(--border-subtle);"></div>
+            <div class="flex items-center gap-sm">
+              <span style="color:var(--green); font-size:1.1rem;">✓</span>
+              <span class="text-sm" style="color:var(--text-muted);">AltaySec Güvencesiyle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         İSTATİSTİKLER
+    ════════════════════════════════════ -->
+    <section class="section-sm" aria-labelledby="stats-heading" style="background:var(--bg-surface); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle);">
+      <div class="container">
+        <p id="stats-heading" class="text-center text-sm" style="color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; font-weight:600; margin-bottom:var(--space-xl);">
+          Phishing — Küresel Gerçekler
+        </p>
+        <div class="grid-4" role="list">
+          <article class="stat-card reveal" role="listitem">
+            <div class="stat-value" id="stat1" aria-live="polite">0</div>
+            <div class="stat-label">saniyede bir phishing saldırısı gerçekleşiyor</div>
+          </article>
+          <article class="stat-card reveal reveal-delay-1" role="listitem">
+            <div class="stat-value" id="stat2" aria-live="polite">0%</div>
+            <div class="stat-label">siber saldırılar insan hatasından kaynaklanır</div>
+          </article>
+          <article class="stat-card reveal reveal-delay-2" role="listitem">
+            <div class="stat-value" id="stat3" aria-live="polite">0M</div>
+            <div class="stat-label">phishing e-postası her gün gönderilir</div>
+          </article>
+          <article class="stat-card reveal reveal-delay-3" role="listitem">
+            <div class="stat-value" id="stat4" aria-live="polite">0%</div>
+            <div class="stat-label">kullanıcı phishing mailini ayırt edemiyor</div>
+          </article>
+        </div>
+        <p class="text-center text-xs" style="color:var(--text-faint); margin-top:var(--space-lg);">
+          Kaynaklar: IBM Security, Verizon DBIR 2024, Google Transparency Report
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         PLATFORM ÖZELLİKLERİ
+    ════════════════════════════════════ -->
+    <section class="section" aria-labelledby="features-heading">
+      <div class="container">
+        <div class="text-center" style="max-width:600px; margin:0 auto var(--space-2xl);">
+          <div class="section-label reveal">Platform</div>
+          <h2 id="features-heading" class="section-title reveal reveal-delay-1">
+            Öğren, Test Edilin, Farkında Ol
+          </h2>
+          <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">
+            Gerçek saldırı senaryoları, interaktif testler ve uzman içerikleriyle phishing farkındalığınızı zirvaya taşıyın.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <a href="simulasyon.html" class="feature-card reveal" aria-label="Phishing Simülatörü - 4 gerçekçi senaryo">
+            <div class="feature-icon" aria-hidden="true">🎮</div>
+            <h3 class="feature-title">Phishing Simülatörü</h3>
+            <p class="feature-desc">
+              Gerçekçi e-posta, Instagram DM, SMS ve WhatsApp tuzaklarını deneyimleyin. Her senaryodan sonra phishing göstergelerini adım adım anlayın.
+            </p>
+            <div class="flex gap-sm" style="margin-top:var(--space-md); flex-wrap:wrap;">
+              <span class="badge badge-red">4 Senaryo</span>
+              <span class="badge badge-muted">İnteraktif</span>
+            </div>
+            <span class="feature-link">Simülasyonu Başlat →</span>
+          </a>
+
+          <a href="test.html" class="feature-card reveal reveal-delay-1" aria-label="Phishing Farkındalık Testi - 10 soru">
+            <div class="feature-icon" aria-hidden="true">❓</div>
+            <h3 class="feature-title">Farkındalık Testi</h3>
+            <p class="feature-desc">
+              10 soruluk quiz ile ne kadar farkında olduğunuzu ölçün. Gerçek ekran görüntüleriyle "Phishing mi? Güvenli mi?" kararınızı verin.
+            </p>
+            <div class="flex gap-sm" style="margin-top:var(--space-md); flex-wrap:wrap;">
+              <span class="badge badge-amber">10 Soru</span>
+              <span class="badge badge-muted">Puanlı</span>
+            </div>
+            <span class="feature-link">Testi Başlat →</span>
+          </a>
+
+          <a href="blog/index.html" class="feature-card reveal reveal-delay-2" aria-label="Phishing Farkındalık Yazıları">
+            <div class="feature-icon" aria-hidden="true">📝</div>
+            <h3 class="feature-title">Farkındalık Yazıları</h3>
+            <p class="feature-desc">
+              E-posta phishinginden sosyal medya tuzaklarına, SMS dolandırıcılığından kurumsal güvenliğe — uzman içeriklerle derinlemesine öğrenin.
+            </p>
+            <div class="flex gap-sm" style="margin-top:var(--space-md); flex-wrap:wrap;">
+              <span class="badge badge-cyan">4 Makale</span>
+              <span class="badge badge-muted">SEO Uyumlu</span>
+            </div>
+            <span class="feature-link">Makaleleri Oku →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         SENARYO ÖNIZLEME
+    ════════════════════════════════════ -->
+    <section class="section" style="background:var(--bg-surface); border-top:1px solid var(--border-subtle);" aria-labelledby="scenarios-heading">
+      <div class="container">
+        <div style="max-width:600px; margin-bottom:var(--space-2xl);">
+          <div class="section-label reveal">Simülasyon Senaryoları</div>
+          <h2 id="scenarios-heading" class="section-title reveal reveal-delay-1">
+            Gerçekten Tuzağa Düşer misiniz?
+          </h2>
+          <p class="section-subtitle reveal reveal-delay-2">
+            Bunlar test için yapılmış sahte senaryolar. Ancak tam olarak bu saldırılar her gün Türkiye'de binlerce kişiye uygulanıyor.
+          </p>
+        </div>
+
+        <div class="grid-2" style="gap:var(--space-lg);">
+
+          <!-- E-posta Senaryo Preview -->
+          <div class="card card-red reveal" style="padding:0; overflow:hidden;">
+            <div style="background:var(--bg-surface); border-bottom:1px solid var(--border-subtle); padding:12px 16px; display:flex; align-items:center; gap:8px;">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <span class="text-xs font-mono" style="color:var(--text-muted);">Gelen Kutusu</span>
+            </div>
+            <div style="padding:var(--space-lg);">
+              <div style="margin-bottom:var(--space-md);">
+                <span class="badge badge-red" style="margin-bottom:var(--space-sm);">📧 E-posta Tuzağı</span>
+                <div class="font-mono text-xs" style="background:rgba(255,59,48,0.08); border:1px solid rgba(255,59,48,0.2); border-radius:6px; padding:8px 12px; color:var(--text-secondary);">
+                  <span style="color:var(--text-muted);">Kimden: </span>
+                  <span style="color:var(--red-light);">it-destek@altaysec-tr.net</span>
+                  <span style="color:var(--amber); font-size:0.7rem; margin-left:8px;">⚠️ Şüpheli</span>
+                </div>
+              </div>
+              <h3 class="text-base font-bold" style="margin-bottom:var(--space-sm);">[ACİL] VPN Erişiminiz 24 Saat İçinde Askıya Alınacak</h3>
+              <p class="text-sm" style="color:var(--text-muted); line-height:1.6; margin-bottom:var(--space-md);">Sayın kullanıcı, güvenlik politikamız gereği hesabınızı doğrulamanız gerekmektedir...</p>
+              <a href="simulasyon.html" class="btn btn-primary btn-sm">Bu senaryoyu dene →</a>
+            </div>
+          </div>
+
+          <!-- Instagram DM Senaryo Preview -->
+          <div class="card card-red reveal reveal-delay-1" style="padding:0; overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); padding:12px 16px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1rem;">📷</span>
+              <span class="text-xs font-semibold" style="color:#fff;">Instagram — Doğrudan Mesajlar</span>
+            </div>
+            <div style="padding:var(--space-lg);">
+              <div style="margin-bottom:var(--space-md);">
+                <span class="badge badge-amber" style="margin-bottom:var(--space-sm);">📱 DM Tuzağı</span>
+              </div>
+              <div style="background:var(--bg-surface); border-radius:12px 12px 12px 2px; padding:var(--space-md); border:1px solid var(--border-subtle); margin-bottom:var(--space-md);">
+                <div class="text-xs" style="color:var(--text-muted); margin-bottom:6px;">
+                  <span style="color:var(--amber);">instagram.destek.ekibi</span> · Takip etmiyorsunuz
+                </div>
+                <p class="text-sm" style="color:var(--text-secondary); line-height:1.6;">
+                  Hesabınız bir telif hakkı ihlali bildirimi aldı. 48 saat içinde itiraz etmezseniz hesabınız kalıcı olarak silinecek.
+                </p>
+              </div>
+              <a href="simulasyon.html" class="btn btn-primary btn-sm">Bu senaryoyu dene →</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-center" style="margin-top:var(--space-2xl);">
+          <a href="simulasyon.html" class="btn btn-outline btn-lg">
+            🎮 Tüm 4 Senaryoyu Gör →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         BLOG YAZILARI
+    ════════════════════════════════════ -->
+    <section class="section" aria-labelledby="blog-heading">
+      <div class="container">
+        <div class="flex justify-between items-center" style="margin-bottom:var(--space-2xl); flex-wrap:wrap; gap:var(--space-md);">
+          <div>
+            <div class="section-label reveal">Farkındalık Yazıları</div>
+            <h2 id="blog-heading" class="section-title reveal reveal-delay-1" style="margin-bottom:0;">
+              Phishing'i Derinlemesine Öğren
+            </h2>
+          </div>
+          <a href="blog/index.html" class="btn btn-outline reveal reveal-delay-2">Tüm Yazılar →</a>
+        </div>
+
+        <div class="grid-2">
+
+          <a href="blog/phishing-maili-nasil-anlasilir.html" class="blog-card reveal" aria-label="Phishing E-postasını 10 Saniyede Nasıl Anlarsınız? makalesini oku">
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">E-posta Güvenliği</span>
+                <span class="blog-card-read-time">⏱ 7 dk okuma</span>
+              </div>
+              <h3 class="blog-card-title">Phishing E-postasını 10 Saniyede Nasıl Anlarsınız?</h3>
+              <p class="blog-card-excerpt">Sahte gönderen adresi, acil dil ve şüpheli linkler — phishing maillerinin 10 temel göstergesini öğrenin ve bir daha tuzağa düşmeyin.</p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">12 Nisan 2026</span>
+              <span class="blog-card-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="blog/instagram-phishing-telif-hakki.html" class="blog-card reveal reveal-delay-1" aria-label="Instagram Telif Hakkı Phishing Tuzağı makalesini oku">
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">Sosyal Medya</span>
+                <span class="blog-card-read-time">⏱ 6 dk okuma</span>
+              </div>
+              <h3 class="blog-card-title">Instagram "Telif Hakkı" Tuzağı: Nasıl Çalışır ve Nasıl Korunursunuz?</h3>
+              <p class="blog-card-excerpt">Hesabınız telif hakkı ihlali aldı mı? Bu mesajların neredeyse tamamı phishing. Gerçek bildirimleri taklit nasıl tanıarsınız, öğrenin.</p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">12 Nisan 2026</span>
+              <span class="blog-card-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="blog-card reveal reveal-delay-2" aria-label="SMS Dolandırıcılığı makalesini oku">
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">SMS & OTP</span>
+                <span class="blog-card-read-time">⏱ 5 dk okuma</span>
+              </div>
+              <h3 class="blog-card-title">SMS Dolandırıcılığı Nasıl Anlaşılır? Banka OTP Tuzakları</h3>
+              <p class="blog-card-excerpt">Bankanızdan geldiği iddia edilen SMS'ler, sahte OTP talepleri ve "ödül kazandınız" mesajları — SMS phishingini tanıyın.</p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">12 Nisan 2026</span>
+              <span class="blog-card-arrow">→</span>
+            </div>
+          </a>
+
+          <a href="blog/calisanlar-phishing-neden-dusuyor.html" class="blog-card reveal reveal-delay-3" aria-label="Çalışanlar Phishing'e Neden Düşer makalesini oku">
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">Kurumsal</span>
+                <span class="blog-card-read-time">⏱ 8 dk okuma</span>
+              </div>
+              <h3 class="blog-card-title">Şirket Çalışanları Phishing'e Neden Düşer? Psikoloji ve Korunma</h3>
+              <p class="blog-card-excerpt">Sosyal mühendislik, aciliyet hissi ve otorite manipülasyonu — saldırganların zihin oyunlarını ve bunlardan korunmayı anlayın.</p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">12 Nisan 2026</span>
+              <span class="blog-card-arrow">→</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         QUIZ CTA BAND
+    ════════════════════════════════════ -->
+    <section style="background:linear-gradient(135deg,rgba(255,59,48,0.08) 0%,rgba(0,0,0,0) 50%,rgba(0,212,255,0.05) 100%); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle); padding:var(--space-3xl) 0;" aria-labelledby="cta-heading">
+      <div class="container text-center">
+        <div class="badge badge-red reveal" style="margin:0 auto var(--space-lg);">
+          <span class="dot"></span> Ücretsiz Test
+        </div>
+        <h2 id="cta-heading" class="display-md reveal reveal-delay-1" style="margin-bottom:var(--space-lg);">
+          Sen ne kadar güvendesin?
+        </h2>
+        <p class="text-lg reveal reveal-delay-2" style="color:var(--text-secondary); margin-bottom:var(--space-xl); max-width:500px; margin-inline:auto; line-height:1.7;">
+          10 soruluk phishing farkındalık testimizle gerçek seviyenizi ölçün. Sonucu paylaşın, çevrenizi de uyarın.
+        </p>
+        <div class="flex justify-center gap-md flex-wrap reveal reveal-delay-3">
+          <a href="test.html" class="btn btn-primary btn-lg">🎯 Testi Başlat — Ücretsiz</a>
+          <a href="simulasyon.html" class="btn btn-outline btn-lg">🎮 Önce Simülatörü Dene</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         SSS (FAQ)
+    ════════════════════════════════════ -->
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="container" style="max-width:800px;">
+        <div class="text-center" style="margin-bottom:var(--space-2xl);">
+          <div class="section-label reveal" style="justify-content:center;">Sıkça Sorulan Sorular</div>
+          <h2 id="faq-heading" class="section-title reveal reveal-delay-1">Merak Edilenler</h2>
+          <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">Phishing hakkında en sık sorulan soruların yanıtları.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:var(--space-sm);" role="list">
+
+          <div class="faq-item reveal" role="listitem">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" id="faq-q1" aria-controls="faq-a1">
+              <span class="faq-question-text">Phishing nedir?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div class="faq-answer-inner">
+                <strong style="color:var(--text-primary);">Phishing</strong>, saldırganların güvenilir kurumları (banka, sosyal medya, IT departmanı) taklit ederek kullanıcıların kişisel bilgilerini, şifrelerini veya finansal verilerini çalmaya çalıştığı bir siber dolandırıcılık yöntemidir. E-posta, SMS, DM veya sahte web siteleri aracılığıyla gerçekleştirilebilir. Türkiye'de her yıl milyarlarca liralık kayba yol açmaktadır.
+                <br><br>
+                <a href="blog/phishing-maili-nasil-anlasilir.html" style="color:var(--red); font-weight:600;">→ Phishing hakkında daha fazla bilgi edinin</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item reveal reveal-delay-1" role="listitem">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" id="faq-q2" aria-controls="faq-a2">
+              <span class="faq-question-text">Phishing maili nasıl anlaşılır?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div class="faq-answer-inner">
+                Phishing e-postaları genellikle şu belirtileri taşır:
+                <ul style="margin-top:var(--space-sm); display:flex; flex-direction:column; gap:6px; padding-left:var(--space-md);">
+                  <li style="list-style:disc;">Gönderen adreste sahte/benzer domain (örn. <span class="font-mono" style="color:var(--red);">altaysec-tr.net</span> yerine <span class="font-mono" style="color:var(--green);">altaysec.com.tr</span>)</li>
+                  <li style="list-style:disc;">Acele bildiren ifadeler ("24 saat", "hemen", "acil")</li>
+                  <li style="list-style:disc;">Genel hitap ("Sayın kullanıcı", "Değerli müşterimiz")</li>
+                  <li style="list-style:disc;">Şüpheli linkler veya ekler</li>
+                  <li style="list-style:disc;">Yazım hataları ve garip dil</li>
+                </ul>
+                <br>
+                <a href="blog/phishing-maili-nasil-anlasilir.html" style="color:var(--red); font-weight:600;">→ Tüm 10 ipucunu okuyun</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item reveal reveal-delay-2" role="listitem">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" id="faq-q3" aria-controls="faq-a3">
+              <span class="faq-question-text">Phishing'e düşersem ne yapmalıyım?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div class="faq-answer-inner">
+                Şüpheli bir linke tıkladıysanız veya bilgi girdiyseniz:
+                <ul style="margin-top:var(--space-sm); display:flex; flex-direction:column; gap:6px; padding-left:var(--space-md);">
+                  <li style="list-style:decimal;">Hemen tüm şifrelerinizi değiştirin</li>
+                  <li style="list-style:decimal;">İki faktörlü kimlik doğrulamayı (2FA) aktif edin</li>
+                  <li style="list-style:decimal;">Banka bilgisi girdiyseniz bankanızı derhal arayın</li>
+                  <li style="list-style:decimal;">Olayı BTK'ya bildirin (ihbar.gov.tr)</li>
+                  <li style="list-style:decimal;">Cihazınızı güvenilir bir antivirüs ile tarayın</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item reveal reveal-delay-3" role="listitem">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" id="faq-q4" aria-controls="faq-a4">
+              <span class="faq-question-text">Bu platform tamamen ücretsiz mi?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div class="faq-answer-inner">
+                Evet, AltaySec Phishing Farkındalık Platformu'ndaki tüm içerikler — simülasyonlar, farkındalık testi ve blog yazıları — tamamen <strong style="color:var(--green);">ücretsizdir</strong>. Kayıt olmadan kullanabilirsiniz. Platformumuzun amacı, ticari değil, toplumsal bir siber güvenlik farkındalığı oluşturmaktır.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item reveal reveal-delay-4" role="listitem">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false" id="faq-q5" aria-controls="faq-a5">
+              <span class="faq-question-text">Simülatördeki senaryolar gerçek mi?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div class="faq-answer-inner">
+                Simülatördeki tüm senaryolar <strong style="color:var(--text-primary);">gerçek phishing saldırılarından ilham alınarak hazırlanmış</strong> eğitim amaçlı simülasyonlardır. Hiçbir gerçek kişisel veri toplanmaz, hiçbir harici sisteme bağlanılmaz. Amaç farkındalık yaratmak, zarar vermek değildir. Tüm senaryolar AltaySec güvenlik uzmanları tarafından tasarlanmıştır.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ════════════════════════════════════ -->
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-logo" style="margin-bottom:0;" aria-label="Ana Sayfa">
+            <div class="logo-mark" aria-hidden="true">AS</div>
+            <span class="logo-text">Altay<span>Sec</span></span>
+          </a>
+          <p>Türkiye'nin phishing farkındalık platformu. Ücretsiz simülasyon, test ve uzman içerikleriyle siber tehditlere karşı farkındalık kazanın.</p>
+          <div class="flex gap-sm" style="margin-top:var(--space-md);">
+            <span class="badge badge-muted">🔒 Güvenli Platform</span>
+            <span class="badge badge-green">✓ Ücretsiz</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Platform</p>
+          <ul class="footer-links" role="list">
+            <li><a href="index.html" class="footer-link">Ana Sayfa</a></li>
+            <li><a href="simulasyon.html" class="footer-link">Phishing Simülatörü</a></li>
+            <li><a href="test.html" class="footer-link">Farkındalık Testi</a></li>
+            <li><a href="blog/index.html" class="footer-link">Blog Yazıları</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">Yazılar</p>
+          <ul class="footer-links" role="list">
+            <li><a href="blog/phishing-maili-nasil-anlasilir.html" class="footer-link">E-posta Phishing</a></li>
+            <li><a href="blog/instagram-phishing-telif-hakki.html" class="footer-link">Instagram Tuzakları</a></li>
+            <li><a href="blog/sms-dolandiricilik-nasil-anlasilir.html" class="footer-link">SMS Dolandırıcılık</a></li>
+            <li><a href="blog/calisanlar-phishing-neden-dusuyor.html" class="footer-link">Kurumsal Güvenlik</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-col-title">AltaySec Ekosistemi</p>
+          <ul class="footer-links" role="list">
+            <li><a href="https://altaysec.com.tr" class="footer-link" target="_blank" rel="noopener">Ana Site ↗</a></li>
+            <li><a href="https://akademi.altaysec.com.tr" class="footer-link" target="_blank" rel="noopener">Akademi ↗</a></li>
+          </ul>
+          <div style="margin-top:var(--space-xl);">
+            <p class="footer-col-title">Hızlı Linkler</p>
+            <ul class="footer-links" role="list">
+              <li><a href="https://www.ihbar.gov.tr" class="footer-link" target="_blank" rel="noopener noreferrer">BTK İhbar Sistemi ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          © 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Tüm hakları saklıdır. Bu platform yalnızca eğitim amaçlıdır.
+        </p>
+        <div class="flex gap-md" style="flex-wrap:wrap;">
+          <a href="/gizlilik.html" class="footer-link" style="font-size:0.75rem;">Gizlilik Politikası</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

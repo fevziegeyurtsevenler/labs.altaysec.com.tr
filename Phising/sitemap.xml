@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Ana Sayfa -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://phishing.altaysec.com.tr/"/>
+  </url>
+
+  <!-- Simülasyon -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/simulasyon.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Test -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/test.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog Listesi -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/blog/</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: Phishing Maili -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/blog/phishing-maili-nasil-anlasilir.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Instagram Phishing -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/blog/instagram-phishing-telif-hakki.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: SMS Dolandırıcılık -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/blog/sms-dolandiricilik-nasil-anlasilir.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog: Çalışanlar -->
+  <url>
+    <loc>https://phishing.altaysec.com.tr/blog/calisanlar-phishing-neden-dusuyor.html</loc>
+    <lastmod>2026-04-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+</urlset>

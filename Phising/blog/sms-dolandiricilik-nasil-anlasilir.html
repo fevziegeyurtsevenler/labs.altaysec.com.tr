@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMS Dolandırıcılığı Nasıl Anlaşılır? Smishing ve OTP Tuzakları | AltaySec</title>
+  <meta name="description" content="Smishing nedir? Banka SMS'i mi, dolandırıcı SMS'i mi? OTP tuzakları, sahte kargo bildirimleri ve SMS phishing göstergelerini gerçek örneklerle öğrenin. AltaySec.">
+  <meta name="keywords" content="smishing nedir, sms dolandırıcılık nasıl anlaşılır, sms phishing, banka sms dolandırıcılık, otp tuzağı, kargo sms dolandırıcılık">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://phishing.altaysec.com.tr/blog/sms-dolandiricilik-nasil-anlasilir.html">
+  <meta property="og:title" content="SMS Dolandırıcılığı Nasıl Anlaşılır? | AltaySec">
+  <meta property="og:description" content="Smishing, OTP tuzakları ve banka SMS dolandırıcılığını tanımayı öğrenin.">
+  <meta property="og:url" content="https://phishing.altaysec.com.tr/blog/sms-dolandiricilik-nasil-anlasilir.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FF3B30">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SMS Dolandırıcılığı Nasıl Anlaşılır? Smishing ve OTP Tuzakları",
+    "description": "Smishing, OTP tuzakları ve banka SMS dolandırıcılığını tanımlama rehberi.",
+    "author": {"@type": "Organization", "name": "AltaySec"},
+    "publisher": {"@type": "Organization", "name": "AltaySec"},
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "url": "https://phishing.altaysec.com.tr/blog/sms-dolandiricilik-nasil-anlasilir.html",
+    "inLanguage": "tr-TR",
+    "about": [{"@type": "Thing", "name": "Phishing"}, {"@type": "Thing", "name": "SMS Dolandırıcılık"}]
+  }
+  </script>
+
+  <style>
+    .article-page { padding-top: var(--nav-height); }
+    .article-content h2 { font-size:1.5rem;font-weight:800;margin:var(--space-2xl) 0 var(--space-md);padding-top:var(--space-md);border-top:1px solid var(--border-subtle);scroll-margin-top:90px; }
+    .article-content h2:first-of-type { border-top:none;margin-top:0; }
+    .article-content h3 { font-size:1.1rem;font-weight:700;margin:var(--space-xl) 0 var(--space-sm);scroll-margin-top:90px; }
+    .article-content p { color:var(--text-secondary);line-height:1.8;margin-bottom:var(--space-md);font-size:1rem; }
+    .article-content ul { color:var(--text-secondary);line-height:1.8;margin-bottom:var(--space-md);padding-left:var(--space-xl); }
+    .article-content ul li { list-style:disc;margin-bottom:6px; }
+    .article-content strong { color:var(--text-primary); }
+    .article-content code { font-family:'JetBrains Mono',monospace;font-size:0.875em;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--cyan); }
+
+    .sms-example {
+      background: #1c1c1e;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      max-width: 380px;
+    }
+    .sms-example-header { font-size:0.8rem;font-weight:700;color:#888;text-align:center;margin-bottom:var(--space-sm); }
+    .sms-bubble-out { background:#1e3a5f;border-radius:16px 16px 4px 16px;padding:12px 16px;margin-left:auto;max-width:90%;font-size:0.875rem;line-height:1.6;color:#fff; }
+    .sms-bubble-legit { background:#2d4a2d;border-radius:16px 16px 4px 16px;padding:12px 16px;margin-left:auto;max-width:90%;font-size:0.875rem;line-height:1.6;color:#fff; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-logo" aria-label="Ana Sayfa">
+        <div class="logo-mark" aria-hidden="true">AS</div>
+        <span class="logo-text">Altay<span>Sec</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-nav" id="navMenu" role="list">
+        <li><a href="../index.html" class="nav-link">Ana Sayfa</a></li>
+        <li><a href="../simulasyon.html" class="nav-link">🎮 Simülasyon</a></li>
+        <li><a href="../test.html" class="nav-link">❓ Test</a></li>
+        <li><a href="index.html" class="nav-link active" aria-current="page">📝 Blog</a></li>
+      </ul>
+      <div class="navbar-cta">
+        <a href="https://altaysec.com.tr" class="navbar-back" target="_blank" rel="noopener">← AltaySec</a>
+        <a href="../test.html" class="btn btn-primary btn-sm">Testi Başlat →</a>
+      </div>
+    </div>
+  </nav>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+  <main class="article-page">
+    <div class="container" style="max-width:800px;padding-block:var(--space-2xl);">
+
+      <nav aria-label="Breadcrumb" style="margin-bottom:var(--space-xl);">
+        <ol style="display:flex;gap:8px;align-items:center;font-size:0.8rem;color:var(--text-muted);" role="list">
+          <li><a href="../index.html" class="footer-link">Ana Sayfa</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="index.html" class="footer-link">Blog</a></li>
+          <li aria-hidden="true">/</li>
+          <li style="color:var(--text-secondary);">SMS Dolandırıcılık</li>
+        </ol>
+      </nav>
+
+      <article itemscope itemtype="https://schema.org/Article">
+
+        <div style="margin-bottom:var(--space-xl);">
+          <div class="flex gap-sm flex-wrap" style="margin-bottom:var(--space-md);">
+            <span class="badge badge-cyan">💬 SMS & OTP</span>
+            <span class="badge badge-muted">⏱ 5 dk okuma</span>
+            <span class="badge badge-muted">12 Nisan 2026</span>
+          </div>
+          <h1 itemprop="headline" style="font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;letter-spacing:-0.03em;line-height:1.15;margin-bottom:var(--space-lg);">
+            SMS Dolandırıcılığı Nasıl Anlaşılır? Smishing ve OTP Tuzakları
+          </h1>
+          <p style="font-size:1.1rem;color:var(--text-secondary);line-height:1.7;border-left:3px solid var(--cyan);padding-left:var(--space-lg);">
+            Türkiye'de SMS dolandırıcılığı (smishing) giderek yaygınlaşıyor. Sahte banka bildirimleri, kargo tuzakları ve OTP hırsızlığından nasıl korunacağınızı öğrenin.
+          </p>
+        </div>
+
+        <div class="article-content" itemprop="articleBody">
+
+          <h2 id="smishing-nedir">Smishing Nedir?</h2>
+          <p>
+            <strong>Smishing</strong> (SMS + Phishing), saldırganların SMS mesajları aracılığıyla kişisel bilgi, kimlik bilgisi veya finansal veri çalmaya çalıştığı bir sosyal mühendislik taktiğidir. "Phishing'in SMS versiyonu" olarak da tanımlanabilir.
+          </p>
+          <p>
+            E-posta phishinginden farklı olarak smishing daha kısa ve doğrudan mesajlar içerir. Telefon numaraları kitlesel olarak elde edilebildiğinden saldırganlar çok sayıda kişiye aynı anda ulaşabilir.
+          </p>
+
+          <h2 id="turler">Yaygın Smishing Türleri</h2>
+
+          <h3>1. Sahte Banka Bildirimi</h3>
+          <p>En yaygın smishing türü. Bankadan geldiği iddia edilen SMS, hesabınıza şüpheli giriş yapıldığını söyler ve acil işlem yapmanızı ister.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);margin:var(--space-lg) 0;">
+            <div>
+              <p class="text-xs font-bold" style="color:var(--red);margin-bottom:8px;">❌ SAHTE (Phishing)</p>
+              <div class="sms-example">
+                <div class="sms-example-header">ZiraatBankasi</div>
+                <div class="sms-bubble-out">ZiraatBnk: Hesabınıza farklı IP'den giriş! Kartınızı korumak için: <span style="color:#64b5f6;text-decoration:underline;">bit.ly/zraat-guv</span></div>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold" style="color:var(--green);margin-bottom:8px;">✅ GERÇEK</p>
+              <div class="sms-example">
+                <div class="sms-example-header">GARANTI</div>
+                <div class="sms-bubble-legit">Garanti: 12.04.2026 tarihli 250 TL işleminiz onaylandı. Sorularınız için 444 0 333.</div>
+              </div>
+            </div>
+          </div>
+
+          <p>Sahte olanın göstergeleri: kısaltılmış link (bit.ly), "farklı IP" gibi teknik ama muğlak ifade, acele uyarı. Gerçek olanın özellikleri: sadece bilgilendirme, link yok, resmi telefon numarası.</p>
+
+          <h3>2. Sahte Kargo Bildirimi</h3>
+          <p>
+            "Paketiniz gümrükte, 18 TL ödeme yapın" şeklinde gelen mesajlar yaygın bir smishing türüdür. PTT, Yurtiçi, MNG gibi kargo firmalarını taklit ederler.
+          </p>
+          <p>
+            <strong>Kural:</strong> Gerçek kargo firmalar SMS'te ödeme linki göndermez. Gümrük ödemesi varsa resmi kargo firmasının web sitesinden veya 444'lü numaralardan teyit edin.
+          </p>
+
+          <h3>3. OTP (Tek Kullanımlık Şifre) Hırsızlığı</h3>
+          <p>
+            Bu saldırı iki aşamalıdır. Önce saldırgan sizin şifrenizi başka yollarla (phishing mail veya veri ihlaliyle) ele geçirir. Ardından hesabınıza giriş dener — bu sırada gerçek OTP kodu telefonunuza gelir. Hemen ardından sizi arayan saldırgan "banka güvenlik birimi" kılığına girerek kodu talep eder.
+          </p>
+          <div class="warning-box" style="margin:var(--space-lg) 0;">
+            <div class="warning-box-icon">🚨</div>
+            <div class="warning-box-content">
+              <div class="warning-box-title">Kritik Kural: OTP Kodunu KİMSEYLE Paylaşmayın</div>
+              <div class="warning-box-text">Bankanız, operatörünüz veya herhangi bir kurum sizi arayarak OTP kodu, SMS kodu veya şifre ASLA istemez. Bu talebi içeren her arama bir saldırıdır.</div>
+            </div>
+          </div>
+
+          <h3>4. Sahte Ödül / Çekiliş SMS'leri</h3>
+          <p>
+            "Süpermarket çekilişini kazandınız, 5.000 TL hediye çekinizi almak için tıklayın" tarzı mesajlar. Link tıklandığında kişisel bilgi veya ödeme bilgisi istenir.
+          </p>
+
+          <h2 id="gostergeler">Smishing Göstergeleri — Kontrol Listesi</h2>
+
+          <ul>
+            <li><strong>Kısaltılmış veya şüpheli link</strong> — bit.ly, tinyurl, veya sahte domain. Bankalar ve resmi kurumlar kısa link kullanmaz.</li>
+            <li><strong>Ödeme talebi</strong> — SMS ile ödeme linki gönderilmez. Her zaman doğrudan resmi uygulamadan yapın.</li>
+            <li><strong>Sahte gönderen adı</strong> — Gönderen "Ziraat Bankası" görünse de bu alfanümerik gönderici adı herkes tarafından taklit edilebilir.</li>
+            <li><strong>Kişisel bilgi talebi</strong> — Bankalar SMS ile TC kimlik numarası, kart PIN veya şifre istemez.</li>
+            <li><strong>Bilinmeyen numara</strong> — Banka veya kurum size genellikle aynı tanıdık numaradan ulaşır.</li>
+            <li><strong>Yazım ve dil hataları</strong> — Garip Türkçe, otomatik çeviri hissi.</li>
+          </ul>
+
+          <h2 id="korunma">Korunma Yöntemleri</h2>
+
+          <h3>Asla Linke Tıklamadan Doğrulayın</h3>
+          <p>Herhangi bir SMS'te şüpheli bir link görürseniz: o linke tıklamadan kurumun resmi numarasını arayın veya resmi uygulamasından kontrol edin.</p>
+
+          <h3>Resmi Numaraları Kaydedin</h3>
+          <p>Bankanızın, operatörünüzün ve sık kullandığınız kurumların resmi müşteri hizmetleri numaralarını telefonunuza kaydedin. Size bu numaradan ulaşıp ulaşmadığını kontrol edebilirsiniz.</p>
+
+          <h3>SMS Şikayet Hattı</h3>
+          <p>
+            GTB (Siber Suç) ve BTK'nın şikayet sistemine (<a href="https://www.ihbar.gov.tr" target="_blank" rel="noopener noreferrer" style="color:var(--cyan);">ihbar.gov.tr</a>) bildirin. Ayrıca BTK SMS Şikayet sistemine göndererek raporlayabilirsiniz.
+          </p>
+
+          <h2 id="faq">Sıkça Sorulan Sorular</h2>
+
+          <h3>Gerçek banka SMS'i nasıl anlarım?</h3>
+          <p>Gerçek banka SMS'leri: link içermez (sadece telefon numarası), ödeme yapmağa yönlendirmez, OTP kodunu başka biriyle paylaşmanızı istemez ve genellikle tanıdık alfanümerik gönderici ismiyle gelir.</p>
+
+          <h3>Smishing SMS'e tıkladım, ne yapmalıyım?</h3>
+          <p>Kişisel bilgi girmediyseniz panik yapmayın — sadece linke gitmek genellikle zararsızdır. Bilgi girdiyseniz hemen şifrelerinizi değiştirin ve bankanızı arayın. Cihazınızı güvenlik yazılımıyla tarayın.</p>
+
+        </div>
+
+        <div class="info-box" style="margin-top:var(--space-2xl);">
+          <div style="font-size:1.25rem;flex-shrink:0;" aria-hidden="true">💬</div>
+          <div>
+            <div style="font-weight:700;color:var(--cyan);margin-bottom:4px;">SMS senaryosunu simülatörde deneyin</div>
+            <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-md);line-height:1.6;">Sahte banka SMS senaryosunu güvenli ortamda deneyimleyin.</p>
+            <div class="flex gap-md flex-wrap">
+              <a href="/simulasyon.html?senaryo=sms" class="btn btn-primary btn-sm">🎮 SMS Senaryosu</a>
+              <a href="../test.html" class="btn btn-outline btn-sm">❓ Testi Başlat</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:var(--space-2xl);padding-top:var(--space-xl);border-top:1px solid var(--border-subtle);">
+          <p class="text-sm font-semibold" style="color:var(--text-muted);margin-bottom:var(--space-md);">İlgili Yazılar</p>
+          <div class="grid-2" style="gap:var(--space-md);">
+            <a href="phishing-maili-nasil-anlasilir.html" class="blog-card">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">📧 E-posta</span>
+                <h3 class="blog-card-title" style="font-size:0.95rem;margin-top:var(--space-sm);">Phishing E-postasını 10 Saniyede Anlayın</h3>
+              </div>
+              <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+            </a>
+            <a href="instagram-phishing-telif-hakki.html" class="blog-card">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">📷 Instagram</span>
+                <h3 class="blog-card-title" style="font-size:0.95rem;margin-top:var(--space-sm);">Instagram Telif Hakkı Tuzağı</h3>
+              </div>
+              <div class="blog-card-footer"><span class="blog-card-arrow">→</span></div>
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer" aria-label="Site alt bilgisi">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a>. Bu platform yalnızca eğitim amaçlıdır.</p>
+        <div class="flex gap-md">
+          <a href="../index.html" class="footer-link" style="font-size:0.8rem;">Ana Sayfa</a>
+          <a href="index.html" class="footer-link" style="font-size:0.8rem;">Blog</a>
+          <a href="../test.html" class="footer-link" style="font-size:0.8rem;">Test</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

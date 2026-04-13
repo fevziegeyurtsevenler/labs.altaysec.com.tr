@@ -81,6 +81,7 @@
                     <button class="filter-btn active" data-filter="all">Tümü</button>
                     <button class="filter-btn" data-filter="xss">XSS Labları</button>
                     <button class="filter-btn" data-filter="idor">IDOR Labları</button>
+                    <button class="filter-btn" data-filter="iot">IoT Labları</button>
                 </div>
                 
                 <div class="actions-group">
@@ -238,6 +239,126 @@
                         <button class="btn docker-btn" data-cmd="docker run -d -p 8086:80 altaysec/idor-level-3">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
                             Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOT LAB 1: IP Kamera -->
+                <div class="lab-card" data-category="iot">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Donanım • SSRF</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IoT Lab 1: IP Kamera Sızıntısı</h3>
+                        <p class="lab-desc">Akıllı ev sensörlerinde varsayılan şifre (default credentials) riskleri ile dahili RTSP portlarına SSRF üzerinden erişim sağlamak.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Deniz Tektek
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOT LAB 2: Akıllı Termostat -->
+                <div class="lab-card" data-category="iot">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Firmware • RCE</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IoT Lab 2: Akıllı Termostat</h3>
+                        <p class="lab-desc">Firmware içerisine gizlenmiş hardcoded MQTT kimlik bilgileri, Telnet backdoor analizi ve doğrudan OS Command Injection.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Deniz Tektek
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOT LAB 3: Akıllı Ampul -->
+                <div class="lab-card" data-category="iot">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Ağ • MQTT</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IoT Lab 3: Ampul Ağ Sızıntısı</h3>
+                        <p class="lab-desc">Anonim MQTT broker istismarı ile ağ trafiğini okumak ve düşük hafızalı IoT cihazlarında Buffer Overflow tetiklemek.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Deniz Tektek
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOT LAB 4: Akıllı Kilit -->
+                <div class="lab-card" data-category="iot">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Radyo • BLE</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IoT Lab 4: BLE Kilit Hackleme</h3>
+                        <p class="lab-desc">Bluetooth Low Energy (BLE) paket dinleme (sniffing), yetkilendirme atlatmak için Replay Attack ve SQL Injection kombosu.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Deniz Tektek
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IOT LAB 5: Evil Twin -->
+                <div class="lab-card" data-category="iot">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Kablosuz • Phishing</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">IoT Lab 5: Evil Twin AP</h3>
+                        <p class="lab-desc">Sahte erişim noktası (Rogue AP) kurarak Captive Portal üzerinden kimlik avı, oturum atlatma ve ARP Hijacking taktikleri.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Deniz Tektek
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutu Kopyala
                         </button>
                     </div>
                 </div>

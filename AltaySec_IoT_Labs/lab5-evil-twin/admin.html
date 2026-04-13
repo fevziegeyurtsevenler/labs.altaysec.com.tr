@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HomeNetwork — Admin Panel</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #111;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+    color: #ccc;
+  }
+  .login-box {
+    background: #1a1a1a; border: 1px solid #333;
+    padding: 35px; width: 100%; max-width: 360px;
+  }
+  .logo { text-align: center; margin-bottom: 25px; }
+  .logo-icon { font-size: 36px; }
+  .logo-text { font-size: 13px; color: #555; letter-spacing: 2px; margin-top: 8px; }
+  label { display: block; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  input {
+    width: 100%; background: #111; border: 1px solid #333;
+    color: #ccc; padding: 10px 12px; font-family: 'Courier New', monospace;
+    font-size: 13px; margin-bottom: 14px; outline: none;
+  }
+  input:focus { border-color: #666; }
+  .btn-login {
+    width: 100%; background: #1a1a1a; border: 1px solid #555;
+    color: #aaa; padding: 11px; font-family: 'Courier New', monospace;
+    font-size: 13px; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 1px; transition: all 0.2s;
+  }
+  .btn-login:hover { border-color: #aaa; color: #fff; }
+  .error { background: #1a0000; border: 1px solid #440000; color: #ff4444; padding: 8px 10px; font-size: 11px; margin-bottom: 12px; display: none; }
+  .hint-box {
+    margin-top: 20px; padding: 12px; background: #0d0d0d; border: 1px solid #222;
+    font-size: 10px; color: #333; line-height: 1.8;
+  }
+  .hint-box code { color: #555; }
+  .back { display: block; text-align: center; margin-top: 15px; color: #333; font-size: 11px; text-decoration: none; }
+  .back:hover { color: #666; }
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="logo">
+    <div class="logo-icon">🔐</div>
+    <div class="logo-text">ADMIN PANELİ</div>
+  </div>
+
+  <div id="error-msg" class="error">⚠ Hatalı kullanıcı adı veya şifre</div>
+
+  <form method="POST" action="/admin/login">
+    <label>Kullanıcı Adı</label>
+    <input type="text" name="username" value="admin" autocomplete="off">
+
+    <label>Şifre</label>
+    <input type="password" name="password" placeholder="••••••••">
+
+    <button type="submit" class="btn-login">Giriş Yap</button>
+  </form>
+
+  <div class="hint-box">
+    <strong style="color:#444">FLAG 2 İpuçları:</strong><br>
+    1. Boş şifre ile giriş yapmayı dene<br>
+    2. URL parametresi ekle: <code>?bypass=true</code><br>
+    3. URL: <code>/admin/login?bypass=1</code>
+  </div>
+
+  <a href="/" class="back">← Captive Portal'a Dön</a>
+</div>
+
+<script>
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('error')) document.getElementById('error-msg').style.display = 'block';
+</script>
+</body>
+</html>
