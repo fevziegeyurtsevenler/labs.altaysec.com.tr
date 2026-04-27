@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filtering & Searching Logic
     const searchInput = document.getElementById('searchInput');
 
+    const categoriesGrid = document.getElementById('categoriesGrid');
+    const labsView = document.getElementById('labsView');
+    const backToCategoriesBtn = document.getElementById('backToCategoriesBtn');
+    const categoryCards = document.querySelectorAll('.category-card');
+
     function filterLabs() {
         const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
         const searchTerm = searchInput.value.toLowerCase();
@@ -25,6 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    categoryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const targetFilter = card.getAttribute('data-target');
+            
+            // Set active filter
+            filterBtns.forEach(b => b.classList.remove('active'));
+            const targetBtn = document.querySelector(`.filter-btn[data-filter="${targetFilter}"]`);
+            if(targetBtn) targetBtn.classList.add('active');
+
+            // Hide categories, show labs
+            categoriesGrid.style.display = 'none';
+            labsView.style.display = 'block';
+
+            // Filter
+            filterLabs();
+        });
+    });
+
+    backToCategoriesBtn.addEventListener('click', () => {
+        labsView.style.display = 'none';
+        categoriesGrid.style.display = 'grid'; // because it uses CSS grid
+        searchInput.value = ''; // Reset search
+    });
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {

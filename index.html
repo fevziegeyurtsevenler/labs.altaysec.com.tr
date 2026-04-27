@@ -76,27 +76,64 @@
         </section>
 
         <section class="labs-section">
-            <div class="controls-container">
-                <div class="filters" id="filterContainer">
-                    <button class="filter-btn active" data-filter="all">Tümü</button>
-                    <button class="filter-btn" data-filter="xss">XSS Labları</button>
-                    <button class="filter-btn" data-filter="idor">IDOR Labları</button>
-                    <button class="filter-btn" data-filter="iot">IoT Labları</button>
-                    <button class="filter-btn" data-filter="dom-xss">DOM XSS</button>
-                    <button class="filter-btn" data-filter="log">Log Analizi</button>
+            <!-- Categories Grid -->
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-card" data-target="xss">
+                    <div class="cat-icon">{"</>"}</div>
+                    <h3>XSS Labları</h3>
+                    <p>Cross-Site Scripting saldırıları ve filtre atlatma simülasyonları.</p>
                 </div>
-                
-                <div class="actions-group">
-                    <div class="search-box">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="searchInput" placeholder="Lab Ara...">
-                    </div>
-                    <button class="btn info-btn" id="howToBtn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                        Nasıl Çalışır?
-                    </button>
+                <div class="category-card" data-target="idor">
+                    <div class="cat-icon">{"ID"}</div>
+                    <h3>IDOR Labları</h3>
+                    <p>Insecure Direct Object Reference ve yetki aşımı testleri.</p>
+                </div>
+                <div class="category-card" data-target="iot">
+                    <div class="cat-icon">{"IoT"}</div>
+                    <h3>IoT Labları</h3>
+                    <p>Firmware analizi, donanım sömürüsü ve ağ sızıntıları.</p>
+                </div>
+                <div class="category-card" data-target="dom-xss">
+                    <div class="cat-icon">{"DOM"}</div>
+                    <h3>DOM XSS Labları</h3>
+                    <p>İleri seviye DOM tabanlı XSS ve client-side atlatmalar.</p>
+                </div>
+                <div class="category-card" data-target="log">
+                    <div class="cat-icon">{"LOG"}</div>
+                    <h3>Log Analizi Labları</h3>
+                    <p>Saldırı tespiti, tehdit avcılığı ve Blue Team defans taktikleri.</p>
                 </div>
             </div>
+
+            <!-- Labs View Container (Initially Hidden) -->
+            <div class="labs-view" id="labsView" style="display: none;">
+                <button class="btn info-btn" id="backToCategoriesBtn" style="margin-bottom: 24px; max-width: 250px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+                    Kategorilere Dön
+                </button>
+                
+                <div class="controls-container">
+                    <div class="filters" id="filterContainer" style="display:none;">
+                        <!-- Filters are hidden in this view but kept for JS compatibility -->
+                        <button class="filter-btn active" data-filter="all">Tümü</button>
+                        <button class="filter-btn" data-filter="xss">XSS Labları</button>
+                        <button class="filter-btn" data-filter="idor">IDOR Labları</button>
+                        <button class="filter-btn" data-filter="iot">IoT Labları</button>
+                        <button class="filter-btn" data-filter="dom-xss">DOM XSS</button>
+                        <button class="filter-btn" data-filter="log">Log Analizi</button>
+                    </div>
+                    
+                    <div class="actions-group" style="width: 100%; justify-content: space-between;">
+                        <div class="search-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="searchInput" placeholder="Lab Ara...">
+                        </div>
+                        <button class="btn info-btn" id="howToBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            Nasıl Çalışır?
+                        </button>
+                    </div>
+                </div>
 
             <!-- Lab Grid Container -->
             <div class="lab-grid" id="labGrid">
@@ -486,6 +523,7 @@
                 </div>
 
             </div>
+            </div> <!-- labs-view ends -->
         </section>
     </main>
 
