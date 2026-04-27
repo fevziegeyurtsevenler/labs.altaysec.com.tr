@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  kolay_lab:
+    build: .
+    container_name: altaysec_kolay_lab
+    ports:
+      - "8080:80"
+    restart: unless-stopped

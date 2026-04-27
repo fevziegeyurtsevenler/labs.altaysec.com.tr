@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  zor_lab:
+    build: .
+    container_name: altaysec_zor_lab
+    ports:
+      - "8082:80"
+    restart: unless-stopped

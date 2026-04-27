@@ -82,6 +82,8 @@
                     <button class="filter-btn" data-filter="xss">XSS Labları</button>
                     <button class="filter-btn" data-filter="idor">IDOR Labları</button>
                     <button class="filter-btn" data-filter="iot">IoT Labları</button>
+                    <button class="filter-btn" data-filter="dom-xss">DOM XSS</button>
+                    <button class="filter-btn" data-filter="log">Log Analizi</button>
                 </div>
                 
                 <div class="actions-group">
@@ -359,6 +361,126 @@
                         <button class="btn docker-btn" data-cmd="git clone https://github.com/fevziegeyurtsevenler/iot-redteam-lab.git && cd iot-redteam-lab && chmod +x deploy.sh && ./deploy.sh">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                             Kurulum Komutu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DOM XSS Kolay -->
+                <div class="lab-card" data-category="dom-xss">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • DOM XSS</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">DOM XSS Seviye 1</h3>
+                        <p class="lab-desc">Sistemdeki mantık hatasını bul, JavaScript filtrelerini atlatarak DOM üzerinden zafiyet tetikle.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Sultan Sude Ergün & Ceren Limon
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Kolay && python3 app.py">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DOM XSS Zor -->
+                <div class="lab-card" data-category="dom-xss">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • DOM XSS</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">DOM XSS Seviye 2</h3>
+                        <p class="lab-desc">İleri seviye DOM-based XSS manipülasyonu. Gizli fonksiyonu tetikleyerek flag'i elde et.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Sultan Sude Ergün & Ceren Limon
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Zor && python3 app.py">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Log Analizi Kolay -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Log Analizi Seviye 1</h3>
+                        <p class="lab-desc">Docker üzerinde çalışan sistemde temel log dosyalarından siber saldırı izlerini tespit etme pratikleri.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySec_Log_Analysis_Labs/Altay_Sec_Kolay && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Log Analizi Orta -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Log Analizi Seviye 2</h3>
+                        <p class="lab-desc">Karmaşık sunucu loglarında web saldırı izlerini filtreleme ve SOC analist seviyesi tehdit avcılığı.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySec_Log_Analysis_Labs/Altay_Sec_Orta && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Log Analizi Zor -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Log Analizi Seviye 3</h3>
+                        <p class="lab-desc">İleri düzey log manipülasyonlarına karşı defansif tespit, korelasyon kuralı yazımı ve olay müdahale (IR) simülasyonu.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySec_Log_Analysis_Labs/Altay_Sec_Zor && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
                         </button>
                     </div>
                 </div>

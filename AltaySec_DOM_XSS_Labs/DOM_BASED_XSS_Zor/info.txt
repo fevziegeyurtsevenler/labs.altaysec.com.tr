@@ -1,0 +1,48 @@
+======================================================================
+                ALTAYSEC AKADEMİ - SİBER GÜVENLİK LAB
+======================================================================
+
+LAB ADI: altaysec-dom-xss-lab (Advanced Currency Converter)
+ZORLUK SEVİYESİ: Elite (Zor)
+GELİŞTİRİCİ: Sultan Sude Ergün-Ceren Limon
+
+[HAKKINDA - SİTENİN AMACI]
+Bu laboratuvar, modern web uygulamalarındaki DOM-tabanlı XSS (Cross-Site Scripting) 
+zafiyetlerini ve güvenlik filtrelerini (WAF) atlatma yöntemlerini öğretmek 
+amacıyla AltaySec Akademi bünyesinde tasarlanmıştır. Uygulama, TRY birimini 
+kripto ve döviz birimlerine çeviren bir analiz aracı gibi görünmektedir.
+
+[NASIL ÇALIŞIR?]
+1. Kullanıcıdan miktar ve kaynak birim bilgilerini alır.
+2. 'Calculate' butonuna basıldığında veriler URL parametreleri (amount, from, to) 
+   üzerinden sunucuya gönderilir.
+3. 'to' parametresi, sayfa yüklendiğinde JavaScript tarafından okunur ve 
+   hiçbir temizleme (sanitization) yapılmadan doğrudan 'innerHTML' sink'i 
+   aracılığıyla ekrana basılır.
+
+[LAB HEDEFİ]
+Sistemde gizli olan 'revealSecretFlag()' fonksiyonunu XSS ile tetiklemek, 
+ekrana yansıyan Base64 verisini kopyalayıp çözmek ve gerçek bayrağı (Flag) 
+sisteme teslim ederek yetkisiz veri erişimi sağlamak.
+
+[ÇÖZÜM AŞAMALARI]
+1. Adım: Tarayıcıda 'İncele' (Inspect) diyerek kaynak kodlar taranır ve 
+   arka planda çalışan 'revealSecretFlag' fonksiyonu bulunur.
+2. Adım: URL parametreleri manipüle edilerek zafiyet noktası keşfedilir.
+3. Adım: Sistemde 'script', 'onerror' ve 'onload' kelimelerini engelleyen 
+   bir WAF olduğu fark edilir.
+4. Adım: Bu filtreyi atlatmak için 'details' etiketi ve 'ontoggle' olay 
+   tetikleyicisi gibi alternatif yöntemler kullanılır.
+5. Adım: Fonksiyon tetiklendikten sonra çıkan Base64 kodu kopyalanır ve 
+   online (örneğin Google veya CyberChef) araçlarla decode edilir.
+
+[KULLANILMASI GEREKEN PAYLOAD]
+&to=<details/open/ontoggle=revealSecretFlag()>
+
+[BAYRAK (FLAG)]
+Base64: QWx0YXlTZWN7RE9NX1hTU19NQVNURVJfREVDT0RFUn0=
+Çözülmüş: AltaySec{DOM_XSS_MASTER_DECODER}
+
+======================================================================
+AltaySec Akademi - Geleceğin Siber Güvenlik Uzmanları Burada Yetişiyor!
+======================================================================
