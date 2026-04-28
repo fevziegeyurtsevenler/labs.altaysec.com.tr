@@ -637,6 +637,80 @@ body {
     color: var(--accent-red);
 }
 
+/* Flag System */
+.flag-container {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 16px;
+}
+
+.flag-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.flag-input {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.flag-input:focus {
+    border-color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.flag-submit-btn {
+    padding: 8px 16px;
+    width: auto;
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.2);
+    color: var(--easy-green);
+    font-size: 0.85rem;
+}
+
+.flag-submit-btn:hover {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: var(--easy-green);
+    color: var(--easy-green);
+}
+
+.flag-feedback {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    min-height: 18px;
+}
+
+.flag-feedback.success {
+    color: var(--easy-green);
+}
+
+.flag-feedback.error {
+    color: var(--hard-red);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .gradient-text { font-size: 3rem; }

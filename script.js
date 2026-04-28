@@ -120,4 +120,48 @@ document.addEventListener('DOMContentLoaded', () => {
             toast.classList.remove('show');
         }, 2500); // Hide after 2.5s
     }
+
+    // Flag System Logic
+    const flagContainers = document.querySelectorAll('.flag-container');
+    
+    flagContainers.forEach(container => {
+        const input = container.querySelector('.flag-input');
+        const btn = container.querySelector('.flag-submit-btn');
+        const feedback = container.querySelector('.flag-feedback');
+        const correctFlag = container.getAttribute('data-correct-flag');
+
+        function checkFlag() {
+            let userFlag = input.value.trim();
+            if (!userFlag) return;
+
+            // Emir'in formatı gibi "FLAG ALTAY{...}" gelirse başındaki FLAG kısmını temizle
+            userFlag = userFlag.replace(/^FLAG\s+/i, '');
+
+            if (userFlag === correctFlag) {
+                feedback.textContent = 'Doğru! Tebrikler.';
+                feedback.className = 'flag-feedback success';
+                input.style.borderColor = 'var(--easy-green)';
+            } else {
+                feedback.textContent = 'Yanlış flag, tekrar dene.';
+                feedback.className = 'flag-feedback error';
+                input.style.borderColor = 'var(--hard-red)';
+                
+                // Shake efekti
+                input.classList.remove('shake');
+                void input.offsetWidth; // trigger reflow
+                input.classList.add('shake');
+            }
+        }
+
+        btn.addEventListener('click', checkFlag);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkFlag();
+        });
+        
+        input.addEventListener('input', () => {
+            input.style.borderColor = '';
+            feedback.textContent = '';
+            feedback.className = 'flag-feedback';
+        });
+    });
 });
