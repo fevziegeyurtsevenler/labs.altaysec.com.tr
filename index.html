@@ -108,6 +108,12 @@
                     <h3>Log Analizi Labları</h3>
                     <p>Saldırı tespiti, tehdit avcılığı ve Blue Team defans taktikleri.</p>
                 </div>
+                <div class="category-card" data-target="network-forensics">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"PCAP"}</div>
+                    <h3>Network Forensics</h3>
+                    <p>Ağ trafiği analizi, pcap inceleme ve tshark/wireshark kullanımı pratikleri.</p>
+                </div>
             </div>
 
             <!-- Labs View Container (Initially Hidden) -->
@@ -126,6 +132,7 @@
                         <button class="filter-btn" data-filter="iot">IoT Labları</button>
                         <button class="filter-btn" data-filter="dom-xss">DOM XSS</button>
                         <button class="filter-btn" data-filter="log">Log Analizi</button>
+                        <button class="filter-btn" data-filter="network-forensics">Network Forensics</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -553,6 +560,99 @@
                             Docker Command
                         </button>
                         <div class="flag-container" data-correct-flag="ALTAY{WEB_TO_OS_STEALTH_DETECTED}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAY{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Forensics Kolay -->
+                <div class="lab-card" data-category="network-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Network Forensics Seviye 1</h3>
+                        <p class="lab-desc">Zararlı yazılımın DNS üzerinden yaptığı iletişimi inceleyerek C2 alan adını ve sızdıran IP adresini tespit et.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Kolay">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAY{N3TWORK_FORENSICS_MASTER}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAY{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Forensics Orta -->
+                <div class="lab-card" data-category="network-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Network Forensics Seviye 2</h3>
+                        <p class="lab-desc">Ağ üzerinde ICMP (Ping) paketleriyle dışarı sızdırılan veriyi tespit edip decode ederek hedefi bul.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Orta">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAY{PING0_ICMP_EXFIL}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAY{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Network Forensics Zor -->
+                <div class="lab-card" data-category="network-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Network Forensics Seviye 3</h3>
+                        <p class="lab-desc">FTP üzerinden gerçekleşen kaba kuvvet (brute-force) saldırısını, çalınan parolayı ve indirilen gizli veriyi tespit et.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            AltaySec Akademi
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Zor">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAY{FTP_BRUT3_AND_EXFIL_C4EGHT}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: ALTAY{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>
