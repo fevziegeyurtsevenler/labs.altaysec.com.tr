@@ -1,0 +1,7 @@
+services:
+  altaysec-lfi-medium:
+    build: .
+    container_name: altaysec-lfi-medium
+    ports:
+      - "8080:80"
+    restart: unless-stopped

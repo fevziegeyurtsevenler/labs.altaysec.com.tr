@@ -1,0 +1,7 @@
+services:
+  easy-lfi-lab:
+    build: .
+    container_name: easy-lfi-lab
+    ports:
+      - "8080:80"
+    restart: unless-stopped

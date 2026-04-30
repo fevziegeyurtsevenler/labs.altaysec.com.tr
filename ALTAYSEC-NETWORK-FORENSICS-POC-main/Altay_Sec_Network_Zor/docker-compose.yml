@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  net_zor_lab:
+    build: .
+    container_name: altaysec_net_zor_lab
+    ports:
+      - "8085:80"
+    restart: unless-stopped

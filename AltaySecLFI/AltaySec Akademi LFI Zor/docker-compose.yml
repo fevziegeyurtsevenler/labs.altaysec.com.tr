@@ -1,0 +1,7 @@
+services:
+  altaysec-lfi-hard:
+    build: .
+    container_name: altaysec-lfi-hard
+    ports:
+      - "8080:80"
+    restart: unless-stopped

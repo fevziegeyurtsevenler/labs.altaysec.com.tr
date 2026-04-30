@@ -114,6 +114,12 @@
                     <h3>Network Forensics</h3>
                     <p>Ağ trafiği analizi, pcap inceleme ve tshark/wireshark kullanımı pratikleri.</p>
                 </div>
+                <div class="category-card" data-target="lfi">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">LFI</div>
+                    <h3>LFI Labları</h3>
+                    <p>Yerel dosya dahil etme zafiyetleri ve filtre atlatma teknikleri.</p>
+                </div>
             </div>
 
             <!-- Labs View Container (Initially Hidden) -->
@@ -133,6 +139,7 @@
                         <button class="filter-btn" data-filter="dom-xss">DOM XSS</button>
                         <button class="filter-btn" data-filter="log">Log Analizi</button>
                         <button class="filter-btn" data-filter="network-forensics">Network Forensics</button>
+                        <button class="filter-btn" data-filter="lfi">LFI Labları</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -655,6 +662,99 @@
                         <div class="flag-container" data-correct-flag="ALTAY{FTP_BRUT3_AND_EXFIL_C4EGHT}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: ALTAY{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LFI Lab 1: Kolay -->
+                <div class="lab-card" data-category="lfi">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • LFI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">LFI Seviye 1: Giriş</h3>
+                        <p class="lab-desc">PHP 'include' fonksiyonu üzerindeki temel yerel dosya dahil etme zafiyeti. Filtreleme yok.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySecLFI/'AltaySec Akademi LFI Kolay' && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{AltaySec_lfi_baslangic_seviye_tamamlandi}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LFI Lab 2: Orta -->
+                <div class="lab-card" data-category="lfi">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • LFI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">LFI Seviye 2: Filtre Atlatma</h3>
+                        <p class="lab-desc">Dosya uzantısı kontrolü ve '..' engellerini aşarak hassas dosyalara erişim sağlama simülasyonu.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySecLFI/'AltaySec Akademi LFI Orta' && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{lfi_filtre_atlatma_basarili}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LFI Lab 3: Zor -->
+                <div class="lab-card" data-category="lfi">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • LFI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">LFI Seviye 3: PHP Wrappers</h3>
+                        <p class="lab-desc">PHP wrapper'ları (php://filter, data:// vb.) kullanarak kaynak kodu okuma ve yetki aşımı pratiği.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd AltaySecLFI/'AltaySec Akademi LFI Zor' && docker-compose up -d">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{lfi_lab_flag_okuma}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>
                             </div>
                             <div class="flag-feedback"></div>

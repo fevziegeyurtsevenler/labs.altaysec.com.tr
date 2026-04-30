@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  net_orta_lab:
+    build: .
+    container_name: altaysec_net_orta_lab
+    ports:
+      - "8084:80"
+    restart: unless-stopped
