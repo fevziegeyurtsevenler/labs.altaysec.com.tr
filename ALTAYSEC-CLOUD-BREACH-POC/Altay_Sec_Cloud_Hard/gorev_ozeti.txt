@@ -1,0 +1,16 @@
+GÖREV: Hak Yükseltme ve Veri Sızıntısı (Level 3: ZOR)
+
+Senaryo:
+Arka kapıyı tespit ettiniz ancak saldırganın içeride geçirdiği sürede 
+sadece madencilik yapmadığını fark ettik. Saldırgan, "aws_svc_backup_admin"
+hesabını kullanarak daha yüksek yetkilere sahip bir role bürünmüş (AssumeRole)
+ve kritik müşteri verilerimizi içeren gizli S3 bucket'ımızdan veri sızdırmıştır.
+
+Görevleriniz:
+Loglar karmaşıklaştı. Gözünüzü dört açın ve JSON kırılımlarını detaylı inceleyin.
+
+1. Saldırganın hak yükseltmek (Privilege Escalation) için büründüğü IAM Rolünün tam ARN'si (roleArn) nedir?
+2. Saldırgan sızdırdığı verileri çekerken hangi aracı (User-Agent) kullanmıştır?
+3. 'company-secure-vault' adlı S3 bucket'ından çalınan dosyanın tam adı (key) nedir?
+
+Cevapları bulduğunuzda terminale './submit' yazarak bayrağı (FLAG) kapın!

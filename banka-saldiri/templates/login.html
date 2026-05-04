@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banka</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@200;300;400&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --surface: #111111; --border: #1e1e1e;
+      --accent: #c8a96e; --text: #e8e2d9; --muted: #5a5650; --error: #8a3a3a;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Jost', sans-serif; font-weight: 200; letter-spacing: 0.04em; }
+    body { display: flex; align-items: center; justify-content: center; }
+    .container { width: 340px; }
+    .wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.55rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 2.8rem; text-align: center; }
+    form { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    input { width: 100%; padding: 14px 16px; background: var(--surface); border: none; outline: none; color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; }
+    input::placeholder { color: var(--muted); }
+    input:focus { background: #161616; }
+    button { width: 100%; padding: 14px 16px; background: var(--accent); border: none; color: #0d0d0d; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    button:hover { opacity: 0.88; }
+    .error-msg { font-size: 0.7rem; color: var(--error); letter-spacing: 0.06em; text-align: center; margin-top: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="wordmark">Banka</div>
+    <form method="POST" action="/login" autocomplete="off">
+      <input type="text" name="nickname" placeholder="kullanıcı adı: user" />
+      <input type="password" name="password" placeholder="şifre: user123" />
+      <button type="submit">Giriş Yap</button>
+    </form>
+    {% if error %}
+      <p class="error-msg">Geçersiz kullanıcı adı veya şifre.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

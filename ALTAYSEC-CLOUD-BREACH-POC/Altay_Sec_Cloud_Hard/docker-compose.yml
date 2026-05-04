@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  cloud-hard-lab:
+    build: .
+    container_name: altaysec_cloud_hard
+    working_dir: /home/analyst
+    ports:
+      - "8082:8080"
+    restart: always

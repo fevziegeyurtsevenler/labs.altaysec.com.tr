@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  cloud-easy-lab:
+    build: .
+    container_name: altaysec_cloud_easy
+    working_dir: /home/analyst
+    ports:
+      - "8080:8080"
+    restart: always

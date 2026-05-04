@@ -1,0 +1,17 @@
+GÖREV: Arka Kapı ve Kripto Madencilik (Level 2: ORTA)
+
+Senaryo:
+Level 1'deki saldırganın 'dev_ahmet' hesabını kullandığını tespit ettik. Ancak bu
+hesap kapatılsa bile saldırganın sistemde kalabilmek için kendine gizli bir 
+"Arka Kapı" (Persistence) hesabı oluşturduğunu ve kripto madencilik yapmak 
+için büyük bir sanal sunucu başlattığını düşünüyoruz.
+
+Görevleriniz:
+Sizden 'cloudtrail_medium.json' dosyasını analiz etmeniz beklenmektedir. 
+JSON verisi derinleştiği için 'grep' veya 'jq' araçlarını dikkatli kullanın.
+
+1. Saldırganın arka kapı olarak oluşturduğu yeni gizli kullanıcının adı (userName) nedir?
+2. Bu yeni kullanıcıya erişim anahtarı üretmek için kullanılan API eylemi (eventName) nedir?
+3. Saldırganın madencilik için başlattığı sunucunun tipi (instanceType) nedir?
+
+Cevapları bulduğunuzda terminale './submit' yazarak bayrağı (FLAG) kapın!

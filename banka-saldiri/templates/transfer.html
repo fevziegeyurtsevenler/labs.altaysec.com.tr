@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banka</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@200;300;400&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --surface: #111111; --border: #1e1e1e;
+      --accent: #c8a96e; --text: #e8e2d9; --muted: #5a5650; --dim: #2a2a2a;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Jost', sans-serif; font-weight: 200; letter-spacing: 0.04em; }
+    body { display: flex; align-items: center; justify-content: center; }
+    .container { width: 360px; }
+    .wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.55rem; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; text-align: center; }
+    .greeting { text-align: center; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 2.4rem; }
+    .balance-block { border: 1px solid var(--border); padding: 20px 20px 18px; margin-bottom: 1px; background: var(--surface); }
+    .balance-label { font-size: 0.58rem; color: var(--muted); letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 6px; }
+    .balance-amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--accent); letter-spacing: 0.04em; }
+    form { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-top: none; }
+    input[type="text"], input[type="number"] { width: 100%; padding: 13px 16px; background: var(--surface); border: none; outline: none; color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; }
+    input::placeholder { color: var(--muted); }
+    input:focus { background: #161616; }
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    button { width: 100%; padding: 13px 16px; background: var(--accent); border: none; color: #0d0d0d; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    button:hover { opacity: 0.88; }
+    .message { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-align: center; margin-top: 1.4rem; line-height: 1.7; }
+    .logout-link { display: block; text-align: center; margin-top: 2.4rem; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.18em; text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .logout-link:hover { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="wordmark">Banka</div>
+    <div class="greeting">Hoş geldiniz, {{ name }}</div>
+
+    <div class="balance-block">
+      <div class="balance-label">Mevcut Bakiye</div>
+      <div class="balance-amount">${{ "%.2f"|format(balance) }}</div>
+    </div>
+
+    <form method="POST" action="/transfer">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+      <input type="text" name="recipient" placeholder="Alıcı hesap" autocomplete="off" />
+      <input type="number" name="amount" placeholder="Miktar (USD)" step="0.01" min="0.01" autocomplete="off" />
+      <button type="submit">Transfer Yap</button>
+    </form>
+
+    {% if message %}
+      <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <a href="/logout" class="logout-link">Çıkış Yap</a>
+  </div>
+</body>
+</html>

@@ -120,6 +120,18 @@
                     <h3>LFI Labları</h3>
                     <p>Yerel dosya dahil etme zafiyetleri ve filtre atlatma teknikleri.</p>
                 </div>
+                <div class="category-card" data-target="csrf">
+                    <div class="cat-badge">1 Lab</div>
+                    <div class="cat-icon">{"CSRF"}</div>
+                    <h3>CSRF Labları</h3>
+                    <p>Cross-Site Request Forgery saldırıları ve bankacılık simülasyonu.</p>
+                </div>
+                <div class="category-card" data-target="cloud">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"AWS"}</div>
+                    <h3>Cloud Güvenliği</h3>
+                    <p>AWS CloudTrail log analizi, sızma tespiti ve bulut güvenliği pratikleri.</p>
+                </div>
             </div>
 
             <!-- Labs View Container (Initially Hidden) -->
@@ -140,6 +152,8 @@
                         <button class="filter-btn" data-filter="log">Log Analizi</button>
                         <button class="filter-btn" data-filter="network-forensics">Network Forensics</button>
                         <button class="filter-btn" data-filter="lfi">LFI Labları</button>
+                        <button class="filter-btn" data-filter="csrf">CSRF Labları</button>
+                        <button class="filter-btn" data-filter="cloud">Cloud Güvenliği</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -755,6 +769,123 @@
                         <div class="flag-container" data-correct-flag="AltaySec{lfi_lab_flag_okuma}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSRF Lab: Banka Saldırı -->
+                <div class="lab-card" data-category="csrf">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • CSRF</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Banka Saldırı: CSRF Simülasyonu</h3>
+                        <p class="lab-desc">Gerçekçi bir bankacılık uygulaması üzerinde CSRF zafiyeti tespiti ve sömürüsü. HTTP istek analizi gerektirir.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Zeynep Sude Ogan
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd banka-saldiri && docker compose up -d --build">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cloud Breach Seviye 1 -->
+                <div class="lab-card" data-category="cloud">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Cloud • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Cloud Breach Seviye 1: Giriş</h3>
+                        <p class="lab-desc">Temel CloudTrail log analizi ile sızan IP ve kullanıcı tespiti yapın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            V3nG4mxV1p3r
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-CLOUD-BREACH-POC/Altay_Sec_Cloud_Easy && docker-compose up -d --build">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{CL0UD_TR41L_B3G1NN3R}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud Breach Seviye 2 -->
+                <div class="lab-card" data-category="cloud">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Cloud • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Cloud Breach Seviye 2: Persistence</h3>
+                        <p class="lab-desc">Bulut ortamında kalıcılık sağlama ve yetki artırma adımlarının loglardan izlenmesi.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            V3nG4mxV1p3r
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-CLOUD-BREACH-POC/Altay_Sec_Cloud_Medium && docker-compose up -d --build">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{P3RS1ST3NC3_4ND_M1N1NG}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud Breach Seviye 3 -->
+                <div class="lab-card" data-category="cloud">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Cloud • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Cloud Breach Seviye 3: Exfiltration</h3>
+                        <p class="lab-desc">İleri seviye veri sızdırma ve rol üstlenme (AssumeRole) saldırılarının analizi.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            V3nG4mxV1p3r
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="cd ALTAYSEC-CLOUD-BREACH-POC/Altay_Sec_Cloud_Hard && docker-compose up -d --build">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{3XF1LTR4T10N_4ND_PR1V_3SC}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>
                             </div>
                             <div class="flag-feedback"></div>

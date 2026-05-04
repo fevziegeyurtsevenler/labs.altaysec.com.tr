@@ -1,0 +1,52 @@
+{
+    "Records": [
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "userName": "aws_svc_backup_admin"
+            },
+            "eventTime": "2026-05-04T09:05:12Z",
+            "eventSource": "sts.amazonaws.com",
+            "eventName": "AssumeRole",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "aws-cli/2.0.30",
+            "requestParameters": {
+                "roleArn": "arn:aws:iam::123456789012:role/DatabaseAdminRole",
+                "roleSessionName": "S3-Exfil-Session"
+            }
+        },
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "AssumedRole",
+                "principalId": "AROAJ45Q7Y6EZ:S3-Exfil-Session"
+            },
+            "eventTime": "2026-05-04T09:12:45Z",
+            "eventSource": "s3.amazonaws.com",
+            "eventName": "ListObjects",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "aws-cli/2.0.30",
+            "requestParameters": {
+                "bucketName": "company-secure-vault",
+                "prefix": ""
+            }
+        },
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "AssumedRole",
+                "principalId": "AROAJ45Q7Y6EZ:S3-Exfil-Session"
+            },
+            "eventTime": "2026-05-04T09:15:22Z",
+            "eventSource": "s3.amazonaws.com",
+            "eventName": "GetObject",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "rclone/v1.53.3",
+            "requestParameters": {
+                "bucketName": "company-secure-vault",
+                "key": "customer_data_2026.csv"
+            }
+        }
+    ]
+}

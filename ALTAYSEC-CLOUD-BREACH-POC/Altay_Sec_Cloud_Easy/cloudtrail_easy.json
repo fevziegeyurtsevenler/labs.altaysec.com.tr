@@ -1,0 +1,34 @@
+{
+    "Records": [
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "principalId": "AIDAJ45Q7Y6EZ",
+                "arn": "arn:aws:iam::123456789012:user/dev_ahmet",
+                "userName": "dev_ahmet"
+            },
+            "eventTime": "2026-05-04T08:12:34Z",
+            "eventSource": "sts.amazonaws.com",
+            "eventName": "GetCallerIdentity",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "aws-cli/2.0.30 Python/3.7.4 Linux",
+            "requestParameters": null
+        },
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "userName": "dev_ahmet"
+            },
+            "eventTime": "2026-05-04T08:14:05Z",
+            "eventSource": "s3.amazonaws.com",
+            "eventName": "ListBuckets",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "aws-cli/2.0.30 Python/3.7.4 Linux",
+            "requestParameters": {
+                "Host": "s3.us-east-1.amazonaws.com"
+            }
+        }
+    ]
+}

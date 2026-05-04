@@ -1,0 +1,16 @@
+GÖREV: Bulutta İlk Kan (Level 1: KOLAY)
+
+Senaryo:
+Altay Tech yazılım ekibinden bir çalışan, AWS Access Key (Erişim Anahtarı)
+bilgilerini yanlışlıkla GitHub'da herkese açık bir repoya push'lamıştır.
+Saldırganın bu anahtarlarla sistemimize sızdığından şüpheleniyoruz.
+
+Görevleriniz:
+Sizden 'cloudtrail_easy.json' dosyasını 'grep' veya 'jq' araçları
+ile analiz etmeniz ve aşağıdaki 3 sorunun cevabını bulmanız beklenmektedir.
+
+1. Saldırgan kendi yetkilerini doğrulamak için hangi olayı (eventName) tetiklemiştir?
+2. Sisteme yetkisiz erişim sağlayan IP adresi (sourceIPAddress) nedir?
+3. Saldırgan, şirketimizdeki hangi kullanıcının (userName) hesabına sızmıştır?
+
+Cevapları bulduğunuzda terminale './submit' yazarak bayrağı (FLAG) kapın!

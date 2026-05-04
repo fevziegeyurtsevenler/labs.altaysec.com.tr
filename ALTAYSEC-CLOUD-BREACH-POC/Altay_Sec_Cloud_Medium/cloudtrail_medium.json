@@ -1,0 +1,48 @@
+{
+    "Records": [
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "userName": "dev_ahmet"
+            },
+            "eventTime": "2026-05-04T08:15:12Z",
+            "eventSource": "iam.amazonaws.com",
+            "eventName": "CreateUser",
+            "sourceIPAddress": "198.51.100.42",
+            "userAgent": "aws-cli/2.0.30",
+            "requestParameters": {
+                "userName": "aws_svc_backup_admin"
+            }
+        },
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "userName": "dev_ahmet"
+            },
+            "eventTime": "2026-05-04T08:15:45Z",
+            "eventSource": "iam.amazonaws.com",
+            "eventName": "CreateAccessKey",
+            "sourceIPAddress": "198.51.100.42",
+            "requestParameters": {
+                "userName": "aws_svc_backup_admin"
+            }
+        },
+        {
+            "eventVersion": "1.08",
+            "userIdentity": {
+                "type": "IAMUser",
+                "userName": "aws_svc_backup_admin"
+            },
+            "eventTime": "2026-05-04T08:22:10Z",
+            "eventSource": "ec2.amazonaws.com",
+            "eventName": "RunInstances",
+            "sourceIPAddress": "198.51.100.42",
+            "requestParameters": {
+                "instanceType": "g4dn.xlarge",
+                "imageId": "ami-0abcdef1234567890"
+            }
+        }
+    ]
+}
