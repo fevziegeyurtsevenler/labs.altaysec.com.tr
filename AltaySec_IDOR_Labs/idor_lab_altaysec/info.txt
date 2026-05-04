@@ -17,23 +17,4 @@ ZAFİYET TÜRLERİ:
 - Parameter Tampering (Parametre Manipülasyonu)
 - Broken Business Logic (Hatalı İş Mantığı)
 
-TEKNİK NOTLAR:
-- Uygulama 5000 portunda çalışır.
-- ID'ler ardışık değil, belirli bir aralıkta rastgele artar.
-
-------------------------------------------------------------
-KURULUM TALİMATLARI:
-
-1. Sanal Ortam Oluşturun:
-   $ python3 -m venv venv
-
-2. Sanal Ortamı Aktif Edin:
-   - Linux/macOS: source venv/bin/activate
-   - Windows: .\venv\Scripts\activate
-
-3. Gerekli Kütüphaneleri Yükleyin:
-   $ pip install -r requirements.txt
-
-4. Uygulamayı Başlatın:
-   $ python3 app.py
-------------------------------------------------------------
+http://localhost:5011/
