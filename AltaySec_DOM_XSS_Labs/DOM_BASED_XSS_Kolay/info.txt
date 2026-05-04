@@ -14,18 +14,9 @@ bünyesinde hazırlanmış bir eğitim materyalidir.
 arşivlerine erişim sağla! Güvenlik rutinlerini atlat, 
 gizli fonksiyonu tetikle ve Flag'i ele geçir!"
 
-3. ÇALIŞMA MANTIĞI:
-URL üzerinden gelen 'query' parametresi, JavaScript 
-tarafından kontrolsüz bir şekilde 'innerHTML' ile 
-işlenmektedir. Hedef, 'x01_sec_init()' fonksiyonunu 
-başarıyla tetikleyerek Flag alanını açmaktır.
-
-4. ÇÖZÜM PAYLOAD'U:
-<img src=x onerror=x01_sec_init()>
+http://localhost:5021/
 
 =====================================================
 Hazırlayan: Sultan Sude Ergün-Ceren Limon
 AltaySec Akademi - Siber Güvenlik Laboratuvarı
 =====================================================
-
-ALTAYSEC{DOM_XSS_UNLOCKED}
