@@ -14,4 +14,6 @@ ZAFİYET BİLGİSİ:
 - Teknik Detay: Jinja2 template motorunda '| safe' filtresi 
   kullanılarak girdi temizleme (sanitization) devre dışı bırakılmıştır.
 
+http://localhost:5001
+
 Çağrı Ceyhan 
