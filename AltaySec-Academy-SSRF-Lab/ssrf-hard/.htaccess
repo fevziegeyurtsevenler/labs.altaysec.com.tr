@@ -1,0 +1,6 @@
+# Block direct HTTP access to secret.txt
+# The file is still readable via file:// protocol through SSRF.
+<Files "secret.txt">
+    Order Allow,Deny
+    Deny from all
+</Files>

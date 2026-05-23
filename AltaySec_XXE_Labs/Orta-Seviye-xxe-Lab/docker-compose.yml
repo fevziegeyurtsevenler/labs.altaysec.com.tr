@@ -1,0 +1,19 @@
+services:
+  altaysec-xxe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: altaysec/data-sync-xxe:latest
+    container_name: altaysec-data-sync-xxe
+    hostname: altaysec-data-sync
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Istanbul"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

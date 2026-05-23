@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>AltaySec | Tehdit Bildirim Portalı</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <main class="container">
+        <header class="brand">
+            <div class="brand-tag">[ CLASSIFIED // TLP:RED ]</div>
+            <h1 class="title">ALTAYSEC TEHDİT BİLDİRİMİ</h1>
+            <p class="subtitle">
+                &gt; Şüpheli IP / Hash girdilerinizi SOC ekibine güvenli kanal üzerinden iletin.
+            </p>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <span class="dot red"></span>
+                <span class="dot dim"></span>
+                <span class="dot dim"></span>
+                <span class="panel-title">// bildirim_arayuzu.exe</span>
+            </div>
+
+            <form id="threat-form" class="form" autocomplete="off" novalidate>
+                <label class="field">
+                    <span class="field-label">Tehdit Türü (Örn: IP, Hash)</span>
+                    <input
+                        type="text"
+                        id="threat-type"
+                        name="type"
+                        placeholder="IP / HASH / DOMAIN"
+                        required
+                        spellcheck="false"
+                        autocapitalize="off"
+                    >
+                </label>
+
+                <label class="field">
+                    <span class="field-label">Değer</span>
+                    <input
+                        type="text"
+                        id="threat-value"
+                        name="value"
+                        placeholder="örn: 185.220.101.5 veya d41d8cd98f00b204..."
+                        required
+                        spellcheck="false"
+                        autocapitalize="off"
+                    >
+                </label>
+
+                <button type="submit" id="submit-btn" class="submit-btn">
+                    SİSTEME GÖNDER
+                </button>
+            </form>
+        </section>
+
+        <section class="log-box" aria-live="polite">
+            <h2 class="log-title">Sistem Yanıtı:</h2>
+            <pre id="log-output" class="log-output">[ Bekleniyor... Henüz bir bildirim gönderilmedi. ]</pre>
+        </section>
+
+        <footer class="footer">
+            <span>AltaySec Akademi &middot; XEE Kolay Lab</span>
+            <span class="footer-meta">v1.0 / internal-only</span>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

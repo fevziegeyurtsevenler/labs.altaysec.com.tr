@@ -1,0 +1,20 @@
+GÖREV: Ağ Analizi ve Gizli Süreçler (Level 2: ORTA)
+
+Senaryo:
+İlk incelemede şüpheli bir uygulamanın çalıştığını tespit etmiştik. Ancak 
+yeni bulgular, saldırganın ana zararlı yazılımını Görev Yöneticisinden 
+(pslist) gizlediğini (Unlinked Process) ve dışarıdaki bir Komuta Kontrol 
+(C2) sunucusuyla haberleştiğini gösteriyor.
+
+Görevleriniz:
+1. Zararlı yazılımın dışarıya bağlandığı C2 sunucusunun IP adresi nedir?
+   (İpucu: 'windows.netstat' komutunu kullanın)
+
+2. Kendini standart görev listesinden gizlemiş (pslist'te 'False' ama psscan'de 
+   'True' olan) gizli zararlı sürecin adı nedir?
+   (İpucu: 'windows.psxview' komutunu kullanın)
+
+3. Bu gizli zararlıyı başlatan ana sürecin (PPID) numarası nedir?
+   (İpucu: 'windows.pstree' komutunu kullanarak ebeveyn sürecini bulun)
+
+Cevapları bulduğunuzda terminale './submit' yazarak bayrağı (FLAG) kapın!

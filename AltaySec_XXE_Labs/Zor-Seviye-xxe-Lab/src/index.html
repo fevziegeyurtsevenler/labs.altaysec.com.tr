@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AltaySec | SOC Policy Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-left">
+        <div class="logo">
+            <span class="logo-bracket">[</span><span class="logo-altay">ALTAY</span><span class="logo-sec">SEC</span><span class="logo-bracket">]</span>
+        </div>
+        <div class="header-divider"></div>
+        <span class="header-title" id="pageTitle">KURAL YÜKLEYİCİ</span>
+    </div>
+    <div class="header-right">
+        <span class="badge-version">XML PARSER v3.1</span>
+        <span class="badge-env">ENV: PROD</span>
+        <div class="header-dot active"></div>
+    </div>
+</header>
+
+<main class="main-layout">
+
+    <aside class="sidebar">
+        <nav class="side-nav">
+            <div class="nav-section-label">MODÜLLER</div>
+            <a href="#" class="nav-item active" data-view="view-upload" data-title="KURAL YÜKLEYİCİ">
+                <span class="nav-icon">▣</span> Kural Yükleyici
+            </a>
+            <a href="#" class="nav-item" data-view="view-policies" data-title="POLİTİKA LİSTESİ">
+                <span class="nav-icon">◈</span> Politika Listesi
+            </a>
+            <a href="#" class="nav-item" data-view="view-netmap" data-title="AĞ HARİTASI">
+                <span class="nav-icon">◉</span> Ağ Haritası
+            </a>
+            <a href="#" class="nav-item" data-view="view-events" data-title="OLAY KAYDI">
+                <span class="nav-icon">◆</span> Olay Kaydı
+            </a>
+            <div class="nav-section-label" style="margin-top:24px">SİSTEM</div>
+            <a href="#" class="nav-item" data-view="view-config" data-title="YAPILANDIRMA">
+                <span class="nav-icon">⬡</span> Yapılandırma
+            </a>
+            <a href="#" class="nav-item" data-view="view-auth" data-title="YETKİLENDİRME">
+                <span class="nav-icon">◌</span> Yetkilendirme
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sf-row"><span>CPU</span><div class="sf-bar"><div class="sf-fill" id="sfCpu" style="width:34%"></div></div><span id="sfCpuVal">34%</span></div>
+            <div class="sf-row"><span>MEM</span><div class="sf-bar"><div class="sf-fill" id="sfMem" style="width:61%"></div></div><span id="sfMemVal">61%</span></div>
+            <div class="sf-row"><span>NET</span><div class="sf-bar"><div class="sf-fill" id="sfNet" style="width:22%"></div></div><span id="sfNetVal">22%</span></div>
+        </div>
+    </aside>
+
+    <div class="content-area">
+
+        <div class="status-bar">
+            <div class="status-stripe"></div>
+            <div class="status-content">
+                <span class="status-dot blink"></span>
+                <span class="status-label">SİSTEM DURUMU:</span>
+                <span class="status-value">AKTİF / GÜVENLİ</span>
+                <span class="status-sep">│</span>
+                <span class="status-meta">Firewall Engine: <strong>ONLINE</strong></span>
+                <span class="status-sep">│</span>
+                <span class="status-meta">Tehdit Seviyesi: <strong class="threat-low">DÜŞÜK</strong></span>
+                <span class="status-sep">│</span>
+                <span class="status-meta">Son Sync: <span id="last-sync">—</span></span>
+            </div>
+        </div>
+
+        <div id="view-upload" class="view active">
+            <div class="panel-grid">
+                <section class="panel upload-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><span class="panel-title-icon">◈</span> GÜVENLİK POLİTİKASI YÜKLEYİCİ</div>
+                        <div class="panel-actions">
+                            <button class="btn-icon" onclick="loadTemplate()">⬇ ŞABLON</button>
+                            <button class="btn-icon" onclick="clearForm()">✕ TEMİZLE</button>
+                        </div>
+                    </div>
+                    <form id="policyForm" class="upload-form">
+                        <div class="form-group">
+                            <label for="ruleName"><span class="label-tag">01</span> KURAL ADI</label>
+                            <input type="text" id="ruleName" name="ruleName" placeholder="örn: BLOCK_EXT_TRAFFIC_001" autocomplete="off" spellcheck="false" />
+                        </div>
+                        <div class="form-group">
+                            <label for="xmlRuleset">
+                                <span class="label-tag">02</span> XML KURAL SETİ
+                                <span class="label-hint">(RFC-3092 uyumlu)</span>
+                            </label>
+                            <div class="textarea-wrap">
+                                <div class="line-numbers" id="lineNumbers">1</div>
+                                <textarea id="xmlRuleset" name="xmlRuleset" rows="14" spellcheck="false" placeholder="<?xml version=&quot;1.0&quot;?>&#10;<policy>&#10;  <rules>&#10;    <rule id=&quot;1&quot;>&#10;      <action>BLOCK</action>&#10;    </rule>&#10;  </rules>&#10;</policy>"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <div class="form-meta"><span id="charCount">0</span> karakter <span class="sep">·</span> <span id="lineCount">0</span> satır</div>
+                            <button type="submit" class="btn-apply"><span class="btn-icon-left">⬆</span> POLİTİKAYI UYGULA</button>
+                        </div>
+                    </form>
+                </section>
+                <section class="panel log-panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><span class="panel-title-icon">◉</span> İŞLEM LOGU</div>
+                        <div class="panel-actions">
+                            <span id="logCount" class="log-count">3 giriş</span>
+                            <button class="btn-icon" onclick="clearLog()">✕ TEMİZLE</button>
+                        </div>
+                    </div>
+                    <div id="logOutput" class="log-output">
+                        <div class="log-entry sys">
+                            <span class="log-ts" id="initTime">—</span>
+                            <span class="log-lvl sys">[SYS]</span>
+                            <span class="log-msg">AltaySec SOC Policy Manager başlatıldı.</span>
+                        </div>
+                        <div class="log-entry sys">
+                            <span class="log-ts"></span>
+                            <span class="log-lvl sys">[SYS]</span>
+                            <span class="log-msg">XML Parser modülü yüklendi. Kural seti yüklemeye hazır.</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="log-ts"></span>
+                            <span class="log-lvl info">[INF]</span>
+                            <span class="log-msg">Firewall engine bağlantısı kuruldu. Aktif kural sayısı: <strong>247</strong></span>
+                        </div>
+                    </div>
+                    <div class="log-footer">
+                        <span class="log-footer-dot"></span> Canlı akış aktif
+                        <span class="sep">·</span>
+                        Auto-scroll: <span class="autoscroll-status">ON</span>
+                    </div>
+                </section>
+            </div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">AKTİF KURAL</div>
+                    <div class="stat-value">247</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">ENGELLENEN İSTEK (24s)</div>
+                    <div class="stat-value" id="blockedCount">1,842</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">SON YÜKLEME</div>
+                    <div class="stat-value" id="lastUpload">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">WAF DURUMU</div>
+                    <div class="stat-value threat-low">KORUMA AKTİF</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-policies" class="view">
+            <div class="panel" style="margin-bottom:20px">
+                <div class="panel-header">
+                    <div class="panel-title"><span class="panel-title-icon">◈</span> POLİTİKA LİSTESİ</div>
+                    <div class="panel-actions">
+                        <input type="text" id="policyFilter" class="filter-input" placeholder="Ara..." oninput="filterPolicies(this.value)">
+                        <button class="btn-icon btn-red" onclick="showAddPolicyModal()">+ KURAL EKLE</button>
+                        <button class="btn-icon" onclick="exportPolicies()">⬇ DIŞA AKTAR</button>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table" id="policyTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>KURAL ADI</th>
+                                <th>KAYNAK</th>
+                                <th>HEDEF</th>
+                                <th>PORT</th>
+                                <th>PROTOKOL</th>
+                                <th>AKSİYON</th>
+                                <th>DURUM</th>
+                                <th>İŞLEM</th>
+                            </tr>
+                        </thead>
+                        <tbody id="policyTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="policyCount" class="table-count">Yükleniyor...</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-netmap" class="view">
+            <div class="panel" style="margin-bottom:20px">
+                <div class="panel-header">
+                    <div class="panel-title"><span class="panel-title-icon">◉</span> AĞ TİYOLOJİSİ HARİTASI</div>
+                    <div class="panel-actions">
+                        <span class="badge-version" id="netmapStatus">CANLI</span>
+                        <button class="btn-icon" onclick="toggleNetmapSim()">⟳ SİMÜLASYON</button>
+                    </div>
+                </div>
+                <div class="netmap-container">
+                    <svg id="netmapSvg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#ff4d4d" opacity="0.6"/>
+                            </marker>
+                            <marker id="arrG" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#3fb950" opacity="0.6"/>
+                            </marker>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="blur"/>
+                                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+
+                        <line x1="120" y1="80" x2="300" y2="80" stroke="#ff4d4d" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)" opacity="0.7"/>
+                        <line x1="300" y1="80" x2="120" y2="80" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrG)" opacity="0.4"/>
+
+                        <line x1="390" y1="80" x2="550" y2="80" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrG)" opacity="0.7"/>
+
+                        <line x1="600" y1="100" x2="680" y2="180" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrG)" opacity="0.6"/>
+                        <line x1="600" y1="100" x2="760" y2="180" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrG)" opacity="0.6"/>
+                        <line x1="600" y1="100" x2="840" y2="180" stroke="#d29922" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr)" opacity="0.6"/>
+
+                        <line x1="550" y1="120" x2="550" y2="300" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrG)" opacity="0.7"/>
+                        <line x1="530" y1="360" x2="440" y2="440" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrG)" opacity="0.6"/>
+                        <line x1="570" y1="360" x2="650" y2="440" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrG)" opacity="0.6"/>
+
+                        <g transform="translate(30,50)" filter="url(#glow)">
+                            <rect width="90" height="60" rx="4" fill="#161b22" stroke="#ff4d4d" stroke-width="1.5"/>
+                            <text x="45" y="20" text-anchor="middle" fill="#ff4d4d" font-size="18">🌐</text>
+                            <text x="45" y="38" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">INTERNET</text>
+                            <text x="45" y="50" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">0.0.0.0/0</text>
+                        </g>
+
+                        <g transform="translate(300,50)" filter="url(#glow)">
+                            <rect width="90" height="60" rx="4" fill="#1a0a0a" stroke="#ff4d4d" stroke-width="2"/>
+                            <text x="45" y="20" text-anchor="middle" fill="#ff4d4d" font-size="16">🛡</text>
+                            <text x="45" y="36" text-anchor="middle" fill="#ff4d4d" font-size="9" font-family="monospace" font-weight="bold">FIREWALL</text>
+                            <text x="45" y="48" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">AltaySec v2.4</text>
+                        </g>
+
+                        <g transform="translate(505,50)">
+                            <rect width="90" height="60" rx="4" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+                            <text x="45" y="20" text-anchor="middle" fill="#58a6ff" font-size="16">⬡</text>
+                            <text x="45" y="36" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">DMZ SWITCH</text>
+                            <text x="45" y="50" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">10.0.1.0/24</text>
+                        </g>
+
+                        <g transform="translate(640,170)">
+                            <rect width="80" height="50" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+                            <text x="40" y="18" text-anchor="middle" fill="#3fb950" font-size="13">🖥</text>
+                            <text x="40" y="32" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">WEB-01</text>
+                            <text x="40" y="43" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">10.0.1.10</text>
+                        </g>
+
+                        <g transform="translate(720,170)">
+                            <rect width="80" height="50" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+                            <text x="40" y="18" text-anchor="middle" fill="#3fb950" font-size="13">🖥</text>
+                            <text x="40" y="32" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">WEB-02</text>
+                            <text x="40" y="43" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">10.0.1.11</text>
+                        </g>
+
+                        <g transform="translate(800,170)">
+                            <rect width="80" height="50" rx="4" fill="#1a1500" stroke="#d29922" stroke-width="1.5"/>
+                            <text x="40" y="18" text-anchor="middle" fill="#d29922" font-size="13">⚠</text>
+                            <text x="40" y="32" text-anchor="middle" fill="#d29922" font-size="9" font-family="monospace">API-BETA</text>
+                            <text x="40" y="43" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">10.0.1.20</text>
+                        </g>
+
+                        <g transform="translate(505,300)">
+                            <rect width="90" height="60" rx="4" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+                            <text x="45" y="20" text-anchor="middle" fill="#58a6ff" font-size="16">⬡</text>
+                            <text x="45" y="36" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">CORE SWITCH</text>
+                            <text x="45" y="50" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">192.168.1.0/24</text>
+                        </g>
+
+                        <g transform="translate(380,430)">
+                            <rect width="80" height="50" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+                            <text x="40" y="18" text-anchor="middle" fill="#3fb950" font-size="13">⚙</text>
+                            <text x="40" y="32" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">APP-01</text>
+                            <text x="40" y="43" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">192.168.1.10</text>
+                        </g>
+
+                        <g transform="translate(610,430)">
+                            <rect width="80" height="50" rx="4" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+                            <text x="40" y="18" text-anchor="middle" fill="#3fb950" font-size="13">🗄</text>
+                            <text x="40" y="32" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="monospace">DB-01</text>
+                            <text x="40" y="43" text-anchor="middle" fill="#8b949e" font-size="8" font-family="monospace">192.168.1.50</text>
+                        </g>
+
+                        <g id="packetGroup"></g>
+
+                        <g transform="translate(10,460)">
+                            <rect x="0" y="0" width="480" height="50" rx="4" fill="#0d1117" stroke="#21262d" stroke-width="1"/>
+                            <circle cx="20" cy="25" r="5" fill="#ff4d4d"/>
+                            <text x="32" y="29" fill="#8b949e" font-size="9" font-family="monospace">ENGELLENEN TRAFİK</text>
+                            <circle cx="160" cy="25" r="5" fill="#3fb950"/>
+                            <text x="172" y="29" fill="#8b949e" font-size="9" font-family="monospace">İZİN VERİLEN</text>
+                            <circle cx="290" cy="25" r="5" fill="#d29922"/>
+                            <text x="302" y="29" fill="#8b949e" font-size="9" font-family="monospace">İZLENEN</text>
+                            <circle cx="390" cy="25" r="5" fill="#58a6ff"/>
+                            <text x="402" y="29" fill="#8b949e" font-size="9" font-family="monospace">SWITCH</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="netmap-stats">
+                    <div class="nm-stat"><span class="nm-label">AKTİF BAĞLANTI</span><span class="nm-val" id="nmConns">842</span></div>
+                    <div class="nm-stat"><span class="nm-label">ENGELLENEN PAKET/sn</span><span class="nm-val threat-high" id="nmBlocked">127</span></div>
+                    <div class="nm-stat"><span class="nm-label">TOPLAM THROUGHPUT</span><span class="nm-val" id="nmThroughput">2.4 Gbps</span></div>
+                    <div class="nm-stat"><span class="nm-label">LATENCY (ort.)</span><span class="nm-val threat-low" id="nmLatency">1.2 ms</span></div>
+                    <div class="nm-stat"><span class="nm-label">UPTIME</span><span class="nm-val threat-low">99.98%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-events" class="view">
+            <div class="panel" style="margin-bottom:20px">
+                <div class="panel-header">
+                    <div class="panel-title"><span class="panel-title-icon">◆</span> OLAY KAYDI</div>
+                    <div class="panel-actions">
+                        <select id="eventFilter" class="filter-select" onchange="filterEvents(this.value)">
+                            <option value="all">Tümü</option>
+                            <option value="CRITICAL">KRİTİK</option>
+                            <option value="HIGH">YÜKSEK</option>
+                            <option value="MEDIUM">ORTA</option>
+                            <option value="LOW">DÜŞÜK</option>
+                        </select>
+                        <button class="btn-icon btn-red" id="eventAutoBtn" onclick="toggleEventAuto()">⏸ DURDUR</button>
+                        <button class="btn-icon" onclick="clearEvents()">✕ TEMİZLE</button>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ZAMAN</th>
+                                <th>ÖNEMLİLİK</th>
+                                <th>KAYNAK IP</th>
+                                <th>HEDEF IP</th>
+                                <th>OLAY TİPİ</th>
+                                <th>PROTOKOL</th>
+                                <th>DURUM</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="eventCount" class="table-count">0 olay</span>
+                    <span class="sep">·</span>
+                    <span id="eventAutoStatus" class="threat-low">● OTOMATİK YENİLEME AKTİF</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-config" class="view">
+            <div class="panel-grid config-grid" style="margin-bottom:20px">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><span class="panel-title-icon">⬡</span> SİSTEM YAPILANDIRMASI</div>
+                    </div>
+                    <form class="config-form" id="sysConfigForm" onsubmit="saveConfig(event,'sys')">
+                        <div class="config-row">
+                            <label>Hostname</label>
+                            <input type="text" class="config-input" id="cfgHostname" value="soc-prod-01">
+                        </div>
+                        <div class="config-row">
+                            <label>API Portu</label>
+                            <input type="text" class="config-input" id="cfgPort" value="8443">
+                        </div>
+                        <div class="config-row">
+                            <label>Log Seviyesi</label>
+                            <select class="config-select" id="cfgLogLevel">
+                                <option>WARN</option>
+                                <option selected>INFO</option>
+                                <option>DEBUG</option>
+                                <option>ERROR</option>
+                            </select>
+                        </div>
+                        <div class="config-row">
+                            <label>Sync Aralığı</label>
+                            <input type="text" class="config-input" id="cfgSync" value="30s">
+                        </div>
+                        <div class="config-row">
+                            <label>Max Bağlantı</label>
+                            <input type="text" class="config-input" id="cfgMaxConn" value="10000">
+                        </div>
+                        <div class="config-row">
+                            <label>Request Timeout</label>
+                            <input type="text" class="config-input" id="cfgTimeout" value="60s">
+                        </div>
+                        <div class="config-row">
+                            <label>Yedek Sunucu</label>
+                            <input type="text" class="config-input" id="cfgBackup" value="soc-backup-01">
+                        </div>
+                        <div class="config-row">
+                            <label>XML Parser Modu</label>
+                            <select class="config-select" id="cfgXmlMode">
+                                <option selected>STRICT</option>
+                                <option>PERMISSIVE</option>
+                                <option>LEGACY</option>
+                            </select>
+                        </div>
+                        <div class="config-actions">
+                            <button type="submit" class="btn-apply" style="font-size:11px;padding:8px 20px">💾 KAYDET</button>
+                            <button type="button" class="btn-icon" onclick="resetConfig()">↺ SIFIRLA</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><span class="panel-title-icon">⬡</span> WAF & FİLTRE AYARLARI</div>
+                    </div>
+                    <form class="config-form" id="wafConfigForm" onsubmit="saveConfig(event,'waf')">
+                        <div class="config-row">
+                            <label>WAF Modu</label>
+                            <select class="config-select" id="cfgWafMode">
+                                <option selected>DETECTION</option>
+                                <option>PREVENTION</option>
+                                <option>OFF</option>
+                            </select>
+                        </div>
+                        <div class="config-row">
+                            <label>Rate Limit (req/s)</label>
+                            <input type="text" class="config-input" id="cfgRateLimit" value="500">
+                        </div>
+                        <div class="config-row">
+                            <label>IP Kara Liste</label>
+                            <input type="text" class="config-input" id="cfgBlacklist" value="0 giriş">
+                        </div>
+                        <div class="config-row">
+                            <label>XXE Koruması</label>
+                            <select class="config-select" id="cfgXxeProt">
+                                <option>AKTİF</option>
+                                <option selected>DEVRE DIŞI</option>
+                            </select>
+                        </div>
+                        <div class="config-row">
+                            <label>SQL Injection Filtre</label>
+                            <select class="config-select" id="cfgSqlProt">
+                                <option selected>AKTİF</option>
+                                <option>DEVRE DIŞI</option>
+                            </select>
+                        </div>
+                        <div class="config-row">
+                            <label>XSS Filtre</label>
+                            <select class="config-select" id="cfgXssProt">
+                                <option selected>AKTİF</option>
+                                <option>DEVRE DIŞI</option>
+                            </select>
+                        </div>
+                        <div class="config-row">
+                            <label>DDoS Koruma Eşiği</label>
+                            <input type="text" class="config-input" id="cfgDdos" value="10000 req/s">
+                        </div>
+                        <div class="config-row">
+                            <label>Geo-Blocking</label>
+                            <select class="config-select" id="cfgGeo">
+                                <option>AKTİF</option>
+                                <option selected>DEVRE DIŞI</option>
+                            </select>
+                        </div>
+                        <div class="config-actions">
+                            <button type="submit" class="btn-apply" style="font-size:11px;padding:8px 20px">💾 KAYDET</button>
+                            <button type="button" class="btn-icon" onclick="resetWafConfig()">↺ SIFIRLA</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="configToast" class="config-toast" style="display:none"></div>
+        </div>
+
+        <div id="view-auth" class="view">
+            <div class="panel" style="margin-bottom:20px">
+                <div class="panel-header">
+                    <div class="panel-title"><span class="panel-title-icon">◌</span> KULLANICI YÖNETİMİ</div>
+                    <div class="panel-actions">
+                        <button class="btn-icon btn-red" onclick="showAddUserForm()">+ KULLANICI EKLE</button>
+                        <button class="btn-icon" onclick="exportUsers()">⬇ DIŞA AKTAR</button>
+                    </div>
+                </div>
+                <div id="addUserFormWrap" style="display:none">
+                    <form class="add-user-form" id="addUserForm" onsubmit="addUser(event)">
+                        <input type="text" class="config-input" id="newUsername" placeholder="Kullanıcı adı" required>
+                        <select class="config-select" id="newUserRole">
+                            <option>SOC_ANALYST</option>
+                            <option>SOC_LEAD</option>
+                            <option>ADMIN</option>
+                            <option>READONLY</option>
+                        </select>
+                        <input type="text" class="config-input" id="newUserEmail" placeholder="E-posta">
+                        <button type="submit" class="btn-apply" style="font-size:11px;padding:7px 16px">EKLE</button>
+                        <button type="button" class="btn-icon" onclick="hideAddUserForm()">İPTAL</button>
+                    </form>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table" id="userTable">
+                        <thead>
+                            <tr>
+                                <th>KULLANICI</th>
+                                <th>ROL</th>
+                                <th>E-POSTA</th>
+                                <th>SON GİRİŞ</th>
+                                <th>OTURUM</th>
+                                <th>DURUM</th>
+                                <th>İŞLEM</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span id="userCount" class="table-count">Yükleniyor...</span>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><span class="panel-title-icon">◌</span> ROL İZİNLERİ</div>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ROL</th>
+                                <th>KURAL OKUMA</th>
+                                <th>KURAL YAZMA</th>
+                                <th>POLİTİKA SİLME</th>
+                                <th>SİSTEM YAPILANDIRMA</th>
+                                <th>KULLANICI EKLEME</th>
+                                <th>LOG ERİŞİMİ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="role-badge admin">ADMIN</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm yes">✓</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm yes">✓</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm yes">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge lead">SOC_LEAD</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm yes">✓</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm no">✗</span></td>
+                                <td><span class="perm no">✗</span></td><td><span class="perm yes">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge analyst">SOC_ANALYST</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm yes">✓</span></td>
+                                <td><span class="perm no">✗</span></td><td><span class="perm no">✗</span></td>
+                                <td><span class="perm no">✗</span></td><td><span class="perm yes">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="role-badge readonly">READONLY</span></td>
+                                <td><span class="perm yes">✓</span></td><td><span class="perm no">✗</span></td>
+                                <td><span class="perm no">✗</span></td><td><span class="perm no">✗</span></td>
+                                <td><span class="perm no">✗</span></td><td><span class="perm yes">✓</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <span>AltaySec SOC Policy Manager &copy; 2026</span>
+    <span class="sep">│</span>
+    <span>Build: <code>as-soc-24f3a1b</code></span>
+    <span class="sep">│</span>
+    <span>Node: <code>soc-prod-01</code></span>
+</footer>
+
+<script>
+(function () {
+'use strict';
+
+function ts() {
+    return new Date().toLocaleTimeString('tr-TR', { hour12: false });
+}
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+document.getElementById('initTime').textContent = ts();
+document.getElementById('last-sync').textContent = ts();
+document.getElementById('lastUpload').textContent = '—';
+
+let blocked = 1842;
+setInterval(function () {
+    blocked += rand(0, 3);
+    document.getElementById('blockedCount').textContent = blocked.toLocaleString('tr-TR');
+}, 4500);
+
+const sfData = { cpu: 34, mem: 61, net: 22 };
+setInterval(function () {
+    sfData.cpu = Math.max(5, Math.min(95, sfData.cpu + rand(-3, 4)));
+    sfData.mem = Math.max(30, Math.min(90, sfData.mem + rand(-2, 2)));
+    sfData.net = Math.max(5, Math.min(80, sfData.net + rand(-4, 5)));
+    document.getElementById('sfCpu').style.width = sfData.cpu + '%';
+    document.getElementById('sfCpuVal').textContent = sfData.cpu + '%';
+    document.getElementById('sfMem').style.width = sfData.mem + '%';
+    document.getElementById('sfMemVal').textContent = sfData.mem + '%';
+    document.getElementById('sfNet').style.width = sfData.net + '%';
+    document.getElementById('sfNetVal').textContent = sfData.net + '%';
+}, 3000);
+
+document.querySelectorAll('.nav-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(function (n) { n.classList.remove('active'); });
+        this.classList.add('active');
+        const viewId = this.dataset.view;
+        const title  = this.dataset.title;
+        document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
+        document.getElementById(viewId).classList.add('active');
+        document.getElementById('pageTitle').textContent = title;
+        if (viewId === 'view-policies') initPolicies();
+        if (viewId === 'view-events')   initEvents();
+        if (viewId === 'view-auth')     initUsers();
+        if (viewId === 'view-netmap')   initNetmap();
+    });
+});
+
+const ta   = document.getElementById('xmlRuleset');
+const lnEl = document.getElementById('lineNumbers');
+const charEl = document.getElementById('charCount');
+const lineEl = document.getElementById('lineCount');
+
+function updateMeta() {
+    var lines = ta.value.split('\n');
+    charEl.textContent = ta.value.length;
+    lineEl.textContent = lines.length;
+    lnEl.innerHTML = lines.map(function (_, i) { return i + 1; }).join('<br>');
+}
+ta.addEventListener('input', updateMeta);
+ta.addEventListener('scroll', function () { lnEl.scrollTop = ta.scrollTop; });
+updateMeta();
+
+const logEl = document.getElementById('logOutput');
+
+function addLog(level, msg, cls) {
+    var row = document.createElement('div');
+    row.className = 'log-entry ' + cls;
+    row.innerHTML = '<span class="log-ts">' + ts() + '</span><span class="log-lvl ' + cls + '">[' + level + ']</span><span class="log-msg">' + msg + '</span>';
+    logEl.appendChild(row);
+    logEl.scrollTop = logEl.scrollHeight;
+    document.getElementById('logCount').textContent = logEl.querySelectorAll('.log-entry').length + ' giriş';
+}
+
+document.getElementById('policyForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var ruleName = document.getElementById('ruleName').value.trim();
+    var xmlData  = document.getElementById('xmlRuleset').value.trim();
+    var btn = document.querySelector('.btn-apply');
+    if (!xmlData) { addLog('WRN', 'XML kural seti boş olamaz.', 'warn'); return; }
+    addLog('INF', 'Kural yükleniyor: <strong>' + (ruleName || '(isimsiz)') + '</strong>', 'info');
+    btn.disabled = true;
+    btn.textContent = '⟳ İŞLENİYOR...';
+    try {
+        var res  = await fetch('config_upload.php', { method: 'POST', headers: { 'Content-Type': 'application/xml; charset=utf-8' }, body: xmlData });
+        var data = await res.json();
+        if (res.ok && data.status && data.status.includes('başarılı')) {
+            addLog('OK', 'İşlem tamamlandı → <strong>' + data.status + '</strong>', 'ok');
+            document.getElementById('lastUpload').textContent = ts();
+            document.getElementById('last-sync').textContent = ts();
+        } else {
+            addLog('ERR', 'Sunucu yanıtı → <strong>' + (data.status || 'Bilinmeyen hata') + '</strong>', 'err');
+        }
+    } catch (err) {
+        addLog('ERR', 'Bağlantı hatası: ' + err.message, 'err');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="btn-icon-left">⬆</span> POLİTİKAYI UYGULA';
+    }
+});
+
+window.clearLog = function () {
+    logEl.innerHTML = '';
+    document.getElementById('logCount').textContent = '0 giriş';
+    addLog('SYS', 'Log temizlendi.', 'sys');
+};
+
+window.clearForm = function () {
+    document.getElementById('ruleName').value = '';
+    document.getElementById('xmlRuleset').value = '';
+    updateMeta();
+};
+
+window.loadTemplate = function () {
+    ta.value = '<?xml version="1.0" encoding="UTF-8"?>\n<policy version="2.4" author="soc-analyst">\n  <metadata>\n    <created>2026-05-15</created>\n    <priority>HIGH</priority>\n  </metadata>\n  <rules>\n    <rule id="1" action="BLOCK">\n      <source>0.0.0.0/0</source>\n      <destination>internal</destination>\n      <port>22</port>\n      <protocol>TCP</protocol>\n    </rule>\n  </rules>\n</policy>';
+    updateMeta();
+    addLog('INF', 'Varsayılan şablon yüklendi.', 'info');
+};
+
+var policiesData = [
+    { id:'POL-001', name:'BLOCK_SSH_EXTERNAL',   src:'0.0.0.0/0',       dst:'10.0.0.0/8',     port:'22',   proto:'TCP',  action:'BLOCK',  status:'active' },
+    { id:'POL-002', name:'ALLOW_HTTPS_INBOUND',  src:'0.0.0.0/0',       dst:'10.0.1.10',      port:'443',  proto:'TCP',  action:'ALLOW',  status:'active' },
+    { id:'POL-003', name:'BLOCK_TELNET',         src:'0.0.0.0/0',       dst:'10.0.0.0/8',     port:'23',   proto:'TCP',  action:'BLOCK',  status:'active' },
+    { id:'POL-004', name:'ALLOW_DNS_OUTBOUND',   src:'10.0.0.0/8',      dst:'8.8.8.8',        port:'53',   proto:'UDP',  action:'ALLOW',  status:'active' },
+    { id:'POL-005', name:'BLOCK_FTP',            src:'0.0.0.0/0',       dst:'10.0.0.0/8',     port:'21',   proto:'TCP',  action:'BLOCK',  status:'active' },
+    { id:'POL-006', name:'ALLOW_HTTP_REDIRECT',  src:'0.0.0.0/0',       dst:'10.0.1.10',      port:'80',   proto:'TCP',  action:'ALLOW',  status:'active' },
+    { id:'POL-007', name:'BLOCK_RDP',            src:'0.0.0.0/0',       dst:'192.168.1.0/24', port:'3389', proto:'TCP',  action:'BLOCK',  status:'active' },
+    { id:'POL-008', name:'MONITOR_SMTP',         src:'0.0.0.0/0',       dst:'10.0.1.20',      port:'25',   proto:'TCP',  action:'LOG',    status:'active' },
+    { id:'POL-009', name:'BLOCK_ICMP_FLOOD',     src:'0.0.0.0/0',       dst:'10.0.0.0/8',     port:'—',    proto:'ICMP', action:'BLOCK',  status:'inactive' },
+    { id:'POL-010', name:'ALLOW_NTP',            src:'10.0.0.0/8',      dst:'pool.ntp.org',   port:'123',  proto:'UDP',  action:'ALLOW',  status:'active' },
+    { id:'POL-011', name:'BLOCK_SMB',            src:'0.0.0.0/0',       dst:'192.168.1.0/24', port:'445',  proto:'TCP',  action:'BLOCK',  status:'active' },
+    { id:'POL-012', name:'ALLOW_SYSLOG',         src:'192.168.1.0/24',  dst:'192.168.1.100',  port:'514',  proto:'UDP',  action:'ALLOW',  status:'active' },
+];
+
+var filteredPolicies = policiesData.slice();
+
+function renderPolicies(data) {
+    var tbody = document.getElementById('policyTableBody');
+    tbody.innerHTML = '';
+    data.forEach(function (p) {
+        var actionCls = p.action === 'BLOCK' ? 'badge-block' : p.action === 'ALLOW' ? 'badge-allow' : 'badge-log';
+        var statusCls = p.status === 'active' ? 'status-active' : 'status-inactive';
+        var row = document.createElement('tr');
+        row.innerHTML = '<td><code>' + p.id + '</code></td><td>' + p.name + '</td><td><code>' + p.src + '</code></td><td><code>' + p.dst + '</code></td><td>' + p.port + '</td><td>' + p.proto + '</td><td><span class="action-badge ' + actionCls + '">' + p.action + '</span></td><td><span class="status-pill ' + statusCls + '">' + (p.status === 'active' ? '● AKTİF' : '○ PASİF') + '</span></td><td><button class="btn-icon" onclick="togglePolicy(\'' + p.id + '\')">' + (p.status === 'active' ? '⏸' : '▶') + '</button> <button class="btn-icon btn-danger" onclick="deletePolicy(\'' + p.id + '\')">✕</button></td>';
+        tbody.appendChild(row);
+    });
+    document.getElementById('policyCount').textContent = data.length + ' / ' + policiesData.length + ' kural gösteriliyor';
+}
+
+var policiesInited = false;
+function initPolicies() {
+    if (!policiesInited) { policiesInited = true; }
+    renderPolicies(filteredPolicies);
+}
+
+window.filterPolicies = function (q) {
+    q = q.toLowerCase();
+    filteredPolicies = policiesData.filter(function (p) {
+        return p.id.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.src.toLowerCase().includes(q) || p.dst.toLowerCase().includes(q) || p.action.toLowerCase().includes(q);
+    });
+    renderPolicies(filteredPolicies);
+};
+
+window.togglePolicy = function (id) {
+    var p = policiesData.find(function (x) { return x.id === id; });
+    if (p) { p.status = p.status === 'active' ? 'inactive' : 'active'; renderPolicies(filteredPolicies); }
+};
+
+window.deletePolicy = function (id) {
+    policiesData = policiesData.filter(function (x) { return x.id !== id; });
+    filteredPolicies = filteredPolicies.filter(function (x) { return x.id !== id; });
+    renderPolicies(filteredPolicies);
+};
+
+window.showAddPolicyModal = function () {
+    var name = prompt('Kural adı:');
+    if (!name) return;
+    var newId = 'POL-' + String(policiesData.length + 1).padStart(3, '0');
+    policiesData.push({ id: newId, name: name.toUpperCase(), src: '0.0.0.0/0', dst: '10.0.0.0/8', port: '—', proto: 'TCP', action: 'BLOCK', status: 'active' });
+    filteredPolicies = policiesData.slice();
+    renderPolicies(filteredPolicies);
+};
+
+window.exportPolicies = function () {
+    var csv = 'ID,KURAL ADI,KAYNAK,HEDEF,PORT,PROTOKOL,AKSİYON,DURUM\n' + policiesData.map(function (p) { return [p.id,p.name,p.src,p.dst,p.port,p.proto,p.action,p.status].join(','); }).join('\n');
+    var a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'altaysec-policies.csv';
+    a.click();
+};
+
+var eventTypes   = ['PORT SCAN', 'BRUTE FORCE', 'SQL INJECTION', 'XSS ATTEMPT', 'XXE INJECT', 'DDoS FLOOD', 'RECON SCAN', 'MALWARE C2', 'DATA EXFIL', 'AUTH FAIL'];
+var severities   = ['CRITICAL','HIGH','MEDIUM','LOW'];
+var srcIps       = ['45.92.21.11','185.220.101.5','91.108.56.1','103.21.244.0','198.54.117.0','77.88.21.3','5.101.152.10','89.248.165.0','104.21.14.0','162.158.0.1'];
+var protocols    = ['TCP','UDP','HTTP','HTTPS','DNS','ICMP','FTP','SSH'];
+var dstIps       = ['10.0.1.10','10.0.1.11','10.0.1.20','192.168.1.10','192.168.1.50','10.0.0.1'];
+var eventsData   = [];
+var eventAuto    = true;
+var eventInterval;
+
+function genEvent() {
+    var sev = severities[rand(0, 3)];
+    return { time: ts(), severity: sev, src: srcIps[rand(0, srcIps.length-1)] + ':' + rand(1024,65535), dst: dstIps[rand(0, dstIps.length-1)], type: eventTypes[rand(0, eventTypes.length-1)], proto: protocols[rand(0, protocols.length-1)], status: Math.random() > 0.3 ? 'ENGELLENDI' : 'GEÇTİ' };
+}
+
+function renderEvents(data) {
+    var tbody = document.getElementById('eventTableBody');
+    tbody.innerHTML = '';
+    var rows = data.slice(-100).reverse();
+    rows.forEach(function (ev) {
+        var sevCls = ev.severity === 'CRITICAL' ? 'sev-critical' : ev.severity === 'HIGH' ? 'sev-high' : ev.severity === 'MEDIUM' ? 'sev-med' : 'sev-low';
+        var stCls  = ev.status === 'ENGELLENDI' ? 'badge-block' : 'badge-allow';
+        var row = document.createElement('tr');
+        row.innerHTML = '<td><code>' + ev.time + '</code></td><td><span class="sev-badge ' + sevCls + '">' + ev.severity + '</span></td><td><code>' + ev.src + '</code></td><td><code>' + ev.dst + '</code></td><td>' + ev.type + '</td><td>' + ev.proto + '</td><td><span class="action-badge ' + stCls + '">' + ev.status + '</span></td>';
+        tbody.appendChild(row);
+    });
+    document.getElementById('eventCount').textContent = eventsData.length + ' olay';
+}
+
+var activeEventFilter = 'all';
+var eventsInited = false;
+
+function initEvents() {
+    if (!eventsInited) {
+        eventsInited = true;
+        for (var i = 0; i < 20; i++) { eventsData.push(genEvent()); }
+        renderEvents(activeEventFilter === 'all' ? eventsData : eventsData.filter(function (e) { return e.severity === activeEventFilter; }));
+        startEventAuto();
+    }
+}
+
+function startEventAuto() {
+    eventInterval = setInterval(function () {
+        eventsData.push(genEvent());
+        renderEvents(activeEventFilter === 'all' ? eventsData : eventsData.filter(function (e) { return e.severity === activeEventFilter; }));
+    }, 2500);
+}
+
+window.toggleEventAuto = function () {
+    eventAuto = !eventAuto;
+    var btn = document.getElementById('eventAutoBtn');
+    var status = document.getElementById('eventAutoStatus');
+    if (eventAuto) {
+        startEventAuto();
+        btn.textContent = '⏸ DURDUR';
+        status.textContent = '● OTOMATİK YENİLEME AKTİF';
+        status.className = 'threat-low';
+    } else {
+        clearInterval(eventInterval);
+        btn.textContent = '▶ BAŞLAT';
+        status.textContent = '○ OTOMATİK YENİLEME DURDURULDU';
+        status.className = 'threat-high';
+    }
+};
+
+window.filterEvents = function (val) {
+    activeEventFilter = val;
+    renderEvents(val === 'all' ? eventsData : eventsData.filter(function (e) { return e.severity === val; }));
+};
+
+window.clearEvents = function () {
+    eventsData = [];
+    renderEvents([]);
+};
+
+var usersData = [
+    { username:'admin',       role:'ADMIN',       email:'admin@altaysec.io',    lastLogin:'2026-05-15 17:30', sessions:2, status:'active' },
+    { username:'a.yilmaz',    role:'SOC_LEAD',     email:'ayilmaz@altaysec.io',  lastLogin:'2026-05-15 16:10', sessions:1, status:'active' },
+    { username:'m.kaya',      role:'SOC_ANALYST',  email:'mkaya@altaysec.io',    lastLogin:'2026-05-15 14:22', sessions:1, status:'active' },
+    { username:'e.celik',     role:'SOC_ANALYST',  email:'ecelik@altaysec.io',   lastLogin:'2026-05-14 09:45', sessions:0, status:'active' },
+    { username:'f.sahin',     role:'READONLY',     email:'fsahin@altaysec.io',   lastLogin:'2026-05-12 11:30', sessions:0, status:'inactive' },
+    { username:'h.arslan',    role:'SOC_ANALYST',  email:'harslan@altaysec.io',  lastLogin:'2026-05-15 15:50', sessions:1, status:'active' },
+];
+
+function renderUsers() {
+    var tbody = document.getElementById('userTableBody');
+    tbody.innerHTML = '';
+    usersData.forEach(function (u, idx) {
+        var roleCls = u.role === 'ADMIN' ? 'admin' : u.role === 'SOC_LEAD' ? 'lead' : u.role === 'SOC_ANALYST' ? 'analyst' : 'readonly';
+        var stCls   = u.status === 'active' ? 'status-active' : 'status-inactive';
+        var sesColor = u.sessions > 0 ? 'threat-low' : 'text-muted-val';
+        var row = document.createElement('tr');
+        row.innerHTML = '<td><strong>' + u.username + '</strong></td><td><span class="role-badge ' + roleCls + '">' + u.role + '</span></td><td>' + u.email + '</td><td><code>' + u.lastLogin + '</code></td><td class="' + sesColor + '">' + u.sessions + ' aktif</td><td><span class="status-pill ' + stCls + '">' + (u.status === 'active' ? '● AKTİF' : '○ PASİF') + '</span></td><td><button class="btn-icon" onclick="toggleUser(' + idx + ')">' + (u.status === 'active' ? '⏸' : '▶') + '</button> <button class="btn-icon btn-danger" onclick="deleteUser(' + idx + ')">✕</button></td>';
+        tbody.appendChild(row);
+    });
+    document.getElementById('userCount').textContent = usersData.length + ' kullanıcı · ' + usersData.filter(function (u) { return u.status === 'active'; }).length + ' aktif';
+}
+
+var usersInited = false;
+function initUsers() { if (!usersInited) { usersInited = true; } renderUsers(); }
+
+window.toggleUser = function (idx) {
+    usersData[idx].status = usersData[idx].status === 'active' ? 'inactive' : 'active';
+    renderUsers();
+};
+
+window.deleteUser = function (idx) {
+    if (confirm('Kullanıcı silinsin mi?')) { usersData.splice(idx, 1); renderUsers(); }
+};
+
+window.showAddUserForm = function () {
+    document.getElementById('addUserFormWrap').style.display = 'block';
+    document.getElementById('newUsername').focus();
+};
+
+window.hideAddUserForm = function () { document.getElementById('addUserFormWrap').style.display = 'none'; };
+
+window.addUser = function (e) {
+    e.preventDefault();
+    var name  = document.getElementById('newUsername').value.trim();
+    var role  = document.getElementById('newUserRole').value;
+    var email = document.getElementById('newUserEmail').value.trim();
+    if (!name) return;
+    usersData.push({ username: name, role: role, email: email || name + '@altaysec.io', lastLogin: '—', sessions: 0, status: 'active' });
+    renderUsers();
+    hideAddUserForm();
+    document.getElementById('addUserForm').reset();
+};
+
+window.exportUsers = function () {
+    var csv = 'Kullanici,Rol,Email,SonGiris,Durum\n' + usersData.map(function (u) { return [u.username,u.role,u.email,u.lastLogin,u.status].join(','); }).join('\n');
+    var a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'altaysec-users.csv';
+    a.click();
+};
+
+window.saveConfig = function (e, type) {
+    e.preventDefault();
+    var toast = document.getElementById('configToast');
+    toast.textContent = (type === 'sys' ? 'Sistem yapılandırması' : 'WAF ayarları') + ' kaydedildi — ' + ts();
+    toast.style.display = 'block';
+    toast.className = 'config-toast toast-ok';
+    setTimeout(function () { toast.style.display = 'none'; }, 3000);
+};
+
+window.resetConfig = function () {
+    document.getElementById('cfgHostname').value = 'soc-prod-01';
+    document.getElementById('cfgPort').value = '8443';
+    document.getElementById('cfgSync').value = '30s';
+    document.getElementById('cfgMaxConn').value = '10000';
+    document.getElementById('cfgTimeout').value = '60s';
+    document.getElementById('cfgBackup').value = 'soc-backup-01';
+};
+
+window.resetWafConfig = function () {
+    document.getElementById('cfgRateLimit').value = '500';
+    document.getElementById('cfgBlacklist').value = '0 giriş';
+    document.getElementById('cfgDdos').value = '10000 req/s';
+};
+
+var netmapInited = false;
+var netmapSimActive = false;
+var packetInterval;
+
+function createPacket(x1, y1, x2, y2, color) {
+    var svg = document.getElementById('netmapSvg');
+    var ns  = 'http://www.w3.org/2000/svg';
+    var c   = document.createElementNS(ns, 'circle');
+    c.setAttribute('r', '4');
+    c.setAttribute('fill', color);
+    c.setAttribute('opacity', '0.9');
+    var dur = (600 + rand(0, 400)) + 'ms';
+    var anim = document.createElementNS(ns, 'animateMotion');
+    anim.setAttribute('dur', dur);
+    anim.setAttribute('repeatCount', '1');
+    anim.setAttribute('fill', 'freeze');
+    var path = document.createElementNS(ns, 'mpath');
+    var line = document.createElementNS(ns, 'path');
+    var pathId = 'pkt-path-' + Date.now();
+    line.setAttribute('id', pathId);
+    line.setAttribute('d', 'M' + x1 + ',' + y1 + ' L' + x2 + ',' + y2);
+    line.setAttribute('stroke', 'none');
+    line.setAttribute('fill', 'none');
+    svg.appendChild(line);
+    path.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + pathId);
+    anim.appendChild(path);
+    c.appendChild(anim);
+    document.getElementById('packetGroup').appendChild(c);
+    anim.addEventListener('endEvent', function () {
+        c.parentNode && c.parentNode.removeChild(c);
+        line.parentNode && line.parentNode.removeChild(line);
+    });
+    anim.beginElement();
+}
+
+function runPackets() {
+    var routes = [
+        [75, 80, 300, 80, '#ff4d4d'],
+        [390, 80, 550, 80, '#3fb950'],
+        [600, 100, 680, 180, '#3fb950'],
+        [600, 100, 760, 180, '#3fb950'],
+        [550, 120, 550, 330, '#58a6ff'],
+        [530, 380, 440, 440, '#3fb950'],
+        [570, 380, 650, 440, '#3fb950'],
+    ];
+    var route = routes[rand(0, routes.length - 1)];
+    createPacket(route[0], route[1], route[2], route[3], route[4]);
+}
+
+function initNetmap() {
+    if (!netmapInited) {
+        netmapInited = true;
+        packetInterval = setInterval(runPackets, 600);
+        netmapSimActive = true;
+    }
+    setInterval(function () {
+        document.getElementById('nmConns').textContent    = rand(800, 900);
+        document.getElementById('nmBlocked').textContent  = rand(100, 180);
+        document.getElementById('nmThroughput').textContent = (rand(20, 38) / 10).toFixed(1) + ' Gbps';
+        document.getElementById('nmLatency').textContent  = (rand(8, 20) / 10).toFixed(1) + ' ms';
+    }, 2000);
+}
+
+window.toggleNetmapSim = function () {
+    netmapSimActive = !netmapSimActive;
+    if (netmapSimActive) {
+        packetInterval = setInterval(runPackets, 600);
+        document.getElementById('netmapStatus').textContent = 'CANLI';
+    } else {
+        clearInterval(packetInterval);
+        document.getElementById('netmapStatus').textContent = 'DURDURULDU';
+    }
+};
+
+})();
+</script>
+
+</body>
+</html>

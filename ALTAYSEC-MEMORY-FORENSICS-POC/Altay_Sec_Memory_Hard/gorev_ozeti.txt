@@ -1,0 +1,19 @@
+GÖREV: Bellek Enjeksiyonu ve Parola Hırsızlığı (Level 3: ZOR)
+
+Senaryo:
+Saldırganın izlerini sürerken sistemde çok daha tehlikeli bir durum tespit 
+edildi. Gelişmiş bir zararlı yazılım, tespit edilmekten kaçınmak için kendi 
+kodunu meşru bir Windows sistem dosyasının içine enjekte etmiş (Process Injection) 
+ve sistemin RAM'inden yönetici parolalarının özetlerini (Hash) çalmış.
+
+Görevleriniz:
+1. Bellek enjeksiyonu (Process Injection) yapılmış meşru Windows sürecinin adı nedir?
+   (İpucu: 'windows.malfind' komutunu kullanın)
+
+2. Enjekte edilen bellek bölgesindeki (Memory Section) koruma yetkisi nedir?
+   (İpucu: 'windows.malfind' çıktısındaki Protection sütununa bakın)
+
+3. Saldırganın RAM'den çaldığı Administrator kullanıcısına ait NTLM Hash değeri nedir?
+   (İpucu: 'windows.hashdump' komutunu kullanın)
+
+Cevapları bulduğunuzda terminale './submit' yazarak bayrağı (FLAG) kapın!

@@ -126,6 +126,30 @@
                     <h3>Cloud Güvenliği</h3>
                     <p>AWS CloudTrail log analizi, sızma tespiti ve bulut güvenliği pratikleri.</p>
                 </div>
+                <div class="category-card" data-target="ssti">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"SSTI"}</div>
+                    <h3>SSTI Labları</h3>
+                    <p>Server-Side Template Injection zafiyetleri ve filtre atlatma simülasyonları.</p>
+                </div>
+                <div class="category-card" data-target="memory-forensics">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"RAM"}</div>
+                    <h3>Memory Forensics</h3>
+                    <p>Bellek imajı analizi, tehdit avcılığı ve Volatility 3 ile zararlı yazılım tespiti pratikleri.</p>
+                </div>
+                <div class="category-card" data-target="xxe">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"XXE"}</div>
+                    <h3>XXE Labları</h3>
+                    <p>XML External Entity zafiyetleri, blind sızdırma ve WAF bypass teknikleri.</p>
+                </div>
+                <div class="category-card" data-target="ssrf">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">{"SSRF"}</div>
+                    <h3>SSRF Labları</h3>
+                    <p>Server-Side Request Forgery zafiyetleri, filtre atlatma ve protocol wrappers kullanımı.</p>
+                </div>
             </div>
 
             <!-- Labs View Container (Initially Hidden) -->
@@ -147,6 +171,10 @@
                         <button class="filter-btn" data-filter="lfi">LFI Labları</button>
                         <button class="filter-btn" data-filter="csrf">CSRF Labları</button>
                         <button class="filter-btn" data-filter="cloud">Cloud Güvenliği</button>
+                        <button class="filter-btn" data-filter="ssti">SSTI Labları</button>
+                        <button class="filter-btn" data-filter="memory-forensics">Memory Forensics</button>
+                        <button class="filter-btn" data-filter="xxe">XXE Labları</button>
+                        <button class="filter-btn" data-filter="ssrf">SSRF Labları</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -759,6 +787,378 @@
                         <div class="flag-container" data-correct-flag="ALTAYSEC{3XF1LTR4T10N_4ND_PR1V_3SC}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSTI Lab 1: Easy -->
+                <div class="lab-card" data-category="ssti">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • SSTI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSTI Seviye 1: Giriş</h3>
+                        <p class="lab-desc">Server-Side Template Injection (SSTI) zafiyetlerine en temel düzeyde giriş. Şablona yansıtılan parametre üzerinden RCE (Remote Code Execution) pratiği.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Meryem Betül Çelik
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssti_labs && cd ssti_labs && git sparse-checkout set altaysec-ssti-lab && cd altaysec-ssti-lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:5000'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{sst1_b4sıc_n0d3_2026}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSTI Lab 2: Medium -->
+                <div class="lab-card" data-category="ssti">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • SSTI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSTI Seviye 2: WAF Bypass</h3>
+                        <p class="lab-desc">Giriş karakterlerini denetleyen WAF filtrelerini atlatarak şablon motoru üzerinde kod yürütme ve kısıtlı ortamları aşma simülasyonu.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Meryem Betül Çelik
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssti_labs && cd ssti_labs && git sparse-checkout set altaysec-ssti-lab && cd altaysec-ssti-lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:5001'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{w4f_byp4ss_m4st3r_2026}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSTI Lab 3: Hard -->
+                <div class="lab-card" data-category="ssti">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • SSTI</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSTI Seviye 3: Shadow Env</h3>
+                        <p class="lab-desc">Çevre değişkenlerini ve gizli nesneleri kullanarak WAF filtrelerini bypass edip gelişmiş şablon enjeksiyonu ve RCE gerçekleştirin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Meryem Betül Çelik
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssti_labs && cd ssti_labs && git sparse-checkout set altaysec-ssti-lab && cd altaysec-ssti-lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:5002'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{sh4d0w_env_1nj3ct10n_compl3t3}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Forensics Lab 1: Easy -->
+                <div class="lab-card" data-category="memory-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Memory Forensics Seviye 1: System Triage</h3>
+                        <p class="lab-desc">Volatility 3 kullanarak işletim sistemi triyajı yapın ve arka planda çalışan şüpheli süreçleri (processes) tespit edin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_kolay && cd mem_kolay && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Easy && cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Easy && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan terminale erişin: http://localhost:8083'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{M3M0RY_TR14G3_C0MPL3T3}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Forensics Lab 2: Medium -->
+                <div class="lab-card" data-category="memory-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Memory Forensics Seviye 2: Gizli Süreçler & C2</h3>
+                        <p class="lab-desc">Kendini standart görev listesinden gizleyen süreçleri (unlinked processes) ve C2 komuta kontrol sunucusu ağ bağlantılarını analiz edin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_orta && cd mem_orta && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Medium && cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Medium && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan terminale erişin: http://localhost:8084'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{H1DD3N_PR0C3SS_C2_F0UND}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Forensics Lab 3: Hard -->
+                <div class="lab-card" data-category="memory-forensics">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Blue Team • Forensics</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Memory Forensics Seviye 3: Bellek Enjeksiyonu</h3>
+                        <p class="lab-desc">Process Injection zafiyeti barındıran meşru süreçleri bulun ve bellek içi parolaları (NTLM hash) sızdırma girişimlerini tespit edin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_zor && cd mem_zor && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Hard && cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Hard && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan terminale erişin: http://localhost:8085'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{M3M0RY_1NJ3CT10N_H4SH_DUMP}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- XXE Lab 1: Easy -->
+                <div class="lab-card" data-category="xxe">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • XXE</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XXE Seviye 1: Tehdit Bildirim Portal</h3>
+                        <p class="lab-desc">SOC bildirim portalındaki XML parser zafiyetini (Reflected XXE) kullanarak sunucu üzerindeki hassas yerel dosyaları sızdırın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_kolay && cd xxe_kolay && git sparse-checkout set AltaySec_XXE_Labs/Kolay-Seviye-xxe-Lab && cd AltaySec_XXE_Labs/Kolay-Seviye-xxe-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:80'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{xxe_thR3at_1nt3l_byp4ss}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- XXE Lab 2: Medium -->
+                <div class="lab-card" data-category="xxe">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • XXE</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XXE Seviye 2: Data Sync Blind</h3>
+                        <p class="lab-desc">Hata mesajlarının fırlatıldığı ancak XML çıktılarının yansıtılmadığı veri senkronizasyon uygulamasında Blind/Error-based XXE tespiti ve sömürüsü.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_orta && cd xxe_orta && git sparse-checkout set AltaySec_XXE_Labs/Orta-Seviye-xxe-Lab && cd AltaySec_XXE_Labs/Orta-Seviye-xxe-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:8080'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{bL1nd_xxe_v3ry_sneaky}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- XXE Lab 3: Hard -->
+                <div class="lab-card" data-category="xxe">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • XXE</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">XXE Seviye 3: SOC Policy Manager</h3>
+                        <p class="lab-desc">Zorlu WAF kurallarını UTF-16 encoding ile atlatarak, sessizce libxml hataları ürettirip Out-of-Band (OOB) XXE sömürüsü gerçekleştirin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            İbrahim Altındağ
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_zor && cd xxe_zor && git sparse-checkout set AltaySec_XXE_Labs/Zor-Seviye-xxe-Lab && cd AltaySec_XXE_Labs/Zor-Seviye-xxe-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:8080'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{h4rd_c0r3_00b_xx3_m4st3r_2026}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSRF Lab 1: Easy -->
+                <div class="lab-card" data-category="ssrf">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Web • SSRF</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSRF Seviye 1: Giriş</h3>
+                        <p class="lab-desc">Blog entegrasyon arayüzündeki filtresiz cURL kullanımını analiz ederek doğrudan yerel sisteme (loopback) erişim sağlayın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssrf_labs && cd ssrf_labs && git sparse-checkout set AltaySec-Academy-SSRF-Lab && cd AltaySec-Academy-SSRF-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:8081'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{ssrf_lab_kolay_tamamlandi}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSRF Lab 2: Medium -->
+                <div class="lab-card" data-category="ssrf">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Web • SSRF</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSRF Seviye 2: Filtre Atlatma</h3>
+                        <p class="lab-desc">Metin bazlı engel listesini (Blacklist) atlatmak için IP karartma (Obfuscation) tekniklerini kullanarak yerel ağdaki gizli servise erişim sağlayın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssrf_labs && cd ssrf_labs && git sparse-checkout set AltaySec-Academy-SSRF-Lab && cd AltaySec-Academy-SSRF-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:8082'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{ssrf_lab_orta_tamamlandi}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSRF Lab 3: Hard -->
+                <div class="lab-card" data-category="ssrf">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • SSRF</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SSRF Seviye 3: Protocol Wrappers</h3>
+                        <p class="lab-desc">Sıkı IP kontrolünü ve DNS çözümleme mekanizmalarını atlatarak protocol wrapper'lar yardımıyla yerel dosya sistemini okuyun.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssrf_labs && cd ssrf_labs && git sparse-checkout set AltaySec-Academy-SSRF-Lab && cd AltaySec-Academy-SSRF-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:8083'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{ssrf_lab_zor_tamamlandi}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>
                             </div>
                             <div class="flag-feedback"></div>

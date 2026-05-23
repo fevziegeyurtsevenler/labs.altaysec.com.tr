@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  level1:
+    build: ./level1
+    ports:
+      - "5000:5000"
+    networks:
+      - altaysec-net
+    restart: always
+
+  level2:
+    build: ./level2
+    ports:
+      - "5001:5000"
+    networks:
+      - altaysec-net
+    restart: always
+
+  level3:
+    build: ./level3
+    ports:
+      - "5002:5000"
+    networks:
+      - altaysec-net
+    restart: always
+
+networks:
+  altaysec-net:
+    driver: bridge

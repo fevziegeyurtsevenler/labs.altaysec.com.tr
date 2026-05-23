@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ALTAYSEC STORE | Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "surface-container-lowest": "#0a0e14",
+                    "background": "#10141a"
+                },
+                "fontFamily": {
+                    "space-grotesk": ["Space Grotesk"],
+                    "mono-label": ["Inter"],
+                    "body-sm": ["Inter"]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    body { background-color: #0d1117; color: #dfe2eb; font-family: 'Inter', sans-serif; min-height: 100vh;}
+    .scanning-bar { width: 100%; height: 2px; background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; position: absolute; top: 0; left: 0; animation: scan 3s linear infinite; }
+    @keyframes scan { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+    #solved-banner { display: none; background-color: #10b981; color: white; text-align: center; padding: 12px; font-weight: bold; position: fixed; top: 0; width: 100%; z-index: 1000; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 2px;}
+</style>
+</head>
+<body class="selection:bg-[#ff4d4d] selection:text-black">
+
+<div id="solved-banner"> 🎉 ACCESS GRANTED: SHADOW PROTOCOL DECRYPTED! 🎉 </div>
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-12 h-20 bg-[#0d1117]/95 border-b border-[#30363d] backdrop-blur-md">
+    <div class="flex items-center gap-4">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="h-10 w-auto brightness-125" alt="Logo">
+        <h1 class="text-2xl font-black text-[#ff4d4d] italic tracking-tighter uppercase font-['Space_Grotesk']">ALTAYSEC STORE</h1>
+    </div>
+    <nav class="hidden md:flex items-center gap-8">
+        <a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-[#8b949e] hover:text-[#ff4d4d]" href="/">ARCHIVE</a>
+        <a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-[#8b949e] hover:text-[#ff4d4d]" href="/product">CATALOG</a>
+        <a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-[#ff4d4d] border-b-2 border-[#ff4d4d] pb-1" href="/preview">TERMINAL</a>
+    </nav>
+</header>
+
+<main class="pt-32 pb-12 px-12 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <!-- SOL: FORM -->
+        <section class="space-y-6">
+            <h2 class="text-4xl font-bold uppercase font-['Space_Grotesk'] text-white">SHADOW <span class="text-[#ff4d4d]">TAGGING</span></h2>
+            <p class="text-neutral-400 font-light">End-to-end encrypted identity encoding. Tactical protocols active.</p>
+            
+            <form action="/preview" method="POST" class="bg-[#161b22] border border-[#30363d] p-8 space-y-6 border-l-4 border-l-[#ff4d4d]">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-neutral-500 uppercase tracking-widest">Protocol String</label>
+                    <input name="message" class="w-full bg-[#0d1117] border border-[#30363d] text-white p-4 font-mono focus:border-[#ff4d4d] outline-none transition-all uppercase" 
+                           placeholder="ENCRYPTED-ID-X" type="text" value="{{ input_val if input_val }}">
+                </div>
+                <button type="submit" class="w-full bg-[#ff4d4d] text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-all">
+                    INITIATE PREVIEW
+                </button>
+            </form>
+        </section>
+
+        <!-- SAĞ: ÇIKTI -->
+        <section class="space-y-6">
+            <div class="relative bg-[#161b22] border border-[#30363d] aspect-video flex flex-col items-center justify-center p-12 overflow-hidden">
+                <div class="scanning-bar"></div>
+                <div class="w-full h-full border-2 border-dashed border-[#30363d] flex flex-col items-center justify-center p-8 bg-black/50">
+                    <span class="text-[#ff4d4d] tracking-[0.4em] uppercase text-xs opacity-50 block mb-4">DECRYPTED DESIGNATION</span>
+                    <h2 class="text-3xl font-bold font-['Space_Grotesk'] text-white tracking-widest uppercase text-center break-all">
+                        {{ output | safe if output else 'GUEST_OPERATOR' }}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="p-4 border border-[#30363d] bg-[#0d1117] mt-6">
+    <p class="text-[#ff4d4d] text-[10px] font-bold uppercase mb-2">System Telemetry Log:</p>
+    <p class="text-white font-mono text-xs">{{ ua_display | safe }}</p>
+</div>
+        </section>
+    </div>
+</main>
+
+<div id="telemetry-buffer" style="display:none;">{{ telemetry_data }}</div>
+
+<script>
+    window.onload = function() {
+        // Sayfanın tüm içeriğini al (Hem gizli yerleri hem görünen yerleri)
+        let bodyContent = document.documentElement.innerHTML;
+        let telemetryBox = document.getElementById('telemetry-buffer') ? document.getElementById('telemetry-buffer').innerText : "";
+
+        if (bodyContent.includes('ALTAY' + 'SEC{')) {
+            document.getElementById('solved-banner').style.display = 'block';
+        } 
+        else if (telemetryBox) {
+            try {
+                let decoded = atob(telemetryBox.split("").reverse().join(""));
+                if (decoded.includes('ALTAY' + 'SEC{')) {
+                    document.getElementById('solved-banner').style.display = 'block';
+                }
+            } catch(e) { }
+        }
+    };
+</script>
+</body>
+</html>

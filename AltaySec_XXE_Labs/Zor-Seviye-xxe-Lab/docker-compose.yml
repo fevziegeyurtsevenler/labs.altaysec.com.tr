@@ -1,0 +1,31 @@
+services:
+  altaysec-xxe-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: altaysec_xxe_hard
+    ports:
+      - "8080:80"
+    environment:
+      - LAB_NAME=AltaySec SOC Policy Manager
+      - DIFFICULTY=HARD
+      - CHALLENGE=Blind OOB XXE
+    volumes:
+      - ./src:/var/www/html:ro
+    restart: unless-stopped
+    networks:
+      - altaysec_net
+    # Simulating a production-like restricted environment
+    security_opt:
+      - no-new-privileges:false
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+networks:
+  altaysec_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

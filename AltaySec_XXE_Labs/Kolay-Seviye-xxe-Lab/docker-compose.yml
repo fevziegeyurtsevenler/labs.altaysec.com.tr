@@ -1,0 +1,10 @@
+services:
+  altaysec-xxe-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: altaysec_xxe_lab
+    image: altaysec/xxe-lab:latest
+    ports:
+      - "80:80"
+    restart: unless-stopped

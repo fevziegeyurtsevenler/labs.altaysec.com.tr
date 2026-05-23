@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AltaySec Data Sync // Veri Entegrasyon Paneli</title>
+<style>
+    :root {
+        --bg-0: #0d1117;
+        --bg-1: #11161d;
+        --bg-2: #161c25;
+        --line: #1f2730;
+        --neon: #ff4d4d;
+        --neon-dim: #b33636;
+        --neon-glow: rgba(255, 77, 77, 0.35);
+        --text: #e6edf3;
+        --text-dim: #8b949e;
+        --text-mute: #6e7681;
+        --ok: #3fb950;
+        --warn: #d29922;
+        --err: #ff4d4d;
+        --mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg-0);
+        color: var(--text);
+        font-family: var(--mono);
+        font-size: 14px;
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        background:
+            radial-gradient(1200px 600px at 80% -10%, rgba(255,77,77,0.06), transparent 60%),
+            radial-gradient(900px 500px at -10% 110%, rgba(255,77,77,0.05), transparent 60%),
+            var(--bg-0);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 28px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(13, 17, 23, 0.85);
+        backdrop-filter: blur(6px);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        letter-spacing: 1px;
+    }
+
+    .brand-logo {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--neon);
+        position: relative;
+        box-shadow: 0 0 12px var(--neon-glow);
+    }
+    .brand-logo::before, .brand-logo::after {
+        content: "";
+        position: absolute;
+        background: var(--neon);
+    }
+    .brand-logo::before { top: 3px; left: 3px; right: 3px; height: 2px; }
+    .brand-logo::after { bottom: 3px; left: 3px; right: 3px; height: 2px; }
+
+    .brand-name {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text);
+    }
+    .brand-name span { color: var(--neon); }
+    .brand-sub {
+        font-size: 11px;
+        color: var(--text-mute);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .nav {
+        display: flex;
+        gap: 22px;
+        font-size: 12px;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+    .nav a {
+        color: var(--text-dim);
+        text-decoration: none;
+        padding-bottom: 4px;
+        border-bottom: 1px solid transparent;
+        transition: 0.15s;
+        cursor: pointer;
+    }
+    .nav a:hover,
+    .nav a.active {
+        color: var(--neon);
+        border-bottom-color: var(--neon);
+    }
+
+    .session-info {
+        font-size: 11px;
+        color: var(--text-mute);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .pulse {
+        width: 8px;
+        height: 8px;
+        background: var(--neon);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--neon);
+        animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 0.4; transform: scale(0.9); }
+        50%      { opacity: 1;   transform: scale(1.1); }
+    }
+
+    .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 36px 28px 120px;
+        width: 100%;
+        flex: 1;
+    }
+
+    .page-title {
+        font-size: 22px;
+        margin: 0 0 6px;
+        letter-spacing: 1px;
+    }
+    .page-title .accent { color: var(--neon); }
+    .page-sub {
+        color: var(--text-dim);
+        font-size: 12px;
+        margin-bottom: 28px;
+        letter-spacing: 0.5px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 24px;
+    }
+    @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+        background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        border: 1px solid var(--neon);
+        box-shadow:
+            0 0 0 1px rgba(255,77,77,0.05),
+            0 0 24px rgba(255,77,77,0.07);
+        border-radius: 4px;
+        position: relative;
+    }
+    .panel::before {
+        content: "";
+        position: absolute;
+        top: -1px; left: -1px;
+        width: 14px; height: 14px;
+        border-top: 2px solid var(--neon);
+        border-left: 2px solid var(--neon);
+    }
+    .panel::after {
+        content: "";
+        position: absolute;
+        bottom: -1px; right: -1px;
+        width: 14px; height: 14px;
+        border-bottom: 2px solid var(--neon);
+        border-right: 2px solid var(--neon);
+    }
+
+    .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        color: var(--text-dim);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    .panel-header .tag {
+        color: var(--neon);
+        font-weight: 700;
+    }
+
+    .panel-body {
+        padding: 22px;
+    }
+
+    .dropzone {
+        border: 1px dashed var(--neon-dim);
+        border-radius: 4px;
+        padding: 34px;
+        text-align: center;
+        background: rgba(255, 77, 77, 0.025);
+        transition: 0.2s;
+        cursor: pointer;
+        position: relative;
+    }
+    .dropzone:hover,
+    .dropzone.drag {
+        border-color: var(--neon);
+        background: rgba(255, 77, 77, 0.07);
+        box-shadow: inset 0 0 30px rgba(255,77,77,0.08);
+    }
+    .dropzone .icon {
+        font-size: 28px;
+        color: var(--neon);
+        margin-bottom: 10px;
+        letter-spacing: 4px;
+    }
+    .dropzone .label {
+        font-size: 13px;
+        color: var(--text);
+    }
+    .dropzone .hint {
+        font-size: 11px;
+        color: var(--text-mute);
+        margin-top: 6px;
+        letter-spacing: 1px;
+    }
+    .dropzone input[type="file"] { display: none; }
+
+    .field-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        color: var(--text-mute);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 22px 0 8px;
+    }
+    .field-label .accent { color: var(--neon); }
+
+    textarea.xml-input {
+        width: 100%;
+        min-height: 220px;
+        background: #0a0e14;
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-family: var(--mono);
+        font-size: 13px;
+        padding: 14px;
+        border-radius: 3px;
+        resize: vertical;
+        outline: none;
+        line-height: 1.55;
+        transition: 0.15s;
+    }
+    textarea.xml-input:focus {
+        border-color: var(--neon);
+        box-shadow: 0 0 0 1px var(--neon), 0 0 18px rgba(255,77,77,0.15);
+    }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
+    button, .btn {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 11px 22px;
+        background: transparent;
+        color: var(--neon);
+        border: 1px solid var(--neon);
+        cursor: pointer;
+        transition: 0.15s;
+        position: relative;
+        overflow: hidden;
+    }
+    button:hover, .btn:hover {
+        background: var(--neon);
+        color: var(--bg-0);
+        box-shadow: 0 0 18px var(--neon-glow);
+    }
+    button.ghost {
+        color: var(--text-dim);
+        border-color: var(--line);
+    }
+    button.ghost:hover {
+        color: var(--text);
+        border-color: var(--text-dim);
+        background: transparent;
+        box-shadow: none;
+    }
+    button.small {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--line);
+        font-size: 12px;
+        gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .k { color: var(--text-mute); letter-spacing: 1.5px; text-transform: uppercase; font-size: 11px; white-space: nowrap; }
+    .info-row .v { color: var(--text); text-align: right; word-break: break-all; }
+    .info-row .v.ok   { color: var(--ok); }
+    .info-row .v.warn { color: var(--warn); }
+    .info-row .v.err  { color: var(--err); }
+
+    .schema-block {
+        margin-top: 16px;
+        background: #0a0e14;
+        border: 1px solid var(--line);
+        padding: 14px;
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.55;
+        max-height: 220px;
+        overflow: auto;
+    }
+    .schema-block .k1 { color: var(--neon); }
+    .schema-block .k2 { color: #79c0ff; }
+    .schema-block .k3 { color: #a5d6ff; }
+
+    .statusbar {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        background: rgba(10, 14, 20, 0.95);
+        border-top: 1px solid var(--line);
+        backdrop-filter: blur(6px);
+        padding: 14px 28px;
+        z-index: 20;
+    }
+    .statusbar-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 13px;
+        position: relative;
+        padding-left: 14px;
+    }
+    .statusbar-inner::before {
+        content: "";
+        position: absolute;
+        left: 0; top: -4px; bottom: -4px;
+        width: 3px;
+        background: var(--neon);
+        box-shadow: 0 0 12px var(--neon);
+    }
+    .statusbar .prompt { color: var(--neon); font-weight: 700; }
+    .statusbar .label  { color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+    .statusbar .msg    { color: var(--text); }
+    .statusbar .msg.ok   { color: var(--ok); }
+    .statusbar .msg.warn { color: var(--warn); }
+    .statusbar .msg.err  { color: var(--err); }
+    .statusbar .ts     { margin-left: auto; color: var(--text-mute); font-size: 11px; }
+
+    .log {
+        margin-top: 18px;
+        background: #0a0e14;
+        border: 1px solid var(--line);
+        padding: 14px;
+        font-size: 12px;
+        color: var(--text-dim);
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-height: 260px;
+        overflow: auto;
+        border-left: 3px solid var(--neon);
+    }
+    .log:empty { display: none; }
+
+    .caret {
+        display: inline-block;
+        width: 8px;
+        background: var(--neon);
+        margin-left: 4px;
+        animation: blink 1s steps(2) infinite;
+    }
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    .logs-toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+    }
+    .logs-summary {
+        display: flex;
+        gap: 18px;
+        font-size: 11px;
+        color: var(--text-mute);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-left: auto;
+    }
+    .logs-summary .num { color: var(--text); font-weight: 700; }
+    .logs-summary .num.ok  { color: var(--ok); }
+    .logs-summary .num.err { color: var(--err); }
+
+    .logs-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+    .logs-table thead th {
+        text-align: left;
+        font-weight: 600;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-mute);
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255,77,77,0.04);
+    }
+    .logs-table tbody td {
+        padding: 10px 12px;
+        border-bottom: 1px dashed var(--line);
+        color: var(--text-dim);
+        vertical-align: top;
+    }
+    .logs-table tbody tr:hover td {
+        background: rgba(255,77,77,0.04);
+        color: var(--text);
+    }
+    .logs-table .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        border: 1px solid var(--line);
+        color: var(--text-dim);
+    }
+    .logs-table .pill.ok  { color: var(--ok);  border-color: rgba(63,185,80,0.4); background: rgba(63,185,80,0.06); }
+    .logs-table .pill.err { color: var(--err); border-color: rgba(255,77,77,0.4); background: rgba(255,77,77,0.06); }
+    .logs-table .msg {
+        max-width: 520px;
+        color: var(--text);
+        word-break: break-word;
+        font-size: 12px;
+    }
+    .logs-empty {
+        padding: 28px;
+        text-align: center;
+        color: var(--text-mute);
+        font-size: 12px;
+        letter-spacing: 1px;
+        border: 1px dashed var(--line);
+    }
+
+    .schema-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 18px;
+    }
+    .schema-card {
+        background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: 0.15s;
+    }
+    .schema-card:hover {
+        border-color: var(--neon);
+        box-shadow: 0 0 18px rgba(255,77,77,0.12);
+    }
+    .schema-card h3 {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text);
+        letter-spacing: 1px;
+    }
+    .schema-card h3 .accent { color: var(--neon); }
+    .schema-card .desc {
+        font-size: 11px;
+        color: var(--text-mute);
+        line-height: 1.55;
+    }
+    .schema-card pre {
+        margin: 0;
+        background: #0a0e14;
+        border: 1px solid var(--line);
+        border-left: 2px solid var(--neon);
+        padding: 12px;
+        font-size: 11px;
+        color: var(--text-dim);
+        line-height: 1.5;
+        overflow: auto;
+        max-height: 220px;
+        white-space: pre;
+    }
+    .schema-card .row {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 8px;
+    }
+    .schema-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 10px;
+        color: var(--text-mute);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    .schema-meta span b { color: var(--text); font-weight: 600; }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+    @media (max-width: 900px) {
+        .about-grid { grid-template-columns: 1fr; }
+    }
+    .endpoints-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+    }
+    .endpoints-list li {
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--line);
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+    }
+    .endpoints-list li:last-child { border-bottom: none; }
+    .endpoints-list .method {
+        display: inline-block;
+        min-width: 50px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--neon);
+        border: 1px solid var(--neon-dim);
+        padding: 2px 6px;
+        text-align: center;
+    }
+    .endpoints-list .path {
+        color: var(--text);
+        font-weight: 600;
+    }
+    .endpoints-list .desc {
+        color: var(--text-mute);
+        font-size: 11px;
+    }
+    .notes-list {
+        margin: 0;
+        padding-left: 18px;
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.7;
+    }
+    .notes-list li::marker { color: var(--neon); }
+
+    .toast {
+        position: fixed;
+        bottom: 80px;
+        right: 28px;
+        background: var(--bg-1);
+        border: 1px solid var(--neon);
+        color: var(--text);
+        padding: 12px 18px;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        box-shadow: 0 0 18px var(--neon-glow);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: 0.2s;
+        pointer-events: none;
+        z-index: 30;
+    }
+    .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-0); }
+    ::-webkit-scrollbar-thumb { background: var(--line); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--neon-dim); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+            <div class="brand-name">ALTAY<span>SEC</span> // DATA SYNC</div>
+            <div class="brand-sub">Veri Entegrasyon Paneli &nbsp;v2.4.1</div>
+        </div>
+    </div>
+    <nav class="nav">
+        <a data-tab="upload" href="#upload">UPLOAD</a>
+        <a data-tab="logs"   href="#logs">LOGS</a>
+        <a data-tab="schema" href="#schema">SCHEMA</a>
+        <a data-tab="about"  href="#about">ABOUT</a>
+    </nav>
+    <div class="session-info">
+        <span class="pulse"></span>
+        <span id="session">SESSION // ALTAYSEC-XML-NODE</span>
+    </div>
+</header>
+
+<main class="wrap">
+
+    <section data-view="upload">
+        <h1 class="page-title">XML <span class="accent">Veri Entegrasyon</span> Modulu</h1>
+        <p class="page-sub">
+            // Personel listelerini veya sistem konfigurasyonlarini XML formatinda yukleyin.
+            Sunucu, dosyayi parse edip dahili veri katmanina aktarir.
+        </p>
+
+        <div class="grid">
+            <section class="panel">
+                <div class="panel-header">
+                    <span><span class="tag">[ INPUT ]</span> &nbsp; XML PAYLOAD</span>
+                    <span>STREAM: /api/process.php</span>
+                </div>
+                <div class="panel-body">
+
+                    <label class="dropzone" id="dropzone">
+                        <div class="icon">[ + ]</div>
+                        <div class="label">Dosyayi buraya surukleyin veya tiklayarak secin</div>
+                        <div class="hint">DESTEKLENEN: .xml &nbsp;//&nbsp; MAKS: 2MB</div>
+                        <input type="file" id="fileInput" accept=".xml,application/xml,text/xml" />
+                    </label>
+
+                    <div class="field-label">
+                        <span><span class="accent">&gt;</span> XML INPUT (manuel)</span>
+                        <span id="charCount">0 byte</span>
+                    </div>
+                    <textarea
+                        class="xml-input"
+                        id="xmlInput"
+                        spellcheck="false"
+                        placeholder="<?xml version=&quot;1.0&quot;?>&#10;<employees>&#10;    <employee id=&quot;1&quot;>&#10;        <name>Ada</name>&#10;        <role>analyst</role>&#10;    </employee>&#10;</employees>"
+                    ></textarea>
+
+                    <div class="actions">
+                        <button id="btnSend">&gt;&gt; ISLE &amp; SENKRONIZE ET</button>
+                        <button class="ghost" id="btnSample">ORNEK YUKLE</button>
+                        <button class="ghost" id="btnClear">TEMIZLE</button>
+                    </div>
+
+                    <div class="log" id="logBox"></div>
+                </div>
+            </section>
+
+            <aside class="panel">
+                <div class="panel-header">
+                    <span><span class="tag">[ NODE ]</span> &nbsp; SISTEM</span>
+                    <span>UPLINK</span>
+                </div>
+                <div class="panel-body">
+                    <div class="info-row"><span class="k">Endpoint</span><span class="v">/process.php</span></div>
+                    <div class="info-row"><span class="k">Parser</span><span class="v">libxml2 (DOMDocument)</span></div>
+                    <div class="info-row"><span class="k">Charset</span><span class="v">UTF-8</span></div>
+                    <div class="info-row"><span class="k">Auth</span><span class="v warn">INTERNAL ONLY</span></div>
+                    <div class="info-row"><span class="k">DTD Loader</span><span class="v ok">enabled</span></div>
+                    <div class="info-row"><span class="k">Output</span><span class="v">JSON (status / message)</span></div>
+
+                    <div class="field-label" style="margin-top:18px;">
+                        <span><span class="accent">&gt;</span> SCHEMA HINT</span>
+                        <span>v1</span>
+                    </div>
+                    <pre class="schema-block">
+<span class="k1">&lt;?xml</span> version=<span class="k3">"1.0"</span> encoding=<span class="k3">"UTF-8"</span><span class="k1">?&gt;</span>
+<span class="k2">&lt;employees&gt;</span>
+    <span class="k2">&lt;employee</span> id=<span class="k3">"1"</span><span class="k2">&gt;</span>
+        <span class="k2">&lt;name&gt;</span>...<span class="k2">&lt;/name&gt;</span>
+        <span class="k2">&lt;role&gt;</span>...<span class="k2">&lt;/role&gt;</span>
+    <span class="k2">&lt;/employee&gt;</span>
+<span class="k2">&lt;/employees&gt;</span></pre>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section data-view="logs" hidden>
+        <h1 class="page-title">Sistem <span class="accent">Loglari</span></h1>
+        <p class="page-sub">
+            // Son XML isleme istekleri. Tum kayitlar dahili audit cizgisinde mevcuttur. Hassas alan icerikleri kayit altina alinmaz.
+        </p>
+
+        <section class="panel">
+            <div class="panel-header">
+                <span><span class="tag">[ STREAM ]</span> &nbsp; PROCESS LOG</span>
+                <span>SOURCE: /logs.php</span>
+            </div>
+            <div class="panel-body">
+                <div class="logs-toolbar">
+                    <button class="small" id="logsRefresh">&gt; YENILE</button>
+                    <button class="small ghost" id="logsAuto">OTOMATIK YENILEME: OFF</button>
+                    <button class="small ghost" id="logsExport">JSON INDIR</button>
+                    <div class="logs-summary">
+                        <span>TOPLAM <span class="num" id="logsTotal">0</span></span>
+                        <span>OK <span class="num ok" id="logsOk">0</span></span>
+                        <span>ERR <span class="num err" id="logsErr">0</span></span>
+                        <span>BYTES <span class="num" id="logsBytes">0</span></span>
+                    </div>
+                </div>
+
+                <div style="overflow:auto; max-height: 60vh;">
+                    <table class="logs-table" id="logsTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 170px;">TS</th>
+                                <th style="width: 140px;">CLIENT</th>
+                                <th style="width: 70px;">STATUS</th>
+                                <th style="width: 70px;">BYTES</th>
+                                <th style="width: 70px;">NODES</th>
+                                <th style="width: 60px;">MS</th>
+                                <th>MESSAGE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsBody"></tbody>
+                    </table>
+                </div>
+                <div class="logs-empty" id="logsEmpty" hidden>Henuz islenmis bir istek yok.</div>
+            </div>
+        </section>
+    </section>
+
+    <section data-view="schema" hidden>
+        <h1 class="page-title">XML <span class="accent">Sema Kutuphanesi</span></h1>
+        <p class="page-sub">
+            // Onceden tanimlanmis sema sablonlari. Sablon uzerinden test payload uretip dogrudan UPLOAD ekranina yukleyebilirsiniz.
+        </p>
+
+        <section class="panel">
+            <div class="panel-header">
+                <span><span class="tag">[ TEMPLATE ]</span> &nbsp; SCHEMA LIBRARY</span>
+                <span>v1</span>
+            </div>
+            <div class="panel-body">
+                <div class="schema-cards" id="schemaCards"></div>
+            </div>
+        </section>
+    </section>
+
+    <section data-view="about" hidden>
+        <h1 class="page-title">Platform <span class="accent">Bilgisi</span></h1>
+        <p class="page-sub">
+            // AltaySec Data Sync surum, calisma zamani ve servis bilgileri. Canli verilerle dolduruldu.
+        </p>
+
+        <div class="about-grid">
+            <section class="panel">
+                <div class="panel-header">
+                    <span><span class="tag">[ META ]</span> &nbsp; PLATFORM</span>
+                    <span>/info.php</span>
+                </div>
+                <div class="panel-body" id="aboutPlatform">
+                    <div class="info-row"><span class="k">Yukleniyor</span><span class="v">...</span></div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <span><span class="tag">[ RUNTIME ]</span> &nbsp; SUNUCU</span>
+                    <span>LIVE</span>
+                </div>
+                <div class="panel-body" id="aboutRuntime">
+                    <div class="info-row"><span class="k">Yukleniyor</span><span class="v">...</span></div>
+                </div>
+            </section>
+
+            <section class="panel" style="grid-column: 1 / -1;">
+                <div class="panel-header">
+                    <span><span class="tag">[ API ]</span> &nbsp; ENDPOINTS</span>
+                    <span id="aboutAudit">-</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="endpoints-list" id="aboutEndpoints"></ul>
+                </div>
+            </section>
+
+            <section class="panel" style="grid-column: 1 / -1;">
+                <div class="panel-header">
+                    <span><span class="tag">[ NOTES ]</span> &nbsp; ENTEGRATOR NOTLARI</span>
+                    <span>INTERNAL</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="notes-list" id="aboutNotes"></ul>
+                </div>
+            </section>
+        </div>
+    </section>
+
+</main>
+
+<footer class="statusbar">
+    <div class="statusbar-inner">
+        <span class="prompt">&gt;</span>
+        <span class="label">Sistem Durumu:</span>
+        <span class="msg" id="statusMsg">Beklemede...<span class="caret">&nbsp;</span></span>
+        <span class="ts" id="statusTs"></span>
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+    const validTabs = new Set(['upload', 'logs', 'schema', 'about']);
+    const views = document.querySelectorAll('[data-view]');
+    const navLinks = document.querySelectorAll('.nav a[data-tab]');
+
+    function showView(name) {
+        if (!validTabs.has(name)) name = 'upload';
+        views.forEach(v => { v.hidden = v.dataset.view !== name; });
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.tab === name));
+        if (name === 'logs')   loadLogs();
+        if (name === 'about')  loadAbout();
+        if (name === 'schema') renderSchemas();
+    }
+
+    window.addEventListener('hashchange', () => {
+        showView((location.hash || '#upload').slice(1));
+    });
+
+    const toast = document.getElementById('toast');
+    let toastTm;
+    function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTm);
+        toastTm = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    const statusMsg = document.getElementById('statusMsg');
+    const statusTs  = document.getElementById('statusTs');
+    function ts() {
+        const d = new Date();
+        const p = n => String(n).padStart(2, '0');
+        return `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+    }
+    function setStatus(msg, kind) {
+        statusMsg.classList.remove('ok', 'warn', 'err');
+        if (kind) statusMsg.classList.add(kind);
+        statusMsg.innerHTML = msg + '<span class="caret">&nbsp;</span>';
+        statusTs.textContent = '[ ' + ts() + ' ]';
+    }
+
+    const dropzone   = document.getElementById('dropzone');
+    const fileInput  = document.getElementById('fileInput');
+    const xmlInput   = document.getElementById('xmlInput');
+    const btnSend    = document.getElementById('btnSend');
+    const btnClear   = document.getElementById('btnClear');
+    const btnSample  = document.getElementById('btnSample');
+    const charCount  = document.getElementById('charCount');
+    const logBox     = document.getElementById('logBox');
+
+    const SAMPLE = `<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+    <employee id="1">
+        <name>Ada Lovelace</name>
+        <role>analyst</role>
+    </employee>
+    <employee id="2">
+        <name>Alan Turing</name>
+        <role>engineer</role>
+    </employee>
+</employees>`;
+
+    function updateCount() {
+        const len = new Blob([xmlInput.value]).size;
+        charCount.textContent = len + ' byte';
+    }
+    xmlInput.addEventListener('input', updateCount);
+    updateCount();
+
+    btnClear.addEventListener('click', () => {
+        xmlInput.value = '';
+        fileInput.value = '';
+        logBox.textContent = '';
+        updateCount();
+        setStatus('Giris temizlendi.', 'warn');
+    });
+
+    btnSample.addEventListener('click', () => {
+        xmlInput.value = SAMPLE;
+        updateCount();
+        setStatus('Ornek XML yuklendi.', 'ok');
+    });
+
+    ['dragenter', 'dragover'].forEach(ev => {
+        dropzone.addEventListener(ev, e => {
+            e.preventDefault(); e.stopPropagation();
+            dropzone.classList.add('drag');
+        });
+    });
+    ['dragleave', 'drop'].forEach(ev => {
+        dropzone.addEventListener(ev, e => {
+            e.preventDefault(); e.stopPropagation();
+            dropzone.classList.remove('drag');
+        });
+    });
+    dropzone.addEventListener('drop', e => {
+        const f = e.dataTransfer.files[0];
+        if (f) loadFile(f);
+    });
+    fileInput.addEventListener('change', e => {
+        const f = e.target.files[0];
+        if (f) loadFile(f);
+    });
+    function loadFile(file) {
+        if (file.size > 2 * 1024 * 1024) {
+            setStatus('Sistem hatasi: Dosya 2MB sinirini asti.', 'err');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            xmlInput.value = reader.result;
+            updateCount();
+            setStatus('Dosya yuklendi: ' + file.name + ' (' + file.size + ' byte). Islemeye hazir.', 'ok');
+        };
+        reader.readAsText(file);
+    }
+
+    btnSend.addEventListener('click', async () => {
+        const xml = xmlInput.value;
+        if (!xml.trim()) {
+            setStatus('Sistem hatasi: Bos XML payload reddedildi.', 'err');
+            return;
+        }
+        btnSend.disabled = true;
+        setStatus('Payload sunucuya gonderiliyor...', 'warn');
+        logBox.textContent = '';
+
+        try {
+            const form = new FormData();
+            form.append('xml_data', xml);
+            const res = await fetch('process.php', { method: 'POST', body: form });
+            const raw = await res.text();
+            let data;
+            try { data = JSON.parse(raw); }
+            catch (e) {
+                data = { status: 'error', message: 'Sistem hatasi: Beklenmeyen sunucu cevabi.' };
+                logBox.textContent = raw;
+            }
+            if (data.status === 'ok') {
+                setStatus('Veri islendi.', 'ok');
+                logBox.textContent =
+                    '[ ' + ts() + ' ] OK\n' +
+                    '> ' + data.message + '\n' +
+                    '> nodes:    ' + (data.processed?.nodes ?? '-') + '\n' +
+                    '> received: ' + (data.processed?.received ?? '-') + ' byte';
+            } else {
+                setStatus(data.message || 'Sistem hatasi.', 'err');
+                logBox.textContent = '[ ' + ts() + ' ] ERR\n' + (data.message || '');
+            }
+        } catch (err) {
+            setStatus('Sistem hatasi: Aglatma katmaninda kesilme.', 'err');
+            logBox.textContent = String(err);
+        } finally {
+            btnSend.disabled = false;
+        }
+    });
+
+    const logsBody    = document.getElementById('logsBody');
+    const logsEmpty   = document.getElementById('logsEmpty');
+    const logsTotal   = document.getElementById('logsTotal');
+    const logsOk      = document.getElementById('logsOk');
+    const logsErr     = document.getElementById('logsErr');
+    const logsBytes   = document.getElementById('logsBytes');
+    const logsRefresh = document.getElementById('logsRefresh');
+    const logsAuto    = document.getElementById('logsAuto');
+    const logsExport  = document.getElementById('logsExport');
+
+    let lastLogsData  = null;
+    let autoTimer     = null;
+
+    function escapeHtml(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+    }
+
+    function fmtTs(iso) {
+        try {
+            const d = new Date(iso);
+            const p = n => String(n).padStart(2, '0');
+            return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+        } catch (_) { return iso || '-'; }
+    }
+
+    async function loadLogs() {
+        try {
+            const res = await fetch('logs.php?limit=200', { cache: 'no-store' });
+            const data = await res.json();
+            lastLogsData = data;
+            logsTotal.textContent = data.count ?? 0;
+            logsOk.textContent    = data.summary?.ok    ?? 0;
+            logsErr.textContent   = data.summary?.error ?? 0;
+            logsBytes.textContent = data.summary?.bytes ?? 0;
+
+            if (!data.entries || data.entries.length === 0) {
+                logsBody.innerHTML = '';
+                logsEmpty.hidden = false;
+                return;
+            }
+            logsEmpty.hidden = true;
+            const rows = data.entries.map(e => {
+                const cls = (e.status === 'ok') ? 'ok' : 'err';
+                return `<tr>
+                    <td>${escapeHtml(fmtTs(e.ts))}</td>
+                    <td>${escapeHtml(e.ip || '-')}</td>
+                    <td><span class="pill ${cls}">${escapeHtml(e.status || '-')}</span></td>
+                    <td>${escapeHtml(e.bytes ?? 0)}</td>
+                    <td>${escapeHtml(e.nodes ?? 0)}</td>
+                    <td>${escapeHtml(e.ms ?? 0)}</td>
+                    <td class="msg">${escapeHtml(e.message || '')}</td>
+                </tr>`;
+            }).join('');
+            logsBody.innerHTML = rows;
+        } catch (err) {
+            logsBody.innerHTML = `<tr><td colspan="7" style="color:var(--err)">Log akisina ulasilamadi: ${escapeHtml(err)}</td></tr>`;
+        }
+    }
+
+    logsRefresh.addEventListener('click', () => {
+        loadLogs();
+        showToast('Loglar yenilendi.');
+    });
+
+    logsAuto.addEventListener('click', () => {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+            logsAuto.textContent = 'OTOMATIK YENILEME: OFF';
+            logsAuto.classList.add('ghost');
+        } else {
+            autoTimer = setInterval(loadLogs, 3000);
+            logsAuto.textContent = 'OTOMATIK YENILEME: ON (3s)';
+            logsAuto.classList.remove('ghost');
+            loadLogs();
+        }
+    });
+
+    logsExport.addEventListener('click', () => {
+        if (!lastLogsData) { showToast('Once log yukleyin.'); return; }
+        const blob = new Blob([JSON.stringify(lastLogsData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'altaysec-logs-' + Date.now() + '.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        showToast('JSON indirildi.');
+    });
+
+    const schemaCards = document.getElementById('schemaCards');
+
+    const SCHEMAS = [
+        {
+            id: 'employees',
+            name: 'Personel Listesi',
+            desc: 'Departman/rol bazli personel kayitlari. Insan Kaynaklari entegrasyonu icin temel sema.',
+            meta: { root: '<employees>', node: '<employee id>', fields: 'name, role' },
+            xml: `<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+    <employee id="1">
+        <name>Ada Lovelace</name>
+        <role>analyst</role>
+    </employee>
+    <employee id="2">
+        <name>Alan Turing</name>
+        <role>engineer</role>
+    </employee>
+</employees>`
+        },
+        {
+            id: 'sysconfig',
+            name: 'Sistem Konfigurasyonu',
+            desc: 'Cluster genelinde uygulanacak anahtar-deger konfigurasyon paketi.',
+            meta: { root: '<config>', node: '<setting key>', fields: 'value, type' },
+            xml: `<?xml version="1.0" encoding="UTF-8"?>
+<config env="production">
+    <setting key="cache.ttl" type="int">3600</setting>
+    <setting key="api.host" type="string">api.altaysec.internal</setting>
+    <setting key="debug"    type="bool">false</setting>
+</config>`
+        },
+        {
+            id: 'inventory',
+            name: 'Ag Envanteri',
+            desc: 'Veri merkezi varlik kayitlari (sunucu, switch, vb.).',
+            meta: { root: '<inventory>', node: '<asset id>', fields: 'host, ip, role' },
+            xml: `<?xml version="1.0" encoding="UTF-8"?>
+<inventory dc="ist-01">
+    <asset id="srv-001">
+        <host>core-01.altaysec.lan</host>
+        <ip>10.0.10.11</ip>
+        <role>core-router</role>
+    </asset>
+    <asset id="srv-002">
+        <host>db-01.altaysec.lan</host>
+        <ip>10.0.10.21</ip>
+        <role>postgres-primary</role>
+    </asset>
+</inventory>`
+        },
+        {
+            id: 'audit',
+            name: 'Denetim Olay Akisi',
+            desc: 'Cluster olay senkronizasyonu. Tarihsel olaylari toplu yukleme icin uygundur.',
+            meta: { root: '<events>', node: '<event ts>', fields: 'actor, action, target' },
+            xml: `<?xml version="1.0" encoding="UTF-8"?>
+<events source="siem-01">
+    <event ts="2026-05-12T10:14:22Z">
+        <actor>ada@altaysec</actor>
+        <action>login</action>
+        <target>panel</target>
+    </event>
+    <event ts="2026-05-12T10:15:01Z">
+        <actor>alan@altaysec</actor>
+        <action>upload</action>
+        <target>employees.xml</target>
+    </event>
+</events>`
+        }
+    ];
+
+    function renderSchemas() {
+        if (schemaCards.dataset.rendered === '1') return;
+        schemaCards.innerHTML = SCHEMAS.map(s => `
+            <article class="schema-card">
+                <h3><span class="accent">[ ${escapeHtml(s.id)} ]</span> ${escapeHtml(s.name)}</h3>
+                <div class="desc">${escapeHtml(s.desc)}</div>
+                <div class="schema-meta">
+                    <span>ROOT <b>${escapeHtml(s.meta.root)}</b></span>
+                    <span>NODE <b>${escapeHtml(s.meta.node)}</b></span>
+                    <span>FIELDS <b>${escapeHtml(s.meta.fields)}</b></span>
+                </div>
+                <pre>${escapeHtml(s.xml)}</pre>
+                <div class="row">
+                    <button class="small" data-act="use" data-id="${s.id}">UPLOAD'A AKTAR</button>
+                    <button class="small ghost" data-act="copy" data-id="${s.id}">KOPYALA</button>
+                    <button class="small ghost" data-act="dl" data-id="${s.id}">.XML INDIR</button>
+                </div>
+            </article>
+        `).join('');
+        schemaCards.dataset.rendered = '1';
+
+        schemaCards.addEventListener('click', e => {
+            const btn = e.target.closest('button[data-act]');
+            if (!btn) return;
+            const s = SCHEMAS.find(x => x.id === btn.dataset.id);
+            if (!s) return;
+            if (btn.dataset.act === 'use') {
+                xmlInput.value = s.xml;
+                updateCount();
+                location.hash = '#upload';
+                setStatus('Sema yuklendi: ' + s.name, 'ok');
+                showToast('Sema upload alanina aktarildi.');
+            } else if (btn.dataset.act === 'copy') {
+                navigator.clipboard?.writeText(s.xml).then(
+                    () => showToast('Panoya kopyalandi.'),
+                    () => showToast('Kopyalama basarisiz.')
+                );
+            } else if (btn.dataset.act === 'dl') {
+                const blob = new Blob([s.xml], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = s.id + '.xml';
+                document.body.appendChild(a); a.click(); a.remove();
+                URL.revokeObjectURL(url);
+                showToast(s.id + '.xml indirildi.');
+            }
+        });
+    }
+
+    const aboutPlatform  = document.getElementById('aboutPlatform');
+    const aboutRuntime   = document.getElementById('aboutRuntime');
+    const aboutEndpoints = document.getElementById('aboutEndpoints');
+    const aboutNotes     = document.getElementById('aboutNotes');
+    const aboutAudit     = document.getElementById('aboutAudit');
+
+    function row(k, v, cls) {
+        return `<div class="info-row"><span class="k">${escapeHtml(k)}</span><span class="v ${cls||''}">${escapeHtml(v)}</span></div>`;
+    }
+
+    async function loadAbout() {
+        aboutPlatform.innerHTML = row('Yukleniyor', '...');
+        aboutRuntime.innerHTML  = row('Yukleniyor', '...');
+        try {
+            const res = await fetch('info.php', { cache: 'no-store' });
+            const d = await res.json();
+
+            const p = d.platform || {};
+            aboutPlatform.innerHTML = [
+                row('Ad', p.name || '-'),
+                row('Kod Adi', p.codename || '-'),
+                row('Surum', p.version || '-'),
+                row('Build', p.build || '-'),
+                row('Ortam', p.env || '-', 'warn'),
+                row('Yayin', p.released || '-'),
+            ].join('');
+
+            const r = d.runtime || {};
+            aboutRuntime.innerHTML = [
+                row('PHP', r.php || '-', 'ok'),
+                row('SAPI', r.sapi || '-'),
+                row('libxml', r.libxml || '-', 'ok'),
+                row('Server', r.server_software || '-'),
+                row('Hostname', r.server_name || '-'),
+                row('OS', r.os || '-'),
+                row('Timezone', r.timezone || '-'),
+                row('Uptime', r.uptime || '-'),
+                row('Now', r.now || '-'),
+            ].join('');
+
+            aboutEndpoints.innerHTML = (d.endpoints || []).map(ep => `
+                <li>
+                    <span class="method">${escapeHtml(ep.method)}</span>
+                    <span class="path">${escapeHtml(ep.path)}</span>
+                    <span class="desc">// ${escapeHtml(ep.desc)}</span>
+                </li>
+            `).join('');
+
+            aboutNotes.innerHTML = (d.notes || []).map(n => `<li>${escapeHtml(n)}</li>`).join('');
+
+            const a = d.audit || {};
+            aboutAudit.textContent = 'AUDIT: ' + (a.log_entries ?? 0) + ' kayit / ' + (a.log_size ?? 0) + ' byte';
+        } catch (err) {
+            aboutPlatform.innerHTML = row('Hata', String(err), 'err');
+            aboutRuntime.innerHTML  = '';
+        }
+    }
+
+    setStatus('Beklemede...', null);
+    showView((location.hash || '#upload').slice(1));
+})();
+</script>
+
+</body>
+</html>

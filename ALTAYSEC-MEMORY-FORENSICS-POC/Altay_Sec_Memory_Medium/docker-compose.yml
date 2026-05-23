@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  memory-medium-lab:
+    build: .
+    container_name: altaysec_memory_medium
+    working_dir: /home/analyst
+    ports:
+      - "8084:8080"
+    restart: always

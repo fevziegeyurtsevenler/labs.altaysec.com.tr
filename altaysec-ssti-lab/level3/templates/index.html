@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ALTAYSEC STORE | Cyber Frontier Gear</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#bdc7d9",
+                        "outline": "#ab8986",
+                        "on-surface": "#dfe2eb",
+                        "outline-variant": "#5b403e",
+                        "primary-container": "#ff5352",
+                        "on-tertiary-fixed": "#002022",
+                        "surface-tint": "#ffb3ae",
+                        "secondary-container": "#404a59",
+                        "on-secondary-fixed": "#121c2a",
+                        "tertiary-container": "#00a0aa",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#002f33",
+                        "on-primary-fixed": "#410004",
+                        "secondary": "#bdc7d9",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "background": "#10141a",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#00363a",
+                        "on-primary-container": "#5c0008",
+                        "on-primary-fixed-variant": "#930014",
+                        "surface-container-low": "#181c22",
+                        "inverse-on-surface": "#2d3137",
+                        "surface-container-high": "#262a31",
+                        "tertiary": "#00dbe9",
+                        "surface-dim": "#10141a",
+                        "surface-bright": "#353940",
+                        "on-secondary": "#27313f",
+                        "on-secondary-fixed-variant": "#3d4756",
+                        "inverse-surface": "#dfe2eb",
+                        "surface-container": "#1c2026",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "on-primary": "#68000b",
+                        "secondary-fixed": "#d9e3f6",
+                        "surface-container-highest": "#31353c",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#10141a",
+                        "tertiary-fixed": "#7df4ff",
+                        "surface-container-lowest": "#0a0e14",
+                        "tertiary-fixed-dim": "#00dbe9",
+                        "surface-variant": "#31353c",
+                        "on-secondary-container": "#afb9cb",
+                        "on-background": "#dfe2eb",
+                        "inverse-primary": "#ba1724",
+                        "on-surface-variant": "#e4beba",
+                        "error-container": "#93000a",
+                        "primary": "#ffb3ae",
+                        "primary-fixed": "#ffdad7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0rem",
+                        "lg": "0rem",
+                        "xl": "0rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin": "40px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Space Grotesk"],
+                        "mono-label": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "space-grotesk": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "mono-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0d1117;
+            color: #dfe2eb;
+        }
+        .flicker-effect:active {
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: #ff4d4d;
+            box-shadow: 0 0 8px #ff4d4d;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="font-body-sm selection:bg-[#ff4d4d] selection:text-black">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-12 h-20 bg-neutral-950/90 backdrop-blur-md border-b border-[#30363d]">
+<div class="flex items-center gap-4">
+<img src="/static/logo.png" class="h-10 w-auto brightness-125" alt="AltaySec">
+<h1 class="text-2xl font-black text-[#ff4d4d] italic tracking-tighter uppercase font-space-grotesk">ALTAYSEC STORE</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#ff4d4d] border-b-2 border-[#ff4d4d] shadow-[0px_0px_8px_#ff4d4d80] font-space-grotesk tracking-tight uppercase px-2 py-1 transition-all duration-150 active:scale-95" href="/">Home</a>
+<a class="text-neutral-500 font-medium font-space-grotesk tracking-tight uppercase hover:text-[#ff4d4d] hover:bg-neutral-900 transition-all duration-150 px-2 py-1" href="/product">Products</a>
+<a class="text-neutral-500 font-medium font-space-grotesk tracking-tight uppercase hover:text-[#ff4d4d] hover:bg-neutral-900 transition-all duration-150 px-2 py-1" href="/preview">Terminal</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="text-neutral-500 hover:text-[#ff4d4d] transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<!-- SEPET İKONU BURADA: DOĞRUDAN /preview SAYFASINA GİDER -->
+<a href="/preview" class="text-[#ff4d4d] flex items-center gap-2">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-xs font-bold font-mono-label"></span>
+</a>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[751px] w-full flex items-center overflow-hidden border-b border-[#30363d]">
+<div class="absolute inset-0 z-0">
+<img alt="Cyberpunk workspace" class="w-full h-full object-cover opacity-40 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8ptphKIpdo-5cLE894WPI3xjjnFaecMuE2P3pNujuA9TbR_Do4P0Yytv8m03e23E05xkh2AywCQNB4cP_5_XStLVJ15fq5SUG8recfWGlMXJKX71YU4xBGDCJUE5IF-9PIZaPbkwf6Z8KLmUP38mFLC_5NpH4GtMVrstHN_Y5_ZRLeR3Mfpqd__lsSxZLX4LtjxjfvVIJZb5aSdmLhbxiqgfTySfLh2-py-461a2qS3LmX1MBYqEZM-KLsXp2caQ8ALfFgVxTE49s"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#0d1117] via-[#0d1117]/80 to-transparent"></div>
+</div>
+<div class="relative z-10 px-12 md:px-24 max-w-4xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="h-px w-12 bg-[#ff4d4d]"></span>
+<span class="text-[#ff4d4d] font-mono-label text-xs tracking-[0.3em] uppercase">System Status: Active</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl mb-6 text-white leading-none">GEAR UP FOR THE <span class="text-[#ff4d4d]">CYBER FRONTIER</span></h2>
+<p class="font-body-lg text-body-lg text-neutral-400 mb-10 max-w-xl">
+                    High-performance hardware and tactical apparel engineered for the digital vanguard. Stay anonymous. Stay lethal.
+                </p>
+<div class="flex flex-wrap gap-4">
+<a href="/product" class="inline-block">
+    <button class="bg-[#ff4d4d] text-black font-bold px-8 py-4 uppercase tracking-widest text-xs hover:bg-white transition-all flicker-effect">
+                        Access Inventory
+    </button>
+</a>
+<a href="/preview" class="inline-block">
+    <button class="border border-[#ff4d4d] text-[#ff4d4d] font-bold px-8 py-4 uppercase tracking-widest text-xs hover:bg-[#ff4d4d]/10 transition-all">
+                        View Dossier
+    </button>
+</a>
+</div>
+</div>
+<!-- Scanning line decoration -->
+<div class="scanline"></div>
+</section>
+<!-- Product Grid Section -->
+<section class="py-24 px-12 md:px-24 bg-[#0d1117]">
+<div class="flex justify-between items-end mb-16">
+<div>
+<h3 class="font-headline-md text-headline-md text-white mb-2 uppercase tracking-tighter">Tactical Hardware</h3>
+<div class="h-1 w-20 bg-[#ff4d4d]"></div>
+</div>
+<button class="text-neutral-500 hover:text-white flex items-center gap-2 font-mono-label uppercase text-[10px] tracking-widest">
+                    View All Assets <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Cyber Hoodie -->
+<div class="bg-[#161b22] border border-[#30363d] group hover:border-[#ff4d4d] transition-all relative">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-[#ff4d4d] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="h-64 overflow-hidden relative">
+<img alt="Cyber Hoodie" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0Zl4KgwGt7YwIFq2_9cjz0FyHG__Fs3Bq3LHCQJ5JQUmyKHD3wQ3o4zsBoLwRVH5BqMY5kr_6A9wyqPvTOhvniAmJDeWM5LmtCxOKfKJVrRjDos8KITG4LUfVsQ8xwqTeIlEwKIkNb7RQ_a24A5UIvy4BfU5OK0hKLWUej4rBQgJH6Orrirb62CtvZBTGQBjA14bzQiKEiFn4jRlLpBCVANfq01q2SDMYpnZnjH4XXGmEFn_19SnBdb6byOAgHW3kGfeHUVyh8lkq"/>
+<div class="absolute top-4 right-4 bg-black/80 text-[#ff4d4d] text-[10px] px-2 py-1 font-bold border border-[#ff4d4d]/30">APPR-01</div>
+</div>
+<div class="p-6">
+<h4 class="text-white font-bold uppercase tracking-tight mb-1">Cyber Hoodie</h4>
+<p class="text-neutral-500 text-xs mb-4">Signal-dampening fabric with internal hidden pockets.</p>
+<div class="flex justify-between items-center">
+<span class="text-[#ff4d4d] font-bold">$129.00</span>
+<a href="/product" class="text-neutral-400 hover:text-[#ff4d4d]">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 2: Security Stickers -->
+<div class="bg-[#161b22] border border-[#30363d] group hover:border-[#ff4d4d] transition-all relative">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-[#ff4d4d] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="h-64 overflow-hidden relative">
+<img alt="Security Stickers" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZJxQ91aHxa4BauL15uI_-mL196IFUbeSrWEH5Qo2Up3tC1uoqod8W0bLJ7fYKgb0pz76XE-6ZQ9s62XwT8QNHsizeGrricK-tpddcanMWQUECHeWhmxMJz7DuTI0S5bQxvM10Jd-KP_KiRES0mB1bHbCUKkgR5oKT9iBNpf8gOPJNElBat0jNQPzpLF7__FLMqwimLSLn3kYTrixKY3PgWAyMc1kIKWHN_KUvSjHLkn1nxVJ60Tap9T4v-Ef06R67W8U3-2rwmQ6r"/>
+<div class="absolute top-4 right-4 bg-black/80 text-[#ff4d4d] text-[10px] px-2 py-1 font-bold border border-[#ff4d4d]/30">VISL-04</div>
+</div>
+<div class="p-6">
+<h4 class="text-white font-bold uppercase tracking-tight mb-1">Security Stickers</h4>
+<p class="text-neutral-500 text-xs mb-4">Vinyl pack of 20 high-grade encryption-themed decals.</p>
+<div class="flex justify-between items-center">
+<span class="text-[#ff4d4d] font-bold">$24.00</span>
+<a href="/product" class="text-neutral-400 hover:text-[#ff4d4d]">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 3: Mechanical Keyboard -->
+<div class="bg-[#161b22] border border-[#30363d] group hover:border-[#ff4d4d] transition-all relative">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-[#ff4d4d] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="h-64 overflow-hidden relative">
+<img alt="Mechanical Keyboard" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9yfnag8Ma3glu9lFpYK_1_G8ZN1sCLaeIIRj88K3VgLHs6HgzoLz90QAQz4rudn8cg3yxxdKco-r1RBlq-hISid5BgUWycbqBdUeDl-sIOJ78ZJOXeYAkQ3NClKdudmSbSRISApJIu-BnTTbv6ZCgXMnCTGBnkLzjnjVj26OgzwCXyaLj4_AQklrpgoBildKKDV-A_w7gS4B9mkV0SBWLV0ELvfYp6Yq0VCdaodbpHPAUxt0Wz1x22lcvKO539xKEZK3IHT4piATR"/>
+<div class="absolute top-4 right-4 bg-black/80 text-[#ff4d4d] text-[10px] px-2 py-1 font-bold border border-[#ff4d4d]/30">PERI-09</div>
+</div>
+<div class="p-6">
+<h4 class="text-white font-bold uppercase tracking-tight mb-1">Mechanical Keyboard</h4>
+<p class="text-neutral-500 text-xs mb-4">Custom switches with programmable macros for terminal speed.</p>
+<div class="flex justify-between items-center">
+<span class="text-[#ff4d4d] font-bold">$189.00</span>
+<a href="/product" class="text-neutral-400 hover:text-[#ff4d4d]">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 4: Data Encrypted Key -->
+<div class="bg-[#161b22] border border-[#30363d] group hover:border-[#ff4d4d] transition-all relative">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-[#ff4d4d] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="h-64 overflow-hidden relative">
+<img alt="Encrypted Key" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlfe03Osb4f52g4GJYEKka7bB7qWrWAmFB1VklZKO2tcBFuawgUZh-V0pjRxHGTKMaFiRyfzx9a6ihExmvwjW7PYkvdmm0lGNZh7tOoaFZBE8eHC0WzT8Qzqv1K2P1bjtnB5AXpMzb_kim8RfWrhfVDyo04dx4XHT2k_foosSb9Eab4Q-vBDnahx7EbnWyCPGAoEc-57OoGcP82kxoOYb6Qhr12PjPMRw4YHgeGSGVqyUMymu84zWJw8LKsndfh9xUcqL7fI7MxrXX"/>
+<div class="absolute top-4 right-4 bg-black/80 text-[#ff4d4d] text-[10px] px-2 py-1 font-bold border border-[#ff4d4d]/30">STOR-07</div>
+</div>
+<div class="p-6">
+<h4 class="text-white font-bold uppercase tracking-tight mb-1">Data Encrypted Key</h4>
+<p class="text-neutral-500 text-xs mb-4">AES-256 hardware encryption with biometric lock.</p>
+<div class="flex justify-between items-center">
+<span class="text-[#ff4d4d] font-bold">$85.00</span>
+<a href="/product" class="text-neutral-400 hover:text-[#ff4d4d]">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-12 flex flex-col md:flex-row justify-between items-center gap-8 bg-neutral-950 border-t border-[#30363d]">
+<div class="flex flex-col items-center md:items-start gap-4">
+<h5 class="text-[#ff4d4d] font-bold font-space-grotesk tracking-widest uppercase">ALTAYSEC STORE</h5>
+<p class="font-space-grotesk text-xs uppercase tracking-widest text-neutral-500">© 2026 ALTAYSEC STORE. </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-space-grotesk text-xs uppercase tracking-widest text-neutral-500 hover:text-white transition-colors" href="/">Home</a>
+<a class="font-space-grotesk text-xs uppercase tracking-widest text-neutral-500 hover:text-white transition-colors" href="/product">Products</a>
+<a class="font-space-grotesk text-xs uppercase tracking-widest text-neutral-500 hover:text-white transition-colors" href="/preview">Terminal</a>
+</div>
+</footer>
+</body>
+</html>

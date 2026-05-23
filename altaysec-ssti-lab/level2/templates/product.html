@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                "colors": {
+                        "on-primary-fixed": "#410004",
+                        "on-tertiary-fixed": "#002022",
+                        "on-primary-fixed-variant": "#930014",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0a0e14",
+                        "on-secondary": "#27313f",
+                        "inverse-primary": "#ba1724",
+                        "on-primary": "#68000b",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#dfe2eb",
+                        "inverse-surface": "#dfe2eb",
+                        "primary-container": "#ff5352",
+                        "background": "#10141a",
+                        "secondary-fixed-dim": "#bdc7d9",
+                        "surface-dim": "#10141a",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "secondary": "#bdc7d9",
+                        "on-secondary-fixed": "#121c2a",
+                        "on-surface-variant": "#e4beba",
+                        "secondary-container": "#404a59",
+                        "tertiary-container": "#00a0aa",
+                        "primary-fixed": "#ffdad7",
+                        "tertiary": "#00dbe9",
+                        "surface-container-high": "#262a31",
+                        "on-secondary-container": "#afb9cb",
+                        "surface-tint": "#ffb3ae",
+                        "surface-container-low": "#181c22",
+                        "error": "#ffb4ab",
+                        "primary": "#ffb3ae",
+                        "on-secondary-fixed-variant": "#3d4756",
+                        "inverse-on-surface": "#2d3137",
+                        "surface": "#10141a",
+                        "tertiary-fixed": "#7df4ff",
+                        "surface-container": "#1c2026",
+                        "outline": "#ab8986",
+                        "tertiary-fixed-dim": "#00dbe9",
+                        "surface-variant": "#31353c",
+                        "surface-container-highest": "#31353c",
+                        "on-tertiary-container": "#002f33",
+                        "on-surface": "#dfe2eb",
+                        "secondary-fixed": "#d9e3f6",
+                        "on-primary-container": "#5c0008",
+                        "outline-variant": "#5b403e",
+                        "on-tertiary": "#00363a",
+                        "on-error": "#690005",
+                        "surface-bright": "#353940"
+                },
+                "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                },
+                "spacing": {
+                        "unit": "4px",
+                        "stack-lg": "32px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "margin": "40px"
+                },
+                "fontFamily": {
+                        "mono-label": ["Inter"],
+                        "headline-xl": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"]
+                },
+                "fontSize": {
+                        "mono-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                }
+              },
+            },
+        }
+    </script>
+<style>
+        .glow-red { box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); }
+        .glow-red-hover:hover { box-shadow: 0 0 20px rgba(255, 77, 77, 0.6); }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: #ff4d4d;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            animation: scanning 4s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes scanning {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .matrix-bg {
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0) 0%, rgba(255, 77, 77, 0.05) 50%, rgba(13, 17, 23, 0) 100%);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-lg antialiased">
+
+<!-- TOP APP BAR -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0d1117] border-b border-[#30363d]">
+<div class="flex items-center gap-3">
+<!-- LOGO -->
+<img src="{{ url_for('static', filename='logo.png') }}" class="h-10 w-auto brightness-125" alt="AltaySec">
+<span class="text-xl font-black text-[#ff4d4d] tracking-tighter font-['Space_Grotesk'] uppercase">ALTAYSEC STORE</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<!-- MENÜ LİNKLERİ -->
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs transition-all duration-200 ease-in-out active:scale-95 text-[#8b949e] hover:text-[#ff4d4d]" href="/">ARCHIVE</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs transition-all duration-200 ease-in-out active:scale-95 text-[#ff4d4d] border-b-2 border-[#ff4d4d] pb-1" href="/product">CATALOG</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs transition-all duration-200 ease-in-out active:scale-95 text-[#8b949e] hover:text-[#ff4d4d]" href="/preview">TERMINAL</a>
+</nav>
+<div class="flex items-center gap-4">
+<!-- SEPET İKONU: /preview SAYFASINA GİDER -->
+<a href="/preview" class="text-[#8b949e] hover:text-[#ff4d4d] transition-colors">
+    <span class="material-symbols-outlined">shopping_cart</span>
+</a>
+</div>
+</header>
+
+<main class="pt-24 pb-12 px-6 md:px-12 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<div class="lg:col-span-7 space-y-6">
+<div class="relative aspect-square bg-[#161b22] border border-[#30363d] overflow-hidden">
+<div class="scanline"></div>
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLblPX0fFr-9GpU61u0Q2PH4S6EOStpO1A-6JOSHW4O89Ccn_Mvlf7Z9K8LVOzY-33SQ4xovDJoCKCA0hVzvX-MOh64-8u4zc79NPblbaSy38OKq-WhBAZjVl6HplkFCkPvgUMvIBVEU0T50iF35t63gEBxOIUJfUDvbS6FSjFaY4yPQhaMuLyGeZi_BVMNQp-8mEJXteq5288fVRGPylokS6c4_7tUqXFh_WRz4Jaq7YeesH_7mFOMiVUnRxghr0p12HOsgpxzV06"/>
+<div class="absolute bottom-4 left-4 bg-[#0d1117] border border-[#ff4d4d] px-3 py-1">
+<p class="font-mono-label text-[#ff4d4d] text-[10px]">PRODUCT_ID: CS-H01_BLK</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="aspect-square bg-[#161b22] border border-[#30363d] p-1">
+<img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVnVsPHelf3kHysWy1Vi7cIL7Yjga8YmysUVyp4Ex1idzajsFAshaTuNg4k25W2poYsZi_a8Khxc8VpDBehcI9CuBnhCoZUZUYNgTcu8DBkHcyB6dTs97m7d3g60oYwcVypBY8t1GiLIovOVkuxcLPBZspu4-pnQ5H517Ja4VY2GM2tgkdKR95v00XxVmtYteJHRwNKuR2vgqWGvmYJ84bb-JVbHbzmHNW2tdUMs11e-NiQ6FWmQPF5AEAVIWaPS5v8OVvY2dEuU-M"/>
+</div>
+<div class="aspect-square bg-[#161b22] border border-[#30363d] p-1">
+<img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo_nmRfoPfI_aMRt-pE79INvijifvD0yAZhky1KXKElqXtw6Mskj6AVYG10gOVwlLrxEItgzAK6C2_A6ajCWnG_N8EaGZaInbHqC_dEuVV66VdXm1Qzmtf6wh3diyS6F_uwhwrWL_94sNgYnAKRxKmx0yLocPv7xwyycC6Hwgb4WftfhmoXCOZuDu3jqgOpx9E2li1-LfYPNvNsJNrDys3u8dnjpKWbao44FbY2kNgZ8G4CyWAtaZXosVItzVUfT6CP1Pt4_OXzaLX"/>
+</div>
+<div class="aspect-square bg-[#161b22] border border-[#30363d] p-1">
+<img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAREgjXXqHhqPt-eyz9vmLQNLxzi86eAloB-o7ShN5hgNaRSnLQ4kyzsHhszcfeuus-7uO4MGZ-nQbZPsuVrYcpE9WmbhJV-hVcte3qwVbhGVzcs4CnRb4rBqV_oZ0pNRpRe7yRMcU6LTjg10TJGSKncGvC82K354ptyuekhs2Df1IDbUVgYFCSYSjyPFSAOlBlzH-gmY8yRQk7NFYB6cd9znawEgyEwHiwwIARL6N-il8uFB6lPeeKitHhYvoI0lk8qefLOGC_Z_Hs"/>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col justify-between">
+<div>
+<div class="inline-block border-l-4 border-[#ff4d4d] pl-4 mb-4">
+<p class="font-mono-label text-tertiary uppercase text-xs mb-1">ARMOR_CLASS: CIVILIAN_STEALTH</p>
+<h1 class="font-headline-xl text-on-background tracking-tighter uppercase">CYBER HOODIE</h1>
+</div>
+<div class="mb-8">
+<p class="font-headline-md text-[#ff4d4d] mb-2 tracking-widest">0.024 BTC</p>
+<p class="font-body-sm text-[#8b949e] max-w-md">Engineered for the modern urban operative. Designed to evade RF tracking and maintain operational security in high-density surveillance zones.</p>
+</div>
+<div class="space-y-6 mb-12">
+<div class="p-4 bg-[#161b22] border border-[#30363d] border-t-2 border-t-[#ff4d4d]">
+<h3 class="font-mono-label text-on-surface uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">shield</span> SIGNAL_NULLIFICATION
+                            </h3>
+<p class="font-body-sm text-[#8b949e]">Integrated Faraday cage pockets neutralize RFID, GPS, and cellular signals for device isolation.</p>
+</div>
+<div class="p-4 bg-[#161b22] border border-[#30363d]">
+<h3 class="font-mono-label text-on-surface uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">inventory_2</span> INTERNAL_STORAGE
+                            </h3>
+<ul class="font-body-sm text-[#8b949e] list-disc list-inside space-y-1">
+<li>2x Concealed chest compartments</li>
+<li>4x Internal technical webbing loops</li>
+<li>Discrete cable routing for coms</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-2 mb-4">
+<span class="font-mono-label text-xs text-[#8b949e]">SIZE_PROFILE:</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 border border-[#30363d] text-xs font-bold hover:border-[#ff4d4d] transition-colors text-white">S</button>
+<button class="w-10 h-10 border border-[#ff4d4d] text-xs font-bold bg-[#ff4d4d10] text-white">M</button>
+<button class="w-10 h-10 border border-[#30363d] text-xs font-bold hover:border-[#ff4d4d] transition-colors text-white">L</button>
+<button class="w-10 h-10 border border-[#30363d] text-xs font-bold hover:border-[#ff4d4d] transition-colors text-white">XL</button>
+</div>
+</div>
+
+<!-- SEPETE EKLE BUTONU: DOĞRUDAN /preview SAYFASINA GİDER -->
+<a href="/preview" class="w-full block">
+    <button class="w-full bg-[#ff4d4d] text-[#0d1117] font-headline-md py-6 uppercase tracking-widest transition-all duration-200 active:scale-95 glow-red glow-red-hover border-none flex items-center justify-center gap-4">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+        ADD TO CART
+    </button>
+</a>
+
+<p class="text-center font-mono-label text-[10px] text-[#484f58]">SHIPPING_ENCRYPTED // ESTIMATED_DROP: 48H</p>
+</div>
+</div>
+</div>
+<section class="mt-24 border border-[#30363d] bg-[#0d1117] p-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full matrix-bg opacity-30 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-4 mb-8">
+<span class="h-px flex-1 bg-[#30363d]"></span>
+<h2 class="font-headline-md text-[#ff4d4d] uppercase tracking-[0.2em]">TACTICAL SPECS</h2>
+<span class="h-px flex-1 bg-[#30363d]"></span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="space-y-2">
+<p class="font-mono-label text-[#ff4d4d] text-[10px]">[MATERIAL_COMPOSITION]</p>
+<p class="font-body-sm text-[#dfe2eb] font-mono leading-relaxed">
+                            &gt; 450GSM DENSE-KNIT NYLON<br/>
+                            &gt; SILVER-ION WEAVE INTERLINING<br/>
+                            &gt; WATER-REPELLANT COATING (DWR)
+                        </p>
+</div>
+<div class="space-y-2">
+<p class="font-mono-label text-[#ff4d4d] text-[10px]">[SURVEILLANCE_PROTECTION]</p>
+<p class="font-body-sm text-[#dfe2eb] font-mono leading-relaxed">
+                            &gt; IR-REFLECTIVE PRINTING<br/>
+                            &gt; RF-ISOLATION POCKET (13.56MHZ)<br/>
+                            &gt; FACIAL-RECOGNITION DEFEAT HOOD
+                        </p>
+</div>
+<div class="space-y-2">
+<p class="font-mono-label text-[#ff4d4d] text-[10px]">[THERMAL_SIGNATURE]</p>
+<p class="font-body-sm text-[#dfe2eb] font-mono leading-relaxed">
+                            &gt; HEAT-DISSIPATION SIDE VENTS<br/>
+                            &gt; AEROGEL INSULATION CORE<br/>
+                            &gt; LOW-TEMP THRESHOLD: -15C
+                        </p>
+</div>
+<div class="space-y-2">
+<p class="font-mono-label text-[#ff4d4d] text-[10px]">[SYSTEM_LOG]</p>
+<p class="font-body-sm text-[#dfe2eb] font-mono leading-relaxed">
+                            &gt; VERIFIED: COMPLIANT<br/>
+                            &gt; ORIGIN: DISTRICT-7<br/>
+                            &gt; STATUS: OPERATIONAL
+                        </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-[#0d1117] border-t border-[#30363d]">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-lg font-bold text-[#ff4d4d] font-['Space_Grotesk'] uppercase tracking-widest">ALTAYSEC STORE</span>
+<p class="font-['Space_Grotesk'] text-xs tracking-tight text-[#484f58]">© 2026 ALTAYSEC STORE // VIGILANT. ADVANCED. LETHAL.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Space_Grotesk'] text-xs tracking-tight text-[#484f58] transition-opacity duration-300 hover:text-[#ff4d4d]" href="/">HOME</a>
+<a class="font-['Space_Grotesk'] text-xs tracking-tight text-[#484f58] transition-opacity duration-300 hover:text-[#ff4d4d]" href="/product">CATALOG</a>
+<a class="font-['Space_Grotesk'] text-xs tracking-tight text-[#484f58] transition-opacity duration-300 hover:text-[#ff4d4d]" href="/preview">TERMINAL</a>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#484f58] text-sm">security</span>
+<span class="material-symbols-outlined text-[#484f58] text-sm">vpn_key</span>
+<span class="material-symbols-outlined text-[#484f58] text-sm">lock</span>
+</div>
+</footer>
+</body></html>

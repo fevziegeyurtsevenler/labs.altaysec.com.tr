@@ -1,0 +1,352 @@
+1. XSS Lab - Kolay (Level 1)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xss_kolay && \
+cd xss_kolay && git sparse-checkout set AltaySec_XSS_Labs/xss_lab_altaysec && \
+cd AltaySec_XSS_Labs/xss_lab_altaysec && \
+docker build -t xss-easy . && \
+docker run -d -p 5001:5001 --name xss_easy_container xss-easy sh -c "python3 veritabani.py && python3 app.py"
+
+
+2. XSS Lab - Orta (Level 2)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xss_orta && \
+cd xss_orta && git sparse-checkout set AltaySec_XSS_Labs/xss_lab_altaysec_v2 && \
+cd AltaySec_XSS_Labs/xss_lab_altaysec_v2 && \
+docker build -t xss-medium . && \
+docker run -d -p 5002:5001 --name xss_medium_container xss-medium sh -c "python3 veritabani.py && python3 app.py"
+
+
+3. XSS Lab - Zor (Level 3)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xss_zor && \
+cd xss_zor && git sparse-checkout set AltaySec_XSS_Labs/xss_lab_altaysec_v3 && \
+cd AltaySec_XSS_Labs/xss_lab_altaysec_v3 && \
+docker build -t xss-hard . && \
+docker run -d -p 5003:5001 --name xss_hard_container xss-hard sh -c "python3 veritabani.py && python3 app.py"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. IDOR - Kolay (Level 1)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git idor_kolay && \
+cd idor_kolay && git sparse-checkout set AltaySec_IDOR_Labs/idor_lab_altaysec && \
+cd AltaySec_IDOR_Labs/idor_lab_altaysec && \
+docker build -t idor-easy . && \
+docker run -d -p 5011:5000 --name idor_easy_container idor-easy
+
+
+2. IDOR - Orta (Level 2)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git idor_orta && \
+cd idor_orta && git sparse-checkout set AltaySec_IDOR_Labs/idor_lab_altaysec_v2 && \
+cd AltaySec_IDOR_Labs/idor_lab_altaysec_v2 && \
+docker build -t idor-medium . && \
+docker run -d -p 5012:5000 --name idor_medium_container idor-medium
+
+
+3. IDOR - Zor (Level 3)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git idor_zor && \
+cd idor_zor && git sparse-checkout set AltaySec_IDOR_Labs/idor_lab_altaysec_v3 && \
+cd AltaySec_IDOR_Labs/idor_lab_altaysec_v3 && \
+docker build -t idor-hard . && \
+docker run -d -p 5013:5000 --name idor_hard_container idor-hard
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. DOM XSS - Kolay (Level 1)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git dom_xss_kolay && \
+cd dom_xss_kolay && git sparse-checkout set AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Kolay && \
+cd AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Kolay && \
+docker run -d -p 5021:5001 --name dom_xss_easy_c -v "$PWD":/app -w /app python:3.9-slim sh -c "pip install flask && flask run --host=0.0.0.0 --port=5001"
+
+
+2. DOM XSS - Zor (Level 2)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git dom_xss_zor && \
+cd dom_xss_zor && git sparse-checkout set AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Zor && \
+cd AltaySec_DOM_XSS_Labs/DOM_BASED_XSS_Zor && \
+docker run -d -p 5022:5001 --name dom_xss_hard_c -v "$PWD":/app -w /app python:3.9-slim sh -c "pip install flask && flask run --host=0.0.0.0 --port=5001"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log Analizi - Kolay:
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git log_kolay && \
+cd log_kolay && git sparse-checkout set AltaySec_Log_Analysis_Labs/Altay_Sec_Kolay && \
+cd AltaySec_Log_Analysis_Labs/Altay_Sec_Kolay && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8080"
+
+
+Log Analizi - Orta
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git log_orta && \
+cd log_orta && git sparse-checkout set AltaySec_Log_Analysis_Labs/Altay_Sec_Orta && \
+cd AltaySec_Log_Analysis_Labs/Altay_Sec_Orta && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8081"
+
+
+Log Analizi - Zor
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git log_zor && \
+cd log_zor && git sparse-checkout set AltaySec_Log_Analysis_Labs/Altay_Sec_Zor && \
+cd AltaySec_Log_Analysis_Labs/Altay_Sec_Zor && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8082"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Network Forensics - Kolay (Level 1)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git net_kolay && \
+cd net_kolay && git sparse-checkout set ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Kolay && \
+cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Kolay && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8083"
+
+
+2. Network Forensics - Orta (Level 2)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git net_orta && \
+cd net_orta && git sparse-checkout set ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Orta && \
+cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Orta && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8084"
+
+
+3. Network Forensics - Zor (Level 3)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git net_zor && \
+cd net_zor && git sparse-checkout set ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Zor && \
+cd ALTAYSEC-NETWORK-FORENSICS-POC-main/Altay_Sec_Network_Zor && \
+docker-compose up -d --build && \
+echo "Lab Hazır! Tarayıcıdan erişin: http://localhost:8085"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Cloud Güvenliği : Doğru komutu bulamadım, sıkıntı çıkıyor. 
+
+IoT : 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. LFI - Kolay (Level 1)
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git lfi_kolay && \
+cd lfi_kolay && git sparse-checkout set AltaySecLFI/AltaySec\ Akademi\ LFI\ Kolay && \
+cd AltaySecLFI/AltaySec\ Akademi\ LFI\ Kolay && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8080"
+
+
+2. LFI - Orta (Level 2)
+
+docker stop $(docker ps -q --filter "publish=8080") 2>/dev/null; \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git lfi_orta && \
+cd lfi_orta && git sparse-checkout set AltaySecLFI/AltaySec\ Akademi\ LFI\ Orta && \
+cd AltaySecLFI/AltaySec\ Akademi\ LFI\ Orta && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8080"
+
+
+3. LFI - Zor (Level 3)
+
+docker stop $(docker ps -q --filter "publish=8080") 2>/dev/null; \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git lfi_zor && \
+cd lfi_zor && git sparse-checkout set AltaySecLFI/AltaySec\ Akademi\ LFI\ Zor && \
+cd AltaySecLFI/AltaySec\ Akademi\ LFI\ Zor && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8080"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CSRF Labları
+
+docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; \
+cd ~/Desktop && rm -rf banka_saldiri && \
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git banka_saldiri && \
+cd banka_saldiri && git sparse-checkout set banka-saldiri && \
+cd banka-saldiri && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:5001"
+
+
+
+
+**** Şöyle bir metin eklenebilir sitenin girişine.
+
+AltaySec Akademi siber güvenlik serüvenine hoş geldiniz! Eğitim içeriklerimizi sürekli güncelliyor ve yeni laboratuvarlar eklemeye hız kesmeden devam ediyoruz. Laboratuvarların çözümü sırasında bir sorunla karşılaşırsanız veya içerisindeki senaryoları daha iyi anlamak isterseniz, indirilen lab dosyalarıyla birlikte gelen bilgilendirme metinlerini (README/Solution) mutlaka okumanızı tavsiye ederiz.
+
+Lablarla ilgili her türlü öneri, görüş, hata bildirimi veya yaşadığınız teknik problemler için bizimle info@altaysec.com.tr adresi üzerinden iletişime geçebilirsiniz. Gelişiminiz bizim için değerlidir. 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SSTI Labları (Level 1, 2, 3):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssti_labs && \
+cd ssti_labs && git sparse-checkout set altaysec-ssti-lab && \
+cd altaysec-ssti-lab && \
+docker-compose up -d --build && \
+echo -e "\nLablar Hazır! Erişim:\nLevel 1: http://localhost:5000\nLevel 2: http://localhost:5001\nLevel 3: http://localhost:5002"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Memory Forensics - Kolay (Level 1):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_kolay && \
+cd mem_kolay && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Easy && \
+cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Easy && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8083"
+
+
+Memory Forensics - Orta (Level 2):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_orta && \
+cd mem_orta && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Medium && \
+cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Medium && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8084"
+
+
+Memory Forensics - Zor (Level 3):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git mem_zor && \
+cd mem_zor && git sparse-checkout set ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Hard && \
+cd ALTAYSEC-MEMORY-FORENSICS-POC/Altay_Sec_Memory_Hard && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8085"
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+XXE - Kolay (Level 1):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_kolay && \
+cd xxe_kolay && git sparse-checkout set AltaySec_XXE_Labs/Kolay-Seviye-xxe-Lab && \
+cd AltaySec_XXE_Labs/Kolay-Seviye-xxe-Lab && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:80"
+
+
+XXE - Orta (Level 2):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_orta && \
+cd xxe_orta && git sparse-checkout set AltaySec_XXE_Labs/Orta-Seviye-xxe-Lab && \
+cd AltaySec_XXE_Labs/Orta-Seviye-xxe-Lab && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8080"
+
+
+XXE - Zor (Level 3):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git xxe_zor && \
+cd xxe_zor && git sparse-checkout set AltaySec_XXE_Labs/Zor-Seviye-xxe-Lab && \
+cd AltaySec_XXE_Labs/Zor-Seviye-xxe-Lab && \
+docker-compose up -d --build && \
+echo -e "\nLab Hazır! Erişim: http://localhost:8080"
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SSRF Labları (Level 1, 2, 3):
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git ssrf_labs && \
+cd ssrf_labs && git sparse-checkout set AltaySec-Academy-SSRF-Lab && \
+cd AltaySec-Academy-SSRF-Lab && \
+docker-compose up -d --build && \
+echo -e "\nLablar Hazır! Erişim:\nKolay (Level 1): http://localhost:8081\nOrta (Level 2): http://localhost:8082\nZor (Level 3): http://localhost:8083"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

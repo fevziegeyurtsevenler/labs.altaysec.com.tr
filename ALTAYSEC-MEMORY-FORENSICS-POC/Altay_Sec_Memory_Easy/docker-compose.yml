@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  memory-easy-lab:
+    build: .
+    container_name: altaysec_memory_easy
+    working_dir: /home/analyst
+    ports:
+      - "8083:8080"
+    restart: always

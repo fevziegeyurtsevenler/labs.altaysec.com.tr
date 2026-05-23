@@ -1,0 +1,19 @@
+# Docker
+.docker/
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp Files
+*.bak
+*.tmp
+~*
