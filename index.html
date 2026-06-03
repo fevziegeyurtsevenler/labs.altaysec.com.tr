@@ -97,7 +97,7 @@
                     <p>İleri seviye DOM tabanlı XSS ve client-side atlatmalar.</p>
                 </div>
                 <div class="category-card" data-target="log">
-                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-badge">6 Lab</div>
                     <div class="cat-icon">{"LOG"}</div>
                     <h3>Log Analizi Labları</h3>
                     <p>Saldırı tespiti, tehdit avcılığı ve Blue Team defans taktikleri.</p>
@@ -490,6 +490,100 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- SOC Dashboard Seviye 1 -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SOC Dashboard Seviye 1: Giriş</h3>
+                        <p class="lab-desc">BOLA/IDOR yetkisiz erişim zafiyeti tespiti ve temel log analizi ile saldırgan IP ve WAF loglarından olay tespiti.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd='docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_easy && cd soc_easy && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_KOLAY && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_KOLAY && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"'>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{S0C_L0g_D3t3ct10n_M4st3r}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOC Dashboard Seviye 2 -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SOC Dashboard Seviye 2: WAF Bypass</h3>
+                        <p class="lab-desc">Gelişmiş WAF atlatma payload&apos;ları, Base64 obfuscated komut analizi ve ağ üzerinden veri sızdırma (Exfiltration) tespiti.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd='docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_medium && cd soc_medium && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ORTA && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ORTA && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"'>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{W4F_Byp4ss_M4st3r_Lvl2}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOC Dashboard Seviye 3 -->
+                <div class="lab-card" data-category="log">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Blue Team • Log</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">SOC Dashboard Seviye 3: Rootkit Hunter</h3>
+                        <p class="lab-desc">FIM (Dosya Bütünlüğü İzleme) ile kritik SSH daemon binary dosyasının değiştirilmesinin, rootkit ve bind shell arka kapısının tespiti.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Emir Raşit Gökçe
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd='docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_hard && cd soc_hard && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ZOR && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ZOR && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"'>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M12 2v20"></path></svg>
+                            Docker Command
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{APT_R00tK1t_Hunta_Lvl3_M4st3r}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Network Forensics Kolay -->
                 <div class="lab-card" data-category="network-forensics">

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  altaysec-siem-lab:
+    build: .
+    container_name: altaysec-soc-dashboard
+    ports:
+      - "5001:5000"
+    restart: always
+    environment:
+      - FLASK_ENV=production

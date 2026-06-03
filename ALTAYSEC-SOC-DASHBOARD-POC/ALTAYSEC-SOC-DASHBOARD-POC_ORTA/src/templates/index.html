@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTAYSEC // SOC Security Information Management</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .glow-red { text-shadow: 0 0 12px rgba(220, 38, 38, 0.7); }
+        .glow-amber { text-shadow: 0 0 12px rgba(245, 158, 11, 0.7); }
+        .glow-border { box-shadow: 0 0 20px rgba(220, 38, 38, 0.08); }
+        .glow-border-amber { box-shadow: 0 0 20px rgba(245, 158, 11, 0.08); }
+        .scrollbar-cyber::-webkit-scrollbar { width: 6px; height: 6px; }
+        .scrollbar-cyber::-webkit-scrollbar-track { background: #09090b; }
+        .scrollbar-cyber::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        .scrollbar-cyber::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+        .sidebar-btn-active {
+            color: #ef4444 !important;
+            background-color: rgba(127, 29, 29, 0.25) !important;
+            border-left: 3px solid #dc2626 !important;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen font-mono selection:bg-red-600 selection:text-white flex flex-col">
+
+    <header class="border-b border-zinc-800 bg-black/90 p-5 sticky top-0 backdrop-blur-md z-50 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-3">
+            <span class="w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_#dc2626]"></span>
+            <h1 class="text-xl font-black tracking-widest text-red-500 glow-red">ALTAYSEC <span class="text-zinc-600 text-sm font-normal">// SOC LEVEL-2: THREAT HUNTING</span></h1>
+        </div>
+        <div class="flex items-center space-x-6 text-sm text-zinc-400">
+            <div>AGENT STATUS: <span class="text-emerald-500 font-bold">4 ONLINE</span></div>
+            <div class="border-l border-zinc-800 h-5"></div>
+            <div>SIEM CORE: <span class="text-red-500 font-bold animate-pulse">ACTIVE ANALYSIS</span></div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <aside class="w-72 bg-black/50 border-r border-zinc-800 p-5 hidden md:block space-y-6 select-none">
+            <div class="space-y-2">
+                <p class="text-xs text-zinc-600 uppercase font-bold tracking-wider px-2">// ANA PANELLER</p>
+                <button onclick="switchTab('security-events', this)" class="w-full flex items-center space-x-2 text-sm font-bold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/40 px-3 py-3 transition text-left cursor-pointer sidebar-btn-active">
+                    <span class="text-red-500 font-bold">[+]</span> <span>Security Events</span>
+                </button>
+                <button onclick="switchTab('threat-hunting', this)" class="w-full flex items-center space-x-2 text-sm font-bold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/40 px-3 py-3 transition text-left cursor-pointer">
+                    <span class="text-red-500 font-bold">[+]</span> <span>Threat Hunting</span>
+                </button>
+                <button onclick="switchTab('integrity-monitoring', this)" class="w-full flex items-center space-x-2 text-sm font-bold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/40 px-3 py-3 transition text-left cursor-pointer">
+                    <span class="text-red-500 font-bold">[+]</span> <span>Integrity Monitoring</span>
+                </button>
+            </div>
+            
+            <div class="space-y-2">
+                <p class="text-xs text-zinc-600 uppercase font-bold tracking-wider px-2">// SİSTEM AYARLARI</p>
+                <button onclick="switchTab('rules-engine', this)" class="w-full flex items-center space-x-2 text-sm font-bold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/40 px-3 py-3 transition text-left cursor-pointer">
+                    <span class="text-zinc-600 font-mono">::</span> <span>Rules Engine (YAML)</span>
+                </button>
+                <button onclick="switchTab('monitored-agents', this)" class="w-full flex items-center space-x-2 text-sm font-bold text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/40 px-3 py-3 transition text-left cursor-pointer">
+                    <span class="text-zinc-600 font-mono">::</span> <span>Monitored Agents</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-6 overflow-y-auto space-y-6 scrollbar-cyber bg-zinc-950/20">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-black border border-zinc-800 p-5 relative overflow-hidden shadow-lg">
+                    <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider block">Toplam Olay (Logs)</span>
+                    <span class="text-3xl font-black text-zinc-300 tracking-tight mt-1 block">5,912</span>
+                    <div class="absolute right-2 bottom-0 text-5xl text-zinc-900/30 font-black select-none">ALL</div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-5 relative overflow-hidden shadow-lg border-b-2 border-b-red-600">
+                    <span class="text-xs text-red-400 font-bold uppercase tracking-wider block">Kritik Alarmlar (Level 12+)</span>
+                    <span class="text-3xl font-black text-red-500 tracking-tight mt-1 block glow-red">24</span>
+                    <div class="absolute right-2 bottom-0 text-5xl text-red-950/15 font-black select-none">CRIT</div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-5 relative overflow-hidden shadow-lg">
+                    <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider block">Aktif Tehdit Vektörü</span>
+                    <span class="text-3xl font-black text-amber-500 tracking-tight mt-1 block">Exfiltration</span>
+                    <div class="absolute right-2 bottom-0 text-5xl text-zinc-900/30 font-black select-none">DATA</div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-5 relative overflow-hidden shadow-lg">
+                    <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider block">İzlenen Varlık</span>
+                    <span class="text-3xl font-black text-zinc-300 tracking-tight mt-1 block">4 Sunucu</span>
+                    <div class="absolute right-2 bottom-0 text-5xl text-zinc-900/30 font-black select-none">NODE</div>
+                </div>
+            </div>
+
+            <div id="tab-security-events" class="tab-content space-y-6">
+                <div class="bg-zinc-900/40 border border-zinc-800 p-5 text-sm space-y-3">
+                    <span class="text-red-500 font-bold text-base block">// SOC ANALİZ GÖREVİ (SEVİYE 2): WAF EVASION & EXFILTRATION</span>
+                    <p class="text-zinc-300 font-sans leading-relaxed text-sm">
+                        Bir saldırganın Command Injection girişimi WAF (Web Application Firewall) tarafından engellendikten sonra, saldırgan pes etmemiş ve zararlı kodunu encode ederek atlatma (Bypass) yöntemine başvurmuştur. Şüpheli logları <span class="text-red-500 font-bold">[+]</span> ile genişleterek saldırganın parametrelerini (Payload, Dosya, Port) not alın. Analizi bitirdikten sonra sol menüden <strong>Threat Hunting</strong> sekmesine geçerek raporunuzu sunun.
+                    </p>
+                </div>
+
+                <div class="bg-black border border-zinc-800 shadow-xl overflow-hidden">
+                    <div class="bg-zinc-900/80 p-4 border-b border-zinc-800 flex justify-between items-center">
+                        <span class="text-sm font-bold tracking-widest text-zinc-400 uppercase">// LIVE EVENTS REPOSITORY (NOISE FILTER: OFF)</span>
+                        <span class="text-xs bg-zinc-900 text-zinc-400 border border-zinc-800 px-2 py-0.5 uppercase font-bold">Real-time Telemetry</span>
+                    </div>
+                    
+                    <div class="overflow-x-auto scrollbar-cyber">
+                        <table class="w-full text-left border-collapse text-sm">
+                            <thead>
+                                <tr class="border-b border-zinc-800 bg-zinc-950 text-zinc-500 font-bold">
+                                    <th class="p-4 w-12 text-center"></th>
+                                    <th class="p-4">Timestamp</th>
+                                    <th class="p-4">Agent Name</th>
+                                    <th class="p-4">Event Group</th>
+                                    <th class="p-4 text-center">Level</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-900 font-mono text-xs" id="log-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-threat-hunting" class="tab-content hidden space-y-6">
+                <!-- Threat Hunting Bilgilendirmesi -->
+                <div class="bg-zinc-900/40 border border-zinc-800 p-5 text-sm space-y-3 border-l-4 border-l-amber-500">
+                    <span class="text-amber-500 font-bold text-base block glow-amber">// THREAT HUNTING MODULE [ACTIVE]</span>
+                    <p class="text-zinc-300 font-sans leading-relaxed text-sm">
+                        Seviye 2 Analist yetkiniz doğrulandı. <strong>Security Events</strong> log havuzundan topladığınız tehdit göstergelerini (IOC) aşağıdaki Olay İnceleme Raporu'na işleyin. Verilerinizin SIEM korelasyon kurallarıyla eşleşmesi durumunda, adli bilişim kanıtı (Flag) karşınıza çıkacaktır.
+                    </p>
+                </div>
+
+                <div class="bg-black border border-zinc-800 p-6 space-y-4 shadow-lg border-b-2 border-b-amber-600 glow-border-amber">
+                    <div class="flex items-center space-x-2 border-b border-zinc-800 pb-2">
+                        <span class="text-amber-500 font-bold">#</span>
+                        <h4 class="text-sm font-black text-zinc-400 tracking-widest uppercase">INCIDENT INVESTIGATION REPORT (OLAY İNCELEME RAPORU)</h4>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-xs">
+                        <div class="space-y-1.5">
+                            <label class="block text-zinc-500 font-mono font-bold uppercase tracking-wider">1. WAF Atlatma Payload (Base64)</label>
+                            <input type="text" id="input-payload" placeholder="Örn: YmFzZTY0..." class="w-full bg-zinc-950 border border-zinc-800 p-3 text-sm font-mono text-amber-500 focus:outline-none focus:border-amber-500 placeholder-zinc-800 rounded-none transition-colors">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="block text-zinc-500 font-mono font-bold uppercase tracking-wider">2. Okunan Kritik Dosya Yolu</label>
+                            <input type="text" id="input-filepath" placeholder="Örn: /var/log/syslog" class="w-full bg-zinc-950 border border-zinc-800 p-3 text-sm font-mono text-amber-500 focus:outline-none focus:border-amber-500 placeholder-zinc-800 rounded-none transition-colors">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="block text-zinc-500 font-mono font-bold uppercase tracking-wider">3. Veri Sızdırma Hedef Portu</label>
+                            <input type="text" id="input-port" placeholder="Örn: 4444" class="w-full bg-zinc-950 border border-zinc-800 p-3 text-sm font-mono text-amber-500 focus:outline-none focus:border-amber-500 placeholder-zinc-800 rounded-none transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="submitIncidentReport()" class="w-full md:w-auto bg-zinc-900 hover:bg-amber-600 hover:text-black text-amber-500 border border-amber-900 font-black uppercase tracking-widest px-10 py-3.5 text-xs transition-all duration-300 cursor-pointer shadow-md">Korelasyonu Doğrula ve Raporla</button>
+                    </div>
+                    
+                    <p id="report-msg" class="text-sm font-bold uppercase tracking-wider mt-2"></p>
+                    
+                    <div id="success-box" class="hidden bg-emerald-950/20 border-2 border-emerald-500 p-5 mt-4 space-y-2 animate-pulse">
+                        <span class="text-emerald-400 font-black text-sm block">✓ KANIT LOGU ÇÖZÜLDÜ (FLAG REVEALED):</span>
+                        <div class="bg-zinc-950 p-3 border border-emerald-900/50 text-center select-all">
+                            <code id="flag-output" class="text-base text-emerald-400 font-bold tracking-widest"></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-integrity-monitoring" class="tab-content hidden">
+                <div class="bg-black border border-zinc-800 p-12 text-center space-y-4 shadow-xl border-t-4 border-t-red-700">
+                    <div class="text-4xl text-red-600">🚫</div>
+                    <h3 class="text-lg font-black tracking-widest text-red-600 uppercase">SYSTEM INTEGRITY LOCKDOWN</h3>
+                    <p class="text-sm text-zinc-500 max-w-lg mx-auto font-sans leading-relaxed">FIM veritabanı bütünlük kontrolü aşamasındadır. Kök dizin ihlali şüphesi giderilene kadar erişim kısıtlanmıştır.</p>
+                </div>
+            </div>
+            
+            <div id="tab-rules-engine" class="tab-content hidden">
+                <div class="bg-black border border-zinc-800 p-8 space-y-4 shadow-xl">
+                    <div class="border-b border-zinc-800 pb-2"><h3 class="text-sm font-black text-zinc-400 uppercase">// ACTIVE DETECTION RULES</h3></div>
+                    <pre class="bg-zinc-950 p-4 border border-zinc-900 text-xs text-emerald-500 overflow-x-auto">
+groups:
+  - name: altaysec-waf-rules
+    rules:
+      - id: 100305
+        level: 8
+        description: "WAF Intercept: Cleartext Command Injection Detected"
+        condition: "http_request_body contains 'cat /etc/passwd'"
+        
+  - name: altaysec-network-rules
+    rules:
+      - id: 100412
+        level: 12
+        description: "Suspicious Outbound Connection on Non-Standard High Port"
+        condition: "network_dest_port > 1024 AND agent.name == 'Altay-Proxy-Gateway'"
+                    </pre>
+                </div>
+            </div>
+            
+            <div id="tab-monitored-agents" class="tab-content hidden">
+                <div class="bg-black border border-zinc-800 p-6 space-y-4 shadow-xl">
+                    <div class="border-b border-zinc-800 pb-2"><h3 class="text-sm font-black text-zinc-400 uppercase">// ENROLLED SECURITY AGENTS</h3></div>
+                    <div class="space-y-3 text-sm font-mono">
+                        <div class="flex justify-between items-center bg-zinc-900/30 p-3 border border-zinc-900">
+                            <span class="text-zinc-300">Altay-Web-Prod</span>
+                            <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-900 font-bold uppercase">Active</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-zinc-900/30 p-3 border border-zinc-900">
+                            <span class="text-zinc-300">Altay-Proxy-Gateway</span>
+                            <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-900 font-bold uppercase">Active</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-zinc-900/30 p-3 border border-zinc-900">
+                            <span class="text-zinc-300">Altay-DB-Cluster</span>
+                            <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-900 font-bold uppercase">Active</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-zinc-900/30 p-3 border border-zinc-900">
+                            <span class="text-zinc-300">Altay-Auth-Node</span>
+                            <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-900 font-bold uppercase">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            loadLogs();
+        });
+
+        function toggleLogDetails(logId, btn) {
+            const detailRow = document.getElementById(`details-${logId}`);
+            if (detailRow.classList.contains('hidden')) {
+                detailRow.classList.remove('hidden');
+                btn.innerText = "[-]";
+            } else {
+                detailRow.classList.add('hidden');
+                btn.innerText = "[+]";
+            }
+        }
+
+        function loadLogs() {
+            const tableBody = document.getElementById('log-table-body');
+            fetch('/api/v1/logs')
+                .then(res => res.json())
+                .then(logs => {
+                    tableBody.innerHTML = "";
+                    logs.forEach(log => {
+                        const mainTr = document.createElement('tr');
+                        mainTr.className = "hover:bg-zinc-900/60 text-zinc-400 border-b border-zinc-900 transition-colors";
+                        
+                        mainTr.innerHTML = `
+                            <td class="p-4 text-center">
+                                <button onclick="toggleLogDetails(${log.id}, this)" class="text-red-500 hover:text-red-400 text-base font-black cursor-pointer font-mono transition-colors">[+]</button>
+                            </td>
+                            <td class="p-4 text-zinc-500 whitespace-nowrap">${log.timestamp}</td>
+                            <td class="p-4 text-zinc-500 font-bold">${log.agent}</td>
+                            <td class="p-4 text-zinc-300 font-medium">${log.event}</td>
+                            <td class="p-4 text-center"><span class="px-2 py-0.5 bg-zinc-900 text-zinc-500 border border-zinc-800 rounded font-bold">${log.level}</span></td>
+                        `;
+                        tableBody.appendChild(mainTr);
+
+                        let dynamicFields = "";
+                        if (log.payload_encoded) {
+                            dynamicFields += `<p><span class="text-red-500/80 font-bold">http.request.body.encoded:</span> <span class="text-amber-400 font-bold bg-amber-950/30 px-1 py-0.5 break-all">${log.payload_encoded}</span></p>`;
+                        }
+                        if (log.file_accessed) {
+                            dynamicFields += `<p><span class="text-red-500/80 font-bold">file.path:</span> <span class="text-amber-400 font-bold bg-amber-950/30 px-1 py-0.5">${log.file_accessed}</span></p>`;
+                        }
+                        if (log.dest_ip) {
+                            dynamicFields += `<p><span class="text-red-500/80 font-bold">network.destination.ip:</span> <span class="text-amber-400 font-bold bg-amber-950/30 px-1 py-0.5">${log.dest_ip}</span></p>`;
+                        }
+                        if (log.dest_port) {
+                            dynamicFields += `<p><span class="text-red-500/80 font-bold">network.destination.port:</span> <span class="text-amber-400 font-bold bg-amber-950/30 px-1 py-0.5">${log.dest_port}</span></p>`;
+                        }
+
+                        const detailTr = document.createElement('tr');
+                        detailTr.id = `details-${log.id}`;
+                        detailTr.className = "hidden bg-zinc-950 border-b border-zinc-900 font-sans";
+                        
+                        const fullLogText = log.full_log ? log.full_log : "No extended log data available for this document structure.";
+                        
+                        detailTr.innerHTML = `
+                            <td colspan="5" class="p-5 text-xs text-zinc-400 bg-zinc-950/60">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border border-zinc-900 p-4 bg-black/40">
+                                    <div class="space-y-1.5 font-mono">
+                                        <p><span class="text-red-500/80 font-bold">_index:</span> altaysec-security-events-*</p>
+                                        <p><span class="text-red-500/80 font-bold">agent.name:</span> ${log.agent}</p>
+                                        <p><span class="text-red-500/80 font-bold">data.src_ip:</span> <span class="text-zinc-300 font-bold">${log.ip || 'N/A'}</span></p>
+                                        <p><span class="text-red-500/80 font-bold">rule.level:</span> ${log.level}</p>
+                                        ${dynamicFields}
+                                    </div>
+                                    <div class="space-y-2">
+                                        <span class="text-red-500/80 font-bold font-mono uppercase tracking-wider block">// Full Log Payload Detail:</span>
+                                        <div class="bg-zinc-950 p-3 border border-zinc-900 text-zinc-300 leading-relaxed font-mono text-[11px]">
+                                            ${fullLogText}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        `;
+                        tableBody.appendChild(detailTr);
+                    });
+                })
+                .catch(err => console.error("Loglar çekilirken hata oluştu: ", err));
+        }
+
+        function switchTab(tabId, element) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const buttons = element.parentElement.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => btn.classList.remove('sidebar-btn-active'));
+            element.classList.add('sidebar-btn-active');
+        }
+
+        function submitIncidentReport() {
+            const payload = document.getElementById('input-payload').value;
+            const filepath = document.getElementById('input-filepath').value;
+            const port = document.getElementById('input-port').value;
+            
+            const msg = document.getElementById('report-msg');
+            const successBox = document.getElementById('success-box');
+            const flagOutput = document.getElementById('flag-output');
+
+            fetch('/api/v1/challenge/verify', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    q1_payload: payload, 
+                    q2_filepath: filepath, 
+                    q3_port: port
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    msg.className = "text-sm font-bold text-emerald-400 mt-2 tracking-widest uppercase";
+                    msg.innerText = "[+] Rapor Doğrulandı: " + data.message;
+                    flagOutput.innerText = data.flag;
+                    successBox.classList.remove('hidden');
+                } else {
+                    msg.className = "text-xs font-bold text-red-500 mt-2 tracking-widest uppercase";
+                    msg.innerText = "[-] Hata: " + data.message;
+                    successBox.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
