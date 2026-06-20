@@ -261,6 +261,22 @@ docker-compose up -d --build && \
 echo -e "\nLablar Hazır! Erişim:\nKolay (Level 1): http://localhost:8081\nOrta (Level 2): http://localhost:8082\nZor (Level 3): http://localhost:8083"
 
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SOC Dashboard Labları (Level 1, 2, 3):
+
+Kolay (Level 1) - BOLA & IDOR Log Analizi:
+docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_easy && cd soc_easy && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_KOLAY && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_KOLAY && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"
+
+Orta (Level 2) - WAF Bypass & Exfiltration Log Analizi:
+docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_medium && cd soc_medium && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ORTA && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ORTA && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"
+
+Zor (Level 3) - APT Rootkit & FIM Log Analizi:
+docker stop $(docker ps -q --filter "publish=5001") 2>/dev/null; git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git soc_hard && cd soc_hard && git sparse-checkout set ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ZOR && cd ALTAYSEC-SOC-DASHBOARD-POC/ALTAYSEC-SOC-DASHBOARD-POC_ZOR && docker-compose up -d --build && echo -e "\nLab Hazır! Tarayıcıdan erişin: http://localhost:5001"
+
+
+
+
 
 
 
