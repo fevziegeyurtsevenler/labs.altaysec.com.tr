@@ -7,6 +7,7 @@
     <meta name="description" content="AltaySec Labs: Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve güvenli bir şekilde pratik yapın.">
     <meta name="author" content="AltaySec">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#070709">
     <link rel="icon" type="image/png" href="https://altaysec.com.tr/favicon.png">
     <link rel="canonical" href="https://labs.altaysec.com.tr/">
 
@@ -16,11 +17,13 @@
     <meta property="og:title" content="AltaySec Labs | Offensive Security Laboratuvarları">
     <meta property="og:description" content="Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve güvenli bir şekilde pratik yapın.">
     <meta property="og:image" content="https://altaysec.com.tr/logo.jpg">
+    <meta property="og:image:alt" content="AltaySec — Offensive Security Laboratuvarları">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AltaySec Labs | Offensive Security Laboratuvarları">
     <meta name="twitter:description" content="Docker tabanlı web ve sistem zafiyet laboratuvarlarını lokal ortamınıza indirin ve hacklemeye başlayın.">
+    <meta name="twitter:image" content="https://altaysec.com.tr/logo.jpg">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -29,7 +32,70 @@
       "@type": "WebSite",
       "name": "AltaySec Labs",
       "url": "https://labs.altaysec.com.tr/",
-      "description": "AltaySec topluluğu tarafından hazırlanan Docker tabanlı, yerel kurulum gerektiren siber güvenlik eğitim laboratuvarları."
+      "description": "AltaySec topluluğu tarafından hazırlanan Docker tabanlı, yerel kurulum gerektiren siber güvenlik eğitim laboratuvarları.",
+      "isAccessibleForFree": true,
+      "publisher": { "@id": "https://altaysec.com.tr/#org" }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://altaysec.com.tr/#org",
+      "name": "AltaySec",
+      "url": "https://altaysec.com.tr",
+      "logo": "https://altaysec.com.tr/logo.jpg",
+      "email": "info@altaysec.com.tr"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "AltaySec Labs ücretsiz mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet. AltaySec Labs'taki tüm zafiyet laboratuvarları ücretsizdir. Lab dosyalarını ve Docker komutlarını siteden alıp kendi bilgisayarınızda çalıştırabilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Lablar nasıl çalıştırılır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bilgisayarınıza Docker kurun, ilgili labın altındaki 'Docker Command' butonuyla komutu kopyalayın, terminale yapıştırıp çalıştırın. Ardından tarayıcıdan komutta belirtilen porta (örneğin localhost:8081) giderek lab ortamına erişebilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hangi konularda laboratuvar bulunuyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "XSS, DOM XSS, IDOR, LFI, CSRF, SSRF, SSTI, XXE gibi web zafiyetlerinin yanı sıra log analizi, network forensics, memory forensics, SOC dashboard ve phishing gibi savunma ve adli analiz odaklı laboratuvarlar bulunmaktadır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Lablar internete açık sistemlere mi yapılıyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır. Lablar Docker kapsülleri halinde kendi bilgisayarınızda, izole biçimde çalışır. Tüm pratikler yerel ortamınızda yapılır; gerçek veya üçüncü taraf sistemlere herhangi bir işlem yapılmaz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Çözümde takılırsam yardım var mı?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet. Her lab dosyasının içindeki README metinleri sizi zafiyetin temeline yönlendiren ipuçları içerir. Ayrıca takıldığınız noktalar için info@altaysec.com.tr adresinden iletişime geçebilirsiniz."
+          }
+        }
+      ]
     }
     </script>
 
