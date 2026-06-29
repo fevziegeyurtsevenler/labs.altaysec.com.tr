@@ -286,7 +286,7 @@ body {
     gap: 24px;
 }
 
-.category-card {
+.category-card, .practice-link-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -297,9 +297,11 @@ body {
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
+    text-decoration: none; /* link reset */
+    display: block; /* link block */
 }
 
-.category-card::before {
+.category-card::before, .practice-link-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 4px;
@@ -307,13 +309,13 @@ body {
     transition: background 0.3s ease;
 }
 
-.category-card:hover {
+.category-card:hover, .practice-link-card:hover {
     transform: translateY(-8px);
     border-color: rgba(239, 68, 68, 0.5);
     box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(239, 68, 68, 0.1);
 }
 
-.category-card:hover::before {
+.category-card:hover::before, .practice-link-card:hover::before {
     background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
 }
 
@@ -332,7 +334,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.category-card:hover .cat-badge {
+.category-card:hover .cat-badge, .practice-link-card:hover .cat-badge {
     background: rgba(239, 68, 68, 0.1);
     border-color: rgba(239, 68, 68, 0.3);
     color: var(--accent-red);
@@ -354,17 +356,50 @@ body {
     border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-.category-card h3 {
+.category-card h3, .practice-link-card h3 {
     font-family: var(--font-heading);
     font-size: 1.6rem;
     color: var(--text-primary);
     margin-bottom: 12px;
 }
 
-.category-card p {
+.category-card p, .practice-link-card p {
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
+}
+
+/* Custom styling to make the interactive practice card stand out as premium */
+.practice-link-card {
+    border-color: rgba(239, 68, 68, 0.25);
+    background: linear-gradient(180deg, var(--bg-card) 0%, rgba(239, 68, 68, 0.02) 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.practice-link-card .practice-badge {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ff5c5c;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+.practice-link-card .practice-icon {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ff5c5c;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
+
+.practice-link-card:hover {
+    border-color: rgba(239, 68, 68, 0.8) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(239, 68, 68, 0.25) !important;
+}
+
+.practice-link-card:hover .practice-badge {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.5) !important;
 }
 
 /* Lab Grid */

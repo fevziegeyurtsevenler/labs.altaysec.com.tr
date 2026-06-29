@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   AltaySec Genel Stil Katmanı
+   ----------------------------------------------------------------------------
+   Bu dosya, tüm uygulamaya yayılan temel (base) görünümü ve "siber-hacker
+   terminal" hissi veren özel kaydırma çubuğu (scrollbar) tasarımını içerir.
+   ============================================================================ */
+
+:root {
+  color-scheme: dark; /* Tarayıcının form/kontrol elemanlarını koyu modda render etmesini sağla */
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #070709;
+}
+
+body {
+  @apply font-sans text-zinc-200 antialiased;
+  background-color: #070709;
+  /* Hafif bir "noise/grid" hissi vermek için çok soluk bir ızgara dokusu */
+  background-image:
+    linear-gradient(rgba(239, 68, 68, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239, 68, 68, 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* Klavye ile gezinen kullanıcılar için görünür odak (focus) halkası -
+   erişilebilirlik (accessibility) standartlarına uyum */
+:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------------------------------------
+   TERMİNAL TARZI KAYDIRMA ÇUBUĞU (SCROLLBAR)
+   ----------------------------------------------------------------------------
+   Klasik bir SOC (Security Operations Center) terminalinde görebileceğiniz
+   ince, kırmızı-vurgulu kaydırma çubuğu. Webkit tabanlı tarayıcılar (Chrome,
+   Edge, Safari, Brave) ve Firefox için ayrı ayrı tanımlanır.
+*/
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ef4444 #0d0d10;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d10;
+  border-left: 1px solid #1c1c20;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ef4444 0%, #7f1d1d 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f87171 0%, #991b1b 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: #0d0d10;
+}
+
+/* ----------------------------------------------------------------------------
+   YARDIMCI (UTILITY) SINIFLAR
+   ---------------------------------------------------------------------------- */
+
+/* Canlı/aktif durum gösteren yanıp sönen nokta (örn. "live feed" etiketi) */
+.live-dot {
+  @apply inline-block w-2 h-2 rounded-full bg-altayRed animate-pulseDot;
+}
+
+/* Kart yüzeyleri için standart cam-koyu (glass-dark) panel görünümü */
+.altay-panel {
+  background-color: #0d0d10;
+  border: 1px solid #1c1c20;
+}
+
+/* Önem seviyesi rozetleri için taban sınıf */
+.severity-badge {
+  @apply inline-flex items-center justify-center px-2 py-0.5 rounded text-[11px] font-mono font-semibold tracking-wide;
+}
+
+/* Yatay kaydırmalı tablo sarmalayıcılarında kenarlarda hafif gölge ipucu */
+.table-scroll-fade {
+  -webkit-mask-image: linear-gradient(to right, black 96%, transparent 100%);
+}
