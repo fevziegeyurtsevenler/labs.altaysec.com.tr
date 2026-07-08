@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AltaySec — LLM Jailbreak Lab</title>
+  <meta name="description" content="AltaySec interaktif LLM güvenlik laboratuvarı. Yapay zeka sistemlerini jailbreak ederek bayrakları bul. Ücretsiz API ile oyna." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 1 — Setup / API Key                                   -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="screen-setup" class="screen active" aria-label="Kurulum Ekranı">
+    <div class="setup-container">
+
+      <div class="logo-area">
+        <h1 class="logo-text">AltaySec</h1>
+        <div class="logo-tagline">
+          <span class="type-cursor">LLM JAILBREAK LAB</span>
+        </div>
+      </div>
+
+      <div class="setup-card glass">
+        <div class="setup-card-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+        </div>
+
+        <form id="setup-form" novalidate>
+
+          <div class="form-group">
+            <label class="form-label">Provider Seç</label>
+            <div class="provider-selector" role="group" aria-label="LLM Provider">
+              <button type="button" class="provider-btn active" data-provider="gemini" id="provider-gemini">
+                <span class="provider-icon">🔮</span>
+                <div class="provider-info">
+                  <span class="provider-name">Google Gemini</span>
+                  <span class="provider-model">gemini-2.0-flash</span>
+                </div>
+                <span class="provider-tag">Ücretsiz</span>
+              </button>
+              <button type="button" class="provider-btn" data-provider="groq" id="provider-groq">
+                <span class="provider-icon">⚡</span>
+                <div class="provider-info">
+                  <span class="provider-name">Groq</span>
+                  <span class="provider-model">llama-3.3-70b</span>
+                </div>
+                <span class="provider-tag">Ücretsiz</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="api-key">API Key</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">$</span>
+              <input
+                type="password"
+                id="api-key"
+                class="text-input"
+                placeholder="API key'ini buraya yapıştır..."
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+              <button type="button" id="toggle-key-btn" class="input-suffix-btn" aria-label="API key'i göster/gizle">
+                <span id="eye-icon">👁</span>
+              </button>
+            </div>
+            <div id="key-helper" class="form-helper">
+              Gemini için: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com</a>
+              &nbsp;|&nbsp;
+              Groq için: <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com</a>
+            </div>
+          </div>
+
+          <div id="setup-error" class="form-error hidden" role="alert"></div>
+
+          <button type="submit" class="btn-primary full-width" id="connect-btn">
+            <span class="btn-text">BAĞLAN VE BAŞLA</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+
+        <div class="setup-features">
+          <div class="feature-item">
+            <span class="feature-icon">🔒</span>
+            <span>LLM istekleri doğrudan tarayıcınızdan yapılır, sunucu görmez</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <span>Bayraklar yalnızca hash olarak backend'de tutulur</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🎯</span>
+            <span>3 zorluk seviyesi: Kolay → Orta → Zor</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 2 — Challenge Selection                               -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="screen-challenges" class="screen" aria-label="Challenge Seçimi">
+
+    <header class="app-header glass">
+      <div class="header-logo">
+        <span class="header-logo-main">AltaySec</span>
+        <span class="header-logo-slash">/</span>
+        <span class="header-logo-sub">jailbreak-lab</span>
+      </div>
+      <div class="header-center">
+        <span id="provider-badge" class="provider-badge"></span>
+      </div>
+      <div class="header-actions">
+        <button id="logout-btn" class="btn-ghost" aria-label="Oturumu kapat">
+          ← Çıkış
+        </button>
+      </div>
+    </header>
+
+    <main class="challenges-main">
+      <div class="challenges-hero">
+        <h2 class="challenges-title">
+          Hedefini <span class="gradient-text">Seç</span>
+        </h2>
+
+      </div>
+
+      <div id="challenge-grid" class="challenge-grid" role="list">
+        <!-- Cards rendered by JS -->
+      </div>
+
+      <div class="how-to-play">
+        <div class="htp-card glass">
+          <div class="htp-icon">🎯</div>
+          <div>
+            <strong>Nasıl Oynanır?</strong>
+            <p>LLM ile sohbet ederek sistemi manipüle et ve gizli bayrağı elde et. Bayrağı doğrulama kutusuna yapıştır ve gönder.</p>
+          </div>
+        </div>
+        <div class="htp-card glass">
+          <div class="htp-icon">🚩</div>
+          <div>
+            <strong>Bayrak Formatı</strong>
+            <p>Tüm bayraklar <code>AltaySec{...}</code> formatındadır. LLM'in cevabında görünce kopyala ve doğrulat.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 3 — Lab (Chat Interface)                              -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section id="screen-lab" class="screen" aria-label="Jailbreak Laboratuvarı">
+
+    <header class="lab-header glass">
+      <button id="back-btn" class="btn-ghost" aria-label="Challenge seçimine dön">
+        ← Geri
+      </button>
+      <div class="lab-header-center">
+        <div class="lab-status-dot" aria-hidden="true"></div>
+        <span id="lab-level-badge" class="lab-level-badge"></span>
+        <span id="lab-subtitle-text" class="lab-subtitle-text"></span>
+      </div>
+      <button id="clear-chat-btn" class="btn-ghost" aria-label="Sohbeti sıfırla">
+        🗑 Sıfırla
+      </button>
+    </header>
+
+    <div class="lab-layout">
+
+      <!-- ── Sidebar ─────────────────────────────────────────── -->
+      <aside class="lab-sidebar glass">
+
+        <div class="sidebar-block">
+          <div class="sidebar-block-header">
+            <span class="sidebar-icon">🎯</span>
+            <h3>Hedef</h3>
+          </div>
+          <p id="lab-objective" class="sidebar-text"></p>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-block-header">
+            <span class="sidebar-icon">📋</span>
+            <h3>Talimat</h3>
+          </div>
+          <p class="sidebar-text">
+            LLM ile konuş ve onu gizli bayrağı ifşa etmesi için manipüle et.
+            Bayrağı bulduktan sonra aşağıdaki kutuya gir.
+          </p>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-block-header">
+            <span class="sidebar-icon">💡</span>
+            <h3>İpuçları</h3>
+          </div>
+          <div id="hints-container" class="hints-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="sidebar-block flag-block">
+          <div class="sidebar-block-header">
+            <span class="sidebar-icon">🚩</span>
+            <h3>Bayrağı Doğrulat</h3>
+          </div>
+          <p class="flag-format-note">Format: <code>AltaySec{...}</code></p>
+          <div class="flag-input-row">
+            <input
+              type="text"
+              id="flag-input"
+              class="flag-input"
+              placeholder="AltaySec{...}"
+              spellcheck="false"
+              autocomplete="off"
+              aria-label="Bayrak girişi"
+            />
+            <button id="flag-submit-btn" class="btn-flag-submit" aria-label="Bayrağı doğrulat">
+              ✓
+            </button>
+          </div>
+          <div id="flag-result" class="flag-result" role="status" aria-live="polite"></div>
+        </div>
+
+      </aside>
+
+      <!-- ── Chat Panel ──────────────────────────────────────── -->
+      <main class="lab-chat-panel">
+
+        <div class="chat-topbar">
+          <div class="chat-status">
+            <span class="chat-status-dot"></span>
+            <span>Hedef bağlantısı aktif</span>
+          </div>
+          <div class="chat-info">
+            <span id="chat-msg-count" class="chat-msg-count">0 mesaj</span>
+          </div>
+        </div>
+
+        <div id="chat-messages" class="chat-messages" role="log" aria-label="Sohbet geçmişi" aria-live="polite">
+          <!-- Messages rendered by JS -->
+        </div>
+
+        <div class="chat-input-area">
+          <div class="chat-input-wrapper">
+            <span class="chat-prompt-symbol">$</span>
+            <textarea
+              id="chat-input"
+              class="chat-textarea"
+              placeholder="Mesajını gir ..."
+              rows="3"
+              aria-label="Mesaj girişi"
+            ></textarea>
+          </div>
+          <button id="chat-send-btn" class="btn-send" aria-label="Mesaj gönder">
+            <span class="send-icon">↑</span>
+            <span class="send-label">GÖNDER</span>
+          </button>
+        </div>
+
+      </main>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!--  TOAST — Flag Auto-detected                                   -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div id="flag-toast" class="flag-toast" role="status" aria-live="polite">
+    <span class="toast-icon">🚩</span>
+    <span>Bayrak tespit edildi! Doğrulamak için gönder.</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!--  MODAL — Level Completed                                      -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <div id="success-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content glass">
+      <div class="modal-trophy" aria-hidden="true">🏆</div>
+      <h2 id="modal-title" class="modal-title">SEVİYE TAMAMLANDI!</h2>
+      <p class="modal-level-name"><span id="success-level-name"></span> seviyesini geçtin!</p>
+      <p class="modal-subtext">
+        LLM'i başarıyla manipüle ettin.<br />
+        Gerçek bir <span class="gradient-text">jailbreak ustasın</span>.
+      </p>
+      <div class="modal-flag-display" id="modal-flag-display"></div>
+      <div class="modal-actions">
+        <button id="modal-back-btn" class="btn-secondary">← Seçime Dön</button>
+        <button id="modal-continue-btn" class="btn-primary">Devam Et</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app_v3.js?v=5"></script>
+</body>
+</html>

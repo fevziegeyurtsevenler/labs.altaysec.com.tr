@@ -220,6 +220,12 @@
                     <h3>SSRF Labları</h3>
                     <p>Server-Side Request Forgery zafiyetleri, filtre atlatma ve protocol wrappers kullanımı.</p>
                 </div>
+                <div class="category-card" data-target="llm">
+                    <div class="cat-badge">3 Lab</div>
+                    <div class="cat-icon">🤖</div>
+                    <h3>LLM Güvenliği</h3>
+                    <p>Yapay zeka modellerine yönelik Prompt Injection, Jailbreak ve System Prompt Exfiltration saldırı simülasyonları.</p>
+                </div>
                 <a href="soc-practice/" target="_blank" class="practice-link-card" style="text-decoration: none; display: block;">
                     <div class="cat-badge practice-badge">Canlı Hedef</div>
                     <div class="cat-icon practice-icon">📊</div>
@@ -251,6 +257,7 @@
                         <button class="filter-btn" data-filter="memory-forensics">Memory Forensics</button>
                         <button class="filter-btn" data-filter="xxe">XXE Labları</button>
                         <button class="filter-btn" data-filter="ssrf">SSRF Labları</button>
+                        <button class="filter-btn" data-filter="llm">LLM Güvenliği</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -1327,6 +1334,99 @@
                             Kurulum Komutunu Kopyala
                         </button>
                         <div class="flag-container" data-correct-flag="AltaySec{ssrf_lab_zor_tamamlandi}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Lab 1: Easy -->
+                <div class="lab-card" data-category="llm">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge easy">Kolay</span>
+                            <span class="category-tag">Yapay Zeka • Jailbreak</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">VAULT-BOT 9000: Rol Çaprazlama</h3>
+                        <p class="lab-desc">Güvenlik robotunu rol yapma (Roleplay) ve karakter bypass yöntemleriyle kandırarak dijital kasanın şifresini ifşa ettirin.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git llm_labs && cd llm_labs && git sparse-checkout set AltaySec-Academy-LLM_SECUR-TY-Lab && cd AltaySec-Academy-LLM_SECUR-TY-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:3002'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{r0l3pl4y_byp4ss_3z}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Lab 2: Medium -->
+                <div class="lab-card" data-category="llm">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge medium">Orta</span>
+                            <span class="category-tag">Yapay Zeka • Jailbreak</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">CORP-ASSISTANT: Prompt Injection</h3>
+                        <p class="lab-desc">Kurumsal asistanın çok katmanlı filtrelerini atlayarak dahili veri tabanındaki gizli proje kodunu sızdırın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git llm_labs && cd llm_labs && git sparse-checkout set AltaySec-Academy-LLM_SECUR-TY-Lab && cd AltaySec-Academy-LLM_SECUR-TY-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:3002'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{pr0mpt_1nj3ct10n_m4st3r}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM Lab 3: Hard -->
+                <div class="lab-card" data-category="llm">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Yapay Zeka • Jailbreak</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">NEMESIS-AI v2.1: System Prompt Exfiltration</h3>
+                        <p class="lab-desc">5 katmanlı koruma protokolüne sahip gelişmiş modelin koruma mekanizmalarını ezerek arkadaki gizli MASTER_KEY'i sızdırın.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Berat Çam
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone --depth 1 --filter=blob:none --sparse https://github.com/fevziegeyurtsevenler/labs.altaysec.com.tr.git llm_labs && cd llm_labs && git sparse-checkout set AltaySec-Academy-LLM_SECUR-TY-Lab && cd AltaySec-Academy-LLM_SECUR-TY-Lab && docker-compose up -d --build && echo 'Lab Hazır! Tarayıcıdan erişin: http://localhost:3002'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="AltaySec{syst3m_pr0mpt_3xf1ltr4t10n_3l1t3}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>

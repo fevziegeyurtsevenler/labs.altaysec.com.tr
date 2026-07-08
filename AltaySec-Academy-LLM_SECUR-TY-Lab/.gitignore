@@ -1,0 +1,36 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# Environment and Secrets (Gizli kalması gerekenler)
+.env
+.env.local
+.env.*
+*.pem
+*.key
+secrets.json
+config/local.json
+api_keys.txt
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Docker
+.docker/
+docker-compose.override.yml

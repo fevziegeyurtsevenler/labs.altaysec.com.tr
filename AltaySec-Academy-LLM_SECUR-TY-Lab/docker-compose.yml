@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend
+    container_name: altaysec-backend
+    expose:
+      - "3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - altaysec-net
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: altaysec-frontend
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+    networks:
+      - altaysec-net
+    restart: unless-stopped
+
+networks:
+  altaysec-net:
+    driver: bridge
