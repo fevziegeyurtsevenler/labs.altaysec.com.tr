@@ -228,6 +228,12 @@
                     <h3>LLM Güvenliği</h3>
                     <p>Yapay zeka modellerine yönelik Prompt Injection, Jailbreak ve System Prompt Exfiltration saldırı simülasyonları.</p>
                 </div>
+                <div class="category-card" data-target="broken-auth">
+                    <div class="cat-badge">1 Lab</div>
+                    <div class="cat-icon">🔑</div>
+                    <h3>Broken Auth</h3>
+                    <p>Kimlik doğrulama ve şifre sıfırlama akışlarındaki mantık hatalarıyla yetki yükseltme ve hesap ele geçirme.</p>
+                </div>
                 <a href="soc-practice/" target="_blank" class="practice-link-card" style="text-decoration: none; display: block;">
                     <div class="cat-badge practice-badge">Canlı Hedef</div>
                     <div class="cat-icon practice-icon">📊</div>
@@ -260,6 +266,7 @@
                         <button class="filter-btn" data-filter="xxe">XXE Labları</button>
                         <button class="filter-btn" data-filter="ssrf">SSRF Labları</button>
                         <button class="filter-btn" data-filter="llm">LLM Güvenliği</button>
+                        <button class="filter-btn" data-filter="broken-auth">Broken Auth</button>
                     </div>
                     
                     <div class="actions-group" style="width: 100%; justify-content: space-between;">
@@ -1431,6 +1438,37 @@
                         <div class="flag-container" data-correct-flag="AltaySec{syst3m_pr0mpt_3xf1ltr4t10n_3l1t3}">
                             <div class="flag-input-group">
                                 <input type="text" class="flag-input" placeholder="Flag: AltaySec{...}">
+                                <button class="btn flag-submit-btn">Doğrula</button>
+                            </div>
+                            <div class="flag-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Broken Auth Lab: Şifre Sıfırlama Mantık Hatası (Yaren Canlı — kendi reposundan) -->
+                <div class="lab-card" data-category="broken-auth">
+                    <div class="lab-header">
+                        <div class="lab-meta">
+                            <span class="difficulty-badge hard">Zor</span>
+                            <span class="category-tag">Web • Broken Auth</span>
+                        </div>
+                    </div>
+                    <div class="lab-content">
+                        <h3 class="lab-title">Şifre Sıfırlama: Mantık Hatası</h3>
+                        <p class="lab-desc">Şifre sıfırlama akışındaki mantık hatasını kullanarak admin hesabını ele geçirin. Arayüzün size söylediğine değil, sunucunun tel üstünde gönderdiğine bakın — Burp Suite önerilir.</p>
+                        <div class="lab-author">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Yaren Canlı
+                        </div>
+                    </div>
+                    <div class="lab-footer">
+                        <button class="btn docker-btn" data-cmd="git clone https://github.com/Yarencnl/altaysec-pass-reset-lab.git && cd altaysec-pass-reset-lab && docker-compose up -d --build && echo 'Lab Hazir! Tarayicidan erisin: http://localhost'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Kurulum Komutunu Kopyala
+                        </button>
+                        <div class="flag-container" data-correct-flag="ALTAYSEC{EfL4TuN}">
+                            <div class="flag-input-group">
+                                <input type="text" class="flag-input" placeholder="Flag: ALTAYSEC{...}">
                                 <button class="btn flag-submit-btn">Doğrula</button>
                             </div>
                             <div class="flag-feedback"></div>
