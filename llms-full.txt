@@ -1,0 +1,104 @@
+# AltaySec Labs — Tam Lab Kataloğu
+
+> Docker tabanlı, yerel kurulum gerektiren siber güvenlik zafiyet laboratuvarları. AltaySec topluluğu tarafından hazırlanır, tümü ücretsizdir. Lablar kendi bilgisayarınızda izole Docker kapsülleri halinde çalışır; gerçek veya üçüncü taraf sistemlere işlem yapılmaz. Her lab dosyasının içindeki README metinleri zafiyetin temeline yönlendiren ipuçları içerir.
+
+Site: https://labs.altaysec.com.tr/
+
+## Kurulum Yöntemi
+
+1. Bilgisayarınıza Docker kurun ve uygulamanın açık olduğundan emin olun.
+2. Çözmek istediğiniz labın altındaki butonla Docker / `git clone` komutunu kopyalayın.
+3. Komutu terminale yapıştırıp çalıştırın.
+4. Komutta belirtilen porta göre tarayıcıdan (örneğin localhost:8081) lab ortamına erişin.
+
+## Lab Kataloğu
+
+### XSS Labları (Web)
+- XSS Seviye 1: Reflected — Kolay — Arama parametresi üzerinden en temel Javascript injection pratiği. WAF veya filtreleme yok.
+- XSS Seviye 2: Stored — Orta — Veritabanına kaydedilen kullanıcı inputlarındaki zafiyetlerin keşfi. Basit karakter filtreleri içerir.
+- XSS Seviye 3: DOM Based Bypass — Zor — Client-side JavaScript filtrelerini ve WAF benzeri engelleyicileri aşmayı gerektiren ileri seviye simülasyon.
+
+### IDOR Labları (Web)
+- IDOR Seviye 1: URL Manipulation — Kolay — Web uygulamasında başkasına ait profil veya fatura bilgilerine URL'deki sayısal ID'yi değiştirerek erişim.
+- IDOR Seviye 2: Indirect Object — Orta — POST request içindeki gizli API çağrılarıyla veya UUID formatındaki değerlerle yetki aşımı kontrolü.
+- IDOR Seviye 3: Role Bypass — Zor — Basit ID numaralarının ötesinde, admin yetkilerini almak için JSON/JWT manipülasyonları ve çoklu request zinciri.
+
+### DOM XSS Labları (Web)
+- DOM XSS Seviye 1 — Kolay — Sistemdeki mantık hatasını bul, JavaScript filtrelerini atlatarak DOM üzerinden zafiyet tetikle.
+- DOM XSS Seviye 2 — Zor — İleri seviye DOM-based XSS manipülasyonu. Gizli fonksiyonu tetikleyerek flag'i elde et.
+
+### Log Analizi Labları (Blue Team)
+- Log Analizi Seviye 1 — Kolay — Docker üzerinde çalışan sistemde temel log dosyalarından siber saldırı izlerini tespit etme pratikleri.
+- Log Analizi Seviye 2 — Orta — Karmaşık sunucu loglarında web saldırı izlerini filtreleme ve SOC analist seviyesi tehdit avcılığı.
+- Log Analizi Seviye 3 — Zor — İleri düzey log manipülasyonlarına karşı defansif tespit, korelasyon kuralı yazımı ve olay müdahale (IR) simülasyonu.
+- SOC Dashboard Seviye 1: Giriş — Kolay — BOLA/IDOR yetkisiz erişim zafiyeti tespiti ve temel log analizi ile saldırgan IP ve WAF loglarından olay tespiti.
+- SOC Dashboard Seviye 2: WAF Bypass — Orta — Gelişmiş WAF atlatma payload'ları, Base64 obfuscated komut analizi ve ağ üzerinden veri sızdırma (Exfiltration) tespiti.
+- SOC Dashboard Seviye 3: Rootkit Hunter — Zor — FIM (Dosya Bütünlüğü İzleme) ile kritik SSH daemon binary dosyasının değiştirilmesinin, rootkit ve bind shell arka kapısının tespiti.
+
+### Network Forensics (Blue Team)
+- Network Forensics Seviye 1 — Kolay — Zararlı yazılımın DNS üzerinden yaptığı iletişimi inceleyerek C2 alan adını ve sızdıran IP adresini tespit et.
+- Network Forensics Seviye 2 — Orta — Ağ üzerinde ICMP (Ping) paketleriyle dışarı sızdırılan veriyi tespit edip decode ederek hedefi bul.
+- Network Forensics Seviye 3 — Zor — FTP üzerinden gerçekleşen kaba kuvvet (brute-force) saldırısını, çalınan parolayı ve indirilen gizli veriyi tespit et.
+
+### LFI Labları (Web)
+- LFI Seviye 1: Giriş — Kolay — PHP 'include' fonksiyonu üzerindeki temel yerel dosya dahil etme zafiyeti. Filtreleme yok.
+- LFI Seviye 2: Filtre Atlatma — Orta — Dosya uzantısı kontrolü ve '..' engellerini aşarak hassas dosyalara erişim sağlama simülasyonu.
+- LFI Seviye 3: PHP Wrappers — Zor — PHP wrapper'ları (php://filter, data:// vb.) kullanarak kaynak kodu okuma ve yetki aşımı pratiği.
+
+### CSRF Labları (Web)
+- Banka Saldırı: CSRF Simülasyonu — Orta — Gerçekçi bir bankacılık uygulaması üzerinde CSRF zafiyeti tespiti ve sömürüsü. HTTP istek analizi gerektirir.
+
+### Cloud Güvenliği (Cloud)
+- Cloud Breach Seviye 1: Giriş — Kolay — Temel CloudTrail log analizi ile sızan IP ve kullanıcı tespiti yapın.
+- Cloud Breach Seviye 2: Persistence — Orta — Bulut ortamında kalıcılık sağlama ve yetki artırma adımlarının loglardan izlenmesi.
+- Cloud Breach Seviye 3: Exfiltration — Zor — İleri seviye veri sızdırma ve rol üstlenme (AssumeRole) saldırılarının analizi.
+
+### SSTI Labları (Web)
+- SSTI Seviye 1: Giriş — Kolay — Server-Side Template Injection (SSTI) zafiyetlerine en temel düzeyde giriş. Şablona yansıtılan parametre üzerinden RCE (Remote Code Execution) pratiği.
+- SSTI Seviye 2: WAF Bypass — Orta — Giriş karakterlerini denetleyen WAF filtrelerini atlatarak şablon motoru üzerinde kod yürütme ve kısıtlı ortamları aşma simülasyonu.
+- SSTI Seviye 3: Shadow Env — Zor — Çevre değişkenlerini ve gizli nesneleri kullanarak WAF filtrelerini bypass edip gelişmiş şablon enjeksiyonu ve RCE gerçekleştirin.
+
+### Memory Forensics (Blue Team)
+- Memory Forensics Seviye 1: System Triage — Kolay — Volatility 3 kullanarak işletim sistemi triyajı yapın ve arka planda çalışan şüpheli süreçleri (processes) tespit edin.
+- Memory Forensics Seviye 2: Gizli Süreçler & C2 — Orta — Kendini standart görev listesinden gizleyen süreçleri (unlinked processes) ve C2 komuta kontrol sunucusu ağ bağlantılarını analiz edin.
+- Memory Forensics Seviye 3: Bellek Enjeksiyonu — Zor — Process Injection zafiyeti barındıran meşru süreçleri bulun ve bellek içi parolaları (NTLM hash) sızdırma girişimlerini tespit edin.
+
+### XXE Labları (Web)
+- XXE Seviye 1: Tehdit Bildirim Portal — Kolay — SOC bildirim portalındaki XML parser zafiyetini (Reflected XXE) kullanarak sunucu üzerindeki hassas yerel dosyaları sızdırın.
+- XXE Seviye 2: Data Sync Blind — Orta — Hata mesajlarının fırlatıldığı ancak XML çıktılarının yansıtılmadığı veri senkronizasyon uygulamasında Blind/Error-based XXE tespiti ve sömürüsü.
+- XXE Seviye 3: SOC Policy Manager — Zor — Zorlu WAF kurallarını UTF-16 encoding ile atlatarak, sessizce libxml hataları ürettirip Out-of-Band (OOB) XXE sömürüsü gerçekleştirin.
+
+### SSRF Labları (Web)
+- SSRF Seviye 1: Giriş — Kolay — Blog entegrasyon arayüzündeki filtresiz cURL kullanımını analiz ederek doğrudan yerel sisteme (loopback) erişim sağlayın.
+- SSRF Seviye 2: Filtre Atlatma — Orta — Metin bazlı engel listesini (Blacklist) atlatmak için IP karartma (Obfuscation) tekniklerini kullanarak yerel ağdaki gizli servise erişim sağlayın.
+- SSRF Seviye 3: Protocol Wrappers — Zor — Sıkı IP kontrolünü ve DNS çözümleme mekanizmalarını atlatarak protocol wrapper'lar yardımıyla yerel dosya sistemini okuyun.
+
+### LLM Güvenliği (Yapay Zeka)
+- VAULT-BOT 9000: Rol Çaprazlama — Kolay — Güvenlik robotunu rol yapma (Roleplay) ve karakter bypass yöntemleriyle kandırarak dijital kasanın şifresini ifşa ettirin.
+- CORP-ASSISTANT: Prompt Injection — Orta — Kurumsal asistanın çok katmanlı filtrelerini atlayarak dahili veri tabanındaki gizli proje kodunu sızdırın.
+- NEMESIS-AI v2.1: System Prompt Exfiltration — Zor — 5 katmanlı koruma protokolüne sahip gelişmiş modelin koruma mekanizmalarını ezerek arkadaki gizli MASTER_KEY'i sızdırın.
+
+### Broken Auth (Web)
+- Şifre Sıfırlama: Mantık Hatası — Zor — Şifre sıfırlama akışındaki mantık hatasını kullanarak admin hesabını ele geçirin. Arayüzün size söylediğine değil, sunucunun tel üstünde gönderdiğine bakın — Burp Suite önerilir. (Yaren Canlı)
+
+## Sıkça Sorulan Sorular
+
+- AltaySec Labs ücretsiz mi? Evet. Tüm zafiyet laboratuvarları ücretsizdir; lab dosyalarını ve Docker komutlarını siteden alıp kendi bilgisayarınızda çalıştırabilirsiniz.
+- Lablar nasıl çalıştırılır? Docker kurun, labın altındaki komutu kopyalayıp terminalde çalıştırın, ardından belirtilen porta tarayıcıdan erişin.
+- Lablar internete açık sistemlere mi yapılıyor? Hayır. Lablar Docker kapsülleri halinde izole çalışır; gerçek veya üçüncü taraf sistemlere işlem yapılmaz.
+- Çözümde takılırsam yardım var mı? Her lab dosyasındaki README ipuçları içerir; ayrıca info@altaysec.com.tr adresinden iletişime geçebilirsiniz.
+
+## AltaySec Ekosistemi
+
+- Ana Site: https://altaysec.com.tr
+- Akademi: https://akademi.altaysec.com.tr
+- LLM Akademi: https://ai.altaysec.com.tr
+- Arşiv: https://arsiv.altaysec.com.tr
+- Haber: https://haber.altaysec.com.tr
+- Araçlar: https://toolkit.altaysec.com.tr
+- Atölye: https://atolye.altaysec.com.tr
+- CTF: https://ctf.altaysec.com.tr
+
+## İletişim
+
+info@altaysec.com.tr

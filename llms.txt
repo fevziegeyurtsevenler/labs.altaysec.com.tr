@@ -1,0 +1,41 @@
+# AltaySec Labs
+
+> Docker tabanlı, yerel kurulum gerektiren siber güvenlik zafiyet laboratuvarları. AltaySec topluluğu tarafından hazırlanır, tümü ücretsizdir. Lablar kendi bilgisayarınızda izole Docker kapsülleri halinde çalışır; gerçek veya üçüncü taraf sistemlere işlem yapılmaz.
+
+Site: https://labs.altaysec.com.tr/
+
+## Kurulum
+
+Her lab, ana sayfadaki kartın altındaki butonla kopyalanan bir Docker (veya `git clone` + `docker-compose`) komutuyla kurulur. Docker'ı bilgisayarınıza kurun, komutu terminale yapıştırıp çalıştırın, ardından komutta belirtilen porta (örneğin localhost:8081) tarayıcıdan erişin.
+
+## Kategoriler
+
+- XSS Labları (3 lab): Cross-Site Scripting saldırıları ve filtre atlatma simülasyonları.
+- IDOR Labları (3 lab): Insecure Direct Object Reference ve yetki aşımı testleri.
+- DOM XSS Labları (2 lab): İleri seviye DOM tabanlı XSS ve client-side atlatmalar.
+- Log Analizi Labları (6 lab): Saldırı tespiti, tehdit avcılığı ve Blue Team defans taktikleri.
+- Network Forensics (3 lab): Ağ trafiği analizi, pcap inceleme ve tshark/wireshark kullanımı pratikleri.
+- LFI Labları (3 lab): Yerel dosya dahil etme zafiyetleri ve filtre atlatma teknikleri.
+- CSRF Labları (1 lab): Cross-Site Request Forgery saldırıları ve bankacılık simülasyonu.
+- Cloud Güvenliği (3 lab): AWS CloudTrail log analizi, sızma tespiti ve bulut güvenliği pratikleri.
+- SSTI Labları (3 lab): Server-Side Template Injection zafiyetleri ve filtre atlatma simülasyonları.
+- Memory Forensics (3 lab): Bellek imajı analizi, tehdit avcılığı ve Volatility 3 ile zararlı yazılım tespiti pratikleri.
+- XXE Labları (3 lab): XML External Entity zafiyetleri, blind sızdırma ve WAF bypass teknikleri.
+- SSRF Labları (3 lab): Server-Side Request Forgery zafiyetleri, filtre atlatma ve protocol wrappers kullanımı.
+- LLM Güvenliği (3 lab): Yapay zeka modellerine yönelik Prompt Injection, Jailbreak ve System Prompt Exfiltration saldırı simülasyonları.
+- Broken Auth (1 lab): Kimlik doğrulama ve şifre sıfırlama akışlarındaki mantık hatalarıyla yetki yükseltme ve hesap ele geçirme.
+
+## AltaySec Ekosistemi
+
+- Ana Site: https://altaysec.com.tr
+- Akademi: https://akademi.altaysec.com.tr
+- LLM Akademi: https://ai.altaysec.com.tr
+- Arşiv: https://arsiv.altaysec.com.tr
+- Haber: https://haber.altaysec.com.tr
+- Araçlar: https://toolkit.altaysec.com.tr
+- Atölye: https://atolye.altaysec.com.tr
+- CTF: https://ctf.altaysec.com.tr
+
+## İletişim
+
+info@altaysec.com.tr
