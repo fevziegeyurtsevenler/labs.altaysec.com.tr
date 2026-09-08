@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Loca {{ loca.id }} · Nazende{% endblock %}
+{% block content %}
+<section class="kart">
+  <p class="kucuk">loca kaydı</p>
+  <h1>Loca {{ loca.id }}</h1>
+  <dl>
+    <dt>Ad</dt>
+    <dd>{{ loca.ad }}</dd>
+    <dt>Bilet</dt>
+    <dd>{{ loca.bilet_turu }}</dd>
+    <dt>Loca</dt>
+    <dd>{{ loca.id }}</dd>
+    {% if loca.not_metni %}
+    <dt>Not</dt>
+    <dd>{{ loca.not_metni }}</dd>
+    {% endif %}
+    {% if loca.flag %}
+    <dt>Not</dt>
+    <dd class="flag">{{ loca.flag }}</dd>
+    {% endif %}
+  </dl>
+</section>
+{% endblock %}

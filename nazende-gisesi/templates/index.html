@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="kucuk">bu hafta perdesi açık</p>
+  <h1>Nazende</h1>
+  <p class="lede">Perde açık. Gişe henüz kapanmadı.</p>
+</section>
+
+<section class="afisler">
+  {% for s in seanslar %}
+  <article class="afis">
+    <img class="afis-img" src="{{ url_for('static', filename=s.afis) }}" alt="{{ s.oyun }} afişi">
+    <div class="afis-govde">
+      <p class="gun">{{ s.gun }} · {{ s.saat }}</p>
+      <h2>{{ s.oyun }}</h2>
+      <p class="yazar">{{ s.yazar }}</p>
+      <p>{{ s.ozet }}</p>
+      <p class="fiyat">{{ s.fiyat }} ₺</p>
+      <a class="btn" href="{{ url_for('seans', seans_id=s.id) }}">Koltuk bak</a>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<aside class="vitrin">
+  <h3>Vitrin</h3>
+  <p>Öğrenci indirimi: <strong>OGRENCI10</strong></p>
+  <p>Kodu bilet sayfasından yazabilirsin.</p>
+</aside>
+{% endblock %}
