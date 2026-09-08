@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ seans.oyun }} · Nazende{% endblock %}
+{% block content %}
+<section class="seans-ust">
+  <img class="afis-kucuk" src="{{ url_for('static', filename=seans.afis) }}" alt="{{ seans.oyun }}">
+  <div>
+    <p class="kucuk">seans {{ seans.id }}</p>
+    <h1>{{ seans.oyun }}</h1>
+    <p>{{ seans.gun }} · {{ seans.saat }} · {{ seans.fiyat }} ₺</p>
+    <p class="yazar">{{ seans.ozet }}</p>
+  </div>
+</section>
+
+<section class="sahne">
+  <div class="perde">sahne</div>
+  <div class="koltuklar">
+    {% for kod, bos in koltuklar %}
+      {% if kod == "L5" %}
+        <a class="koltuk dolu" href="{{ url_for('loca', loca_id=5) }}">L5</a>
+      {% elif kod == "L7" %}
+        <a class="koltuk dolu" href="{{ url_for('loca', loca_id=7) }}">L7</a>
+      {% else %}
+        <span class="koltuk {% if bos %}bos{% else %}dolu{% endif %}">{{ kod }}</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <p class="ipucu">Yeşil boş. L ile başlayanlar loca kaydı.</p>
+</section>
+
+<p><a class="btn" href="{{ url_for('bilet', bilet_id=1004) }}">Biletime bak</a></p>
+{% endblock %}

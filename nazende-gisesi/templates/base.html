@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Nazende Gişesi{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="frame">
+    <header class="top">
+      <p class="eyebrow">semt sahnesi · gişe</p>
+      <a class="logo" href="{{ url_for('index') }}">Nazende</a>
+      <nav>
+        <a href="{{ url_for('index') }}">Afiş</a>
+        <a href="{{ url_for('seans', seans_id=2) }}">Kadife Akşam</a>
+        <a href="{{ url_for('biletlerim') }}">Biletlerim</a>
+      </nav>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      <p>Nazende Gişesi · kadife koltuk, dar fuaye</p>
+      <!-- kupon listesi gişe defterinden çekilir: /api/kuponlar -->
+      <!-- stajyer notu: FLAG{stajyer_sildi} -->
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+services:
+  nazende:
+    build: .
+    container_name: nazende-gisesi
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

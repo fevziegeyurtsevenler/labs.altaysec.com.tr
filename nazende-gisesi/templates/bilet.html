@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Bilet {{ bilet.id }} · Nazende{% endblock %}
+{% block content %}
+<section class="kart">
+  <p class="kucuk">e-bilet · no {{ bilet.id }}</p>
+  <h1>{{ bilet.oyun }}</h1>
+  <dl>
+    <dt>Ad</dt>
+    <dd>{{ bilet.ad }}</dd>
+    <dt>Gün</dt>
+    <dd>{{ bilet.gun }} · {{ bilet.saat }}</dd>
+    <dt>Koltuk</dt>
+    <dd>{{ bilet.koltuk }}</dd>
+    <dt>Tür</dt>
+    <dd>{{ bilet.tur }}</dd>
+    <dt>Fiyat</dt>
+    <dd>
+      {{ fiyat }} ₺
+      {% if kupon %}
+        <span class="kucuk">({{ kupon.kod }})</span>
+      {% endif %}
+    </dd>
+    {% if bilet.not_metni %}
+    <dt>Not</dt>
+    <dd>{{ bilet.not_metni }}</dd>
+    {% endif %}
+    {% if bilet.flag %}
+    <dt>İç not</dt>
+    <dd class="flag">{{ bilet.flag }}</dd>
+    {% endif %}
+  </dl>
+</section>
+
+{% if mesaj %}
+<p class="mesaj">{{ mesaj }}</p>
+{% endif %}
+
+<form class="kupon-form" method="post" action="{{ url_for('uygula_kupon') }}">
+  <label for="kod">Kupon kodu</label>
+  <input id="kod" name="kod" placeholder="OGRENCI10" autocomplete="off">
+  <button type="submit">Uygula</button>
+</form>
+{% endblock %}
